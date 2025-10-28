@@ -1,0 +1,36 @@
+.mat-mdc-icon-button{
+    color: rgb(204, 204, 204);
+}
+.mat-mdc-icon-button mat-icon {
+    font-size: 16px; /* Cambia este valor según el tamaño que prefieras */
+    margin-top: 4px;
+    margin-left: 0px;
+}
+.checkbox-custom {
+    -webkit-appearance: none; /* Eliminar estilo predeterminado */
+    -moz-appearance: none;    /* Eliminar estilo predeterminado */
+    appearance: none;         /* Eliminar estilo predeterminado */
+    width: 20px;
+    height: 20px;
+    border: 1px #E6E6E7 solid;
+    border-radius: 4px;        /* Bordes redondeados */
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border 0.3s ease;
+  }
+
+  .checkbox-custom:checked {
+    background-color: #1651CF;/* Fondo azul cuando está marcado */
+    border-color: transparent; /* Eliminar el borde cuando está marcado */
+  }
+  
+  .checkbox-custom:checked::before {
+    content: "✔"; 
+    color: white; 
+    position: absolute;
+    top: 0;
+    left: 4px; 
+    font-size: 14px; 
+  }
+  
+ 

@@ -1,0 +1,64 @@
+<!-- <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+  <div *ngFor="let tarjeta of tarjetasCombinadas"
+    class=" max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <div class="flex items-center">
+      <img class="w-10 h-10 rounded-full mr-4" src="assets\img\logo_meico.png" alt="Avatar of Jonathan Reinink">
+      <div class="text-sm">
+        <p class="text-gray-900 leading-none">{{tarjeta.Nombre}}</p>
+       
+        <p class="text-gray-600"> {{tarjeta.Descripcion || 'Sin descripción' }}</p>
+        <p class="text-gray-600">{{tarjeta.Ruta}}</p>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- Sección de Apps 2.0 -->
+<div>
+  <!-- Llamar al componente de búsqueda con el evento de cambio -->
+  <app-search-bar (searchTextChange)="onSearchChange($event)"></app-search-bar>
+</div>
+<div class="border-b border-gray-300 pb-2 mb-4">Apps 2.0</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pb-10">
+  <!-- <div *ngFor="let tarjeta of   tarjetasAplicacionesNuevas"
+    class="max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+     -->
+  <div *ngFor="let tarjeta of   tarjetasNuevasFiltradas"
+    class="max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+
+    <div class="flex items-center">
+      <img class="w-10 h-10 rounded-full mr-4" src="assets/img/logo_meico.png" alt="Logo">
+      <div class="text-sm">
+        <p class="text-gray-900 leading-none">{{ tarjeta.Nombre }}</p>
+        <p class="text-gray-600">{{ tarjeta.Descripcion || 'Sin descripción' }}</p>
+        <!-- <p class="text-gray-600">{{ tarjeta.Ruta }}</p> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sección de Apps Intranet -->
+ <!-- <div class="border-b border-gray-300 pb-2 mb-4">Apps Intranet (Recuerde que para acceder a estas apps hay que estar
+  conectado a la VPN)
+</div>  -->
+
+<div class="border-b border-gray-300 pb-2 mb-4 flex space-x-40 ">
+  <span>Apps Intranet</span>
+  <span class="text-xs text-gray-600">(Recuerde que para acceder a estas apps hay que estar conectado a la VPN)</span>
+</div> 
+<!-- justify-between -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 ">
+  <!-- <div *ngFor="let tarjeta of tarjetasAplicacionesViejas"
+    class="max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"> -->
+  <div *ngFor="let tarjeta of tarjetasIntranetFiltradas"
+    class="max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+
+    <div class="flex items-center">
+      <img class="w-10 h-10 rounded-full mr-4" src="assets/img/logo_meico.png" alt="Logo">
+      <div class="text-sm">
+        <p class="text-gray-900 leading-none">{{ tarjeta.Nombre }}</p>
+        <p class="text-gray-600">{{ tarjeta.Descripcion || 'Sin descripción' }}</p>
+        <!-- <p class="text-gray-600">{{ tarjeta.Ruta }}</p> -->
+      </div>
+    </div>
+  </div>
+</div>

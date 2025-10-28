@@ -1,0 +1,62 @@
+<!-- Sidebar -->
+<div id="sidebar"
+  class="z-[1000] fixed top-0 right-0 w-1/3 h-full bg-white shadow-lg transform transition-transform animate__fadeInRight overflow-y-auto">
+  <div class="max-w-3xl mx-auto p-6 bg-white rounded-md shadow">
+    <div class="flex justify-between items-center mb-4">
+        <a (click)="CerrarDetalle()" class="text-sm flex items-center font-light cursor-pointer">
+          <i class="mgc_left_line text-md"></i>
+          <span>Volver</span>
+        </a>
+
+        <a [disableHasPermission]="'0004'" (click)="editarUsuario()" class="flex items-center text-[#1751cf] cursor-pointer">
+          <i class="mgc_edit_3_line mr-2 text-xl "></i>
+          <span class="text-md underline">Editar Usuario</span>
+        </a>
+      </div>
+      <br>
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-3xl font-bold">Consulta de Usuario</h2>
+      <div class="flex items-center space-x-2">
+        <span class="text-md text-secundario font-medium">Estado</span>
+        <label class="checkbox-toggle-wrapper">
+          <input type="checkbox" [(ngModel)]="estadoUsuario" class="sr-only peer" disabled>
+          <div class="checkbox-toggle"></div>
+        </label>
+      </div>
+    </div>
+
+    <form [formGroup]="usuarioForm">
+      <div class="mt-4">
+        <label for="username" class="block text-secundario text-sm font-medium">Nombre de usuario</label>
+        <label class="text-principal block w-full mt-1 h-8 rounded-lg">{{usuarioForm.get("nombreUsuario")?.value}}</label>
+      </div>
+      <div class="mt-4">
+        <label class="text-secundario block text-sm font-medium">Nombre del empleado</label>
+        <label id="username" class="text-principal block w-full mt-1 h-8 rounded-lg">{{usuarioForm.get("Nombre")?.value}}</label>
+      </div>
+      <div class="mt-4">
+        <label class="text-secundario block text-sm font-medium">Correo electrónico</label>
+        <label class="text-principal block w-full mt-1 h-8 rounded-lg">{{usuarioForm.get("correo")?.value}}</label>
+      </div>
+      <div class="mt-4">
+        <label class="text-secundario block text-sm font-medium">Celular</label>
+          <label class="text-principal block w-full mt-1 h-8 rounded-lg">{{usuarioForm.get("celular")?.value}}</label>
+      </div>
+      <div class="mt-4">
+        <label class="block text-secundario text-sm font-medium">Área</label>
+        <label class="text-principal block w-full mt-1 h-8 rounded-lg">{{usuarioForm.get("area")?.value}}</label>
+      </div>
+      <div class="mt-4">
+        <label class="block text-secundario text-sm font-medium">Cargo</label>
+        <label class="text-principal block w-full mt-1 h-8 rounded-lg">{{usuarioForm.get("cargo")?.value}}</label>
+      </div>
+      <div class="mt-4">
+        <label class="block text-secundario text-sm font-medium">Ciudad</label>
+        <label class="text-principal block w-full mt-1 h-8 rounded-lg">{{usuarioForm.get("ciudad")?.value}}</label>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Overlay -->
+<div id="overlay" class="fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.5)] z-[999]"></div>

@@ -1,0 +1,7 @@
+<!-- <div class="search-container">
+    <input type="text" placeholder="Buscar App...">
+    <span class="search"></span>
+</div> -->
+<div class="search-container">
+<input type="text" [(ngModel)]="searchText" (ngModelChange)="onSearchChange()" placeholder="Buscar Apps..." class=" p-2 border rounded mb-4" />
+</div>

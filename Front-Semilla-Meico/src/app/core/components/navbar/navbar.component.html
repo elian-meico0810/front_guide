@@ -1,0 +1,28 @@
+<nav class="bg-white border-b border-gray-300 w-full overflow-hidden px-4 py-2.5"
+  *ngIf="visible">
+  <div class="max-w-screen-xl mx-auto flex flex-wrap">
+    <div class="flex items-center justify-end w-full space-x-3">
+      <div class="relative">
+        <div>
+          <button type="button"
+            class="relative flex rounded-full text-sm"
+            id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+            <span class="absolute -inset-1.5"></span>
+            <img *ngIf="userLogin.Foto != ''" class="size-10 rounded-full" [src]="userLogin.Foto" alt="Foto de perfil">
+          </button>
+        </div>
+      </div>
+
+      <div class="text-xs sm:text-sm text-left">
+        <span matTooltip="Cambiar de cuenta" class="user-info block font-semibold cursor-pointer hover:underline" (click)='OnChangeAccount()'>{{userLogin.FirstName}}</span>
+        <span class="text-gray-400 block text-[10px] sm:text-xs">Administrador</span>
+      </div>
+
+      <button (click)="Logout()"
+        class="btn-logout w-7 h-7 sm:w-6 sm:h-6 text-white rounded-full flex items-center justify-center">
+        Cerrar sesión
+      </button>
+
+    </div>
+  </div>
+</nav>

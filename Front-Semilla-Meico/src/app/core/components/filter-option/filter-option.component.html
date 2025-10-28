@@ -1,0 +1,26 @@
+<button class="p-1" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
+  <i class="mgc_filter_fill text-sm" [ngClass]="{ 'text-[#1751cf]': activo, 'text-[#c9c9c9]': !activo }"></i>
+</button>
+<mat-menu #menu="matMenu" [hasBackdrop]="false">
+  <div class="pb-2 h-auto p-2 text-sm  ">
+    <ul class="">
+      @for (item of dataFilter; track item; let itemIndex = $index) {
+      <li class="flex  items-center mb-2">
+        <input type="checkbox" class="checkbox-custom" id="opt-{{itemIndex}}"
+          (click)="select(item);$event.stopPropagation()" [(ngModel)]="item.state" />
+
+        <label class="text-left ml-3" for="opt-{{itemIndex}}"
+          (click)="select(item);$event.stopPropagation()">{{item.displayName}}</label>
+      </li>
+      }
+    </ul>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="flex gap-x-1 mt-1">
+    <a class="flex items-center m-1 px-2 py-3 h-6 text-secundario rounded-md text-sm font-medium cursor-pointer"
+      (click)="reset();$event.stopPropagation()">Reset</a>
+    <a class="flex items-center m-1 px-2 py-3 h-7 text-white bg-[#1651CF] rounded-md text-xs cursor-pointer"
+      (click)="Ok(menuTrigger)">OK</a>
+  </div>
+
+</mat-menu>

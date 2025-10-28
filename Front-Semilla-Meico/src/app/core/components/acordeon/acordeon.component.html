@@ -1,0 +1,92 @@
+<!-- Accordion completo con Tailwind CSS -->
+
+<ul role="list" class="space-y-3">
+    @for (item of items; track item.id; let itemIndex = $index) {
+      <li class="rounded-lg bg-white border border-[#e8e8e8]">
+        <div class="relative">
+  
+          <!-- Encabezado principal del acordeón -->
+          <div class="flex p-2 items-center bg-[#fafafa] rounded-t-lg cursor-pointer border-b border-b-[#e8e8e8]">
+            <div class="flex-none pr-2">
+              <button type="button" (click)="toggleAccordion(itemIndex)" class="flex items-center text-gray-800">
+                <span id="icon-{{itemIndex}}" class="text-[#949494] transition-transform duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12.707 15.707a1 1 0 0 1-1.414 0L5.636 10.05A1 1 0 1 1 7.05 8.636l4.95 4.95l4.95-4.95a1 1 0 0 1 1.414 1.414z" />
+                  </svg>
+                </span>
+              </button>
+            </div>
+            <div class="grow text-sm font-medium text-secundario">
+              <span>{{item.name}}</span>
+
+            </div>
+            <div class="flex-none">
+              <input type="checkbox" (change)="selectAll(item)" [(ngModel)]="item.state" class="w-5 h-5 rounded-md border-gray-300 focus:ring-blue-500" />
+            </div>
+          </div>
+  
+          <!-- Contenido desplegable principal -->
+          <div id="content-{{itemIndex}}" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out rounded-b-lg pl-4">
+            <div class="py-3 px-2 space-y-2 text-secundario">
+  
+              <!-- Lista de permisos principales -->
+              @for (itemList of item.list; track itemList.id; let listIndex = $index) {
+                <ul>
+                  <li class="flex justify-between items-center py-1">
+                    <label for="ch-item-{{listIndex}}" class="text-sm font-light">{{itemList.name}}</label>
+                    <input class="w-5 h-5 rounded border-gray-300 focus:ring-blue-500" (change)="changesDetect()" type="checkbox" id="ch-item-{{listIndex}}" [(ngModel)]="itemList.state" />
+                  </li>
+                </ul>
+              }
+  
+              <!-- Subacordeones -->
+              <ul role="list" class="space-y-2">
+                @for (itemChild of item.child; track itemChild.id; let childIndex = $index) {
+                  <li class="rounded-lg bg-white">
+                    <div class="relative">
+  
+                      <!-- Encabezado del subacordeón -->
+                      <div class="flex p-2 items-center bg-gray-100 rounded-t-md cursor-pointer">
+                        <div class="flex-none pr-2">
+                          <button type="button" (click)="toggleAccordionChild(childIndex,itemIndex)" class="flex items-center text-secundario">
+                            <span id="icon-ch-{{itemIndex}}-{{childIndex}}" class="text-secundario transition-transform duration-300">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12.707 15.707a1 1 0 0 1-1.414 0L5.636 10.05A1 1 0 1 1 7.05 8.636l4.95 4.95l4.95-4.95a1 1 0 0 1 1.414 1.414z" />
+                              </svg>
+                            </span>
+                          </button>
+                        </div>
+                        <div class="grow text-sm font-light text-secundario">
+                          <span>{{itemChild.name}}</span>
+                        </div>
+                        <div class="flex-none">
+                          <input type="checkbox" (change)="selectAll(itemChild)" [(ngModel)]="itemChild.state" class="w-4 h-4 rounded-md border-gray-300 focus:ring-blue-500" />
+                        </div>
+                      </div>
+  
+                      <!-- Contenido desplegable del subacordeón -->
+                      <div id="content-ch-{{itemIndex}}-{{childIndex}}" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out rounded-b-md bg-gray-50 pl-4">
+                        <div class="py-3 px-2 space-y-2 text-secundario">
+                          <ul>
+                            @for (itemList of itemChild.list; track itemList.id; let listIndex = $index) {
+                              <li class="flex justify-between items-center py-1">
+                                <label for="ch-item-{{listIndex}}" class="text-sm">{{itemList.name}}</label>
+                                <input (change)="changesDetect()" type="checkbox" class="w-4 h-4 rounded border-gray-300 focus:ring-blue-500" id="ch-item-{{listIndex}}" [(ngModel)]="itemList.state" />
+                              </li>
+                            }
+                          </ul>
+                        </div>
+                      </div>
+  
+                    </div>
+                  </li>
+                }
+              </ul>
+  
+            </div>
+          </div>
+  
+        </div>
+      </li>
+    }
+  </ul>

@@ -1,0 +1,14 @@
+.active-link{
+    background-color: white;
+    color:#003383;
+    font-weight: 500;
+}
+
+.hover\:bg-custom-blue:hover {
+    background-color: rgba(22, 81, 207, 0.2);
+    color: #1651CF;
+  }
+
+  .hover\:bg-custom-blue:hover .icono {
+    color: #1651CF !important;
+  }

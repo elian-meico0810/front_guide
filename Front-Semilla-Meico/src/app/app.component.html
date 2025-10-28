@@ -1,0 +1,42 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-fussion"
+  [fullScreen]="true"></ngx-spinner>
+
+<div *ngIf="!IsAuthenticated(); else appLogin">
+  <app-login></app-login>
+  <router-outlet></router-outlet>
+</div>
+
+<ng-template #appLogin>
+  <div *ngIf="!HavePermissions(); else Denied">
+    <app-login></app-login>
+    <router-outlet></router-outlet>
+  </div>
+</ng-template>
+
+<ng-template #Denied>
+  <div *ngIf="denied; else appContent">
+    <app-access-denied></app-access-denied>
+    <router-outlet></router-outlet>
+  </div>
+</ng-template>
+
+<ng-template #appContent>
+
+  <div class="grid grid-cols-12 grid-rows-12 gap-1 h-screen">
+    <div class="col-span-2 row-span-5">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-span-10 col-start-3 row-span-1">
+      <app-navbar></app-navbar>
+    </div>
+    <div class="col-span-10 row-span-4 col-start-3 ">
+        <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</ng-template>
+
+
+
+
+<app-loading></app-loading>

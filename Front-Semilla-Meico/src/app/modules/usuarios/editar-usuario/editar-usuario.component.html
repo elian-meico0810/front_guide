@@ -1,0 +1,113 @@
+<!-- Sidebar -->
+<div id="sidebar"
+  class="z-[1000] fixed top-0 right-0 w-1/3 h-full bg-white shadow-lg transform transition-transform animate__fadeIn overflow-y-auto">
+  <div class="max-w-3xl mx-auto p-6 bg-white rounded-md shadow">
+    <div class="flex justify-between items-center mb-4">
+      <a (click)="irInicio()" class="text-sm flex items-center font-light cursor-pointer">
+        <i class="mgc_left_line text-md"></i>
+        <span>Volver</span>
+      </a>
+    </div>
+
+    <div *ngIf="mensajeError"
+      class="w-full h-1/2 mt-8 mb-8 bg-red-100 text-red-600 border border-red-400 px-4 py-2 rounded-lg flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i class="mgc_x_circle text-lg"></i>
+        <span>{{ mensajeError }}</span>
+      </div>
+
+      <button (click)="cerrarError()" class="text-red-500 hover:text-red-700">
+        <i class="mgc_close_line text-lg"></i>
+      </button>
+    </div>
+
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-3xl font-bold">Editar usuario</h2>
+      <div class="flex items-center space-x-2">
+        <span class="text-md text-secundario font-medium">Estado</span>
+        <label class="checkbox-toggle-wrapper">
+          <input type="checkbox" [(ngModel)]="estadoUsuario" class="sr-only peer">
+          <div class="checkbox-toggle"></div>
+        </label>
+      </div>
+    </div>
+
+    <form [formGroup]="usuarioForm" (ngSubmit)="guardarUsuario()">
+      <div class="mt-4">
+        <label for="username" class="block text-secundario text-sm font-medium">Nombre de usuario <span class="text-red-500">*</span></label>
+        <input type="text" id="username" value='{{usuarioForm.get("nombreUsuario")?.value}}' formControlName="nombreUsuario" class="text-principal block w-full mt-1 h-8 p-2.5 border border-gray-300 rounded-lg" disable>
+        @if (usuarioForm.get('nombreUsuario')?.hasError("isNotEqual")) {
+          <span class="text-red-500 text-xs">El campo es obligatorio</span>
+        }
+      </div>
+      <div class="mt-4">
+        <label for="Nombre" class="block text-secundario text-sm font-medium">Nombre del empleado <span class="text-red-500">*</span></label>
+        <input type="text" id="Nombre" value='{{usuarioForm.get("Nombre")?.value}}' formControlName="Nombre" class="text-principal block w-full mt-1 h-8 p-2.5 border border-gray-300 rounded-lg" disable>
+        @if (usuarioForm.get('Nombre')?.hasError("isNotEqual")) {
+          <span class="text-red-500 text-xs">El campo es obligatorio</span>
+        }
+      </div>
+      <div class="mt-4">
+        <label for="correo" class="block text-secundario text-sm font-medium">Correo electrónico <span class="text-red-500">*</span></label>
+        <input type="text" id="correo" value='{{usuarioForm.get("correo")?.value}}' formControlName="correo" class="text-principal block w-full mt-1 h-8 p-2.5 border border-gray-300 rounded-lg" disable>
+        @if (usuarioForm.get('correo')?.hasError("isNotEqual")) {
+          <span class="text-red-500 text-xs">El campo es obligatorio</span>
+        }
+      </div>
+      <div class="mt-4">
+        <label for="celular" class="block text-secundario text-sm font-medium">Celular <span class="text-red-500">*</span></label>
+        <input type="text" id="celular" value='{{usuarioForm.get("celular")?.value}}' formControlName="celular" class="text-principal block w-full mt-1 h-8 p-2.5 border border-gray-300 rounded-lg" disable>
+        @if (usuarioForm.get('celular')?.hasError("isNotEqual")) {
+          <span class="text-red-500 text-xs">El campo es obligatorio</span>
+        }
+      </div>
+      <div class="mt-4">
+        <label for="area" class="block text-secundario text-sm font-medium">Área <span class="text-red-500">*</span></label>
+        <input type="text" id="area" value='{{usuarioForm.get("area")?.value}}' formControlName="area" class="text-principal block w-full mt-1 h-8 p-2.5 border border-gray-300 rounded-lg" disable>
+        @if (usuarioForm.get('area')?.hasError("isNotEqual")) {
+          <span class="text-red-500 text-xs">El campo es obligatorio</span>
+        }
+      </div>
+      <div class="mt-4">
+        <label for="cargo" class="block text-secundario text-sm font-medium">Cargo <span class="text-red-500">*</span></label>
+        <input type="text" id="cargo" value='{{usuarioForm.get("cargo")?.value}}' formControlName="cargo" class="text-principal block w-full mt-1 h-8 p-2.5 border border-gray-300 rounded-lg" disable>
+        @if (usuarioForm.get('cargo')?.hasError("isNotEqual")) {
+          <span class="text-red-500 text-xs">El campo es obligatorio</span>
+        }
+      </div>
+      <div class="mt-4">
+        <label for="ciudad" class="block text-secundario text-sm font-medium">Ciudad <span class="text-red-500">*</span></label>
+        <input type="text" id="ciudad" value='{{usuarioForm.get("ciudad")?.value}}' formControlName="ciudad" class="text-principal block w-full mt-1 h-8 p-2.5 border border-gray-300 rounded-lg" disable>
+        @if (usuarioForm.get('ciudad')?.hasError("isNotEqual")) {
+          <span class="text-red-500 text-xs">El campo es obligatorio</span>
+        }
+      </div>
+
+      <div class="mt-10 flex justify-center space-x-6">
+        <button type="button"
+          class="flex items-center justify-center w-60 px-8 py-2 border border-blue-600 text-secundario rounded-md hover:bg-blue-100"
+          (click)="cancelar()">
+          <i class="mgc_close_line text-lg mr-2"></i>
+          Cancelar
+        </button>
+
+        <button type="submit"
+          class="flex items-center justify-center w-60 px-8 py-2 bg-[#1651CF] text-white rounded-md hover:bg-blue-700">
+          <i class="mgc_check_line text-lg mr-2"></i>
+          Guardar
+        </button>
+        <div id="focus-final"></div>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<div [ngClass]="{'invisible':!isModalOpen, 'visible': isModalOpen}"
+  class="z-[1000] fixed top-0 right-0 w-1/3 h-full bg-white shadow-lg transform transition-transform animate__fadeInRight overflow-y-auto">
+  <app-modal #modal [mensaje]="mensajeModal"></app-modal>
+</div>
+
+
+<!-- Overlay -->
+<div id="overlay" class="fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.5)] z-[999]"></div>

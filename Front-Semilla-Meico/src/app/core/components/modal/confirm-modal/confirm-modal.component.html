@@ -1,0 +1,32 @@
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white rounded-lg shadow-lg w-96 p-6">
+      
+      <div *ngIf="mensaje != ''" class="flex justify-center">
+        <i class="mgc_alert_line text-5xl mr-2 text-[#faad14] border border-[#faad14] rounded-full p-2"></i>
+      </div>
+  
+      <div class="text-center mt-4">
+        <p class="text-gray-900">
+          {{ mensaje }}
+        </p>
+        <p class="text-primario text-sm mt-2 font-medium" [ngClass]="mensaje !== '' ? 'text-sm' : 'text-xl'">
+          ¿Estás seguro que desea guardar la información?
+        </p>
+      </div>
+  
+      <div class="mt-5 flex justify-center space-x-3">
+        <button
+          class="flex items-center justify-center w-60 sm:w-10 md:w-30 lg:w-60 px-8 py-2 border border-blue-600 text-secundario rounded-lg hover:bg-blue-100"
+          (click)="cerrarModal(false)">
+          <i class="mgc_close_line text-lg mr-2"></i> Cancelar
+        </button>
+        <button
+          class="flex items-center justify-center w-60 sm:w-10 md:w-30 lg:w-60 px-8 py-2 bg-[#1651CF] text-white rounded-lg hover:bg-blue-700"
+          (click)="cerrarModal(true)">
+          <i class="mgc_check_line text-lg mr-2"></i> Confirmar
+        </button>
+      </div>
+  
+    </div>
+  </div>
+  

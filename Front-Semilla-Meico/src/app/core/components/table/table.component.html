@@ -1,0 +1,92 @@
+<div class="overflow-y-auto max-h-[500px] mt-5">
+  <table class="min-w-full divide-y divide-gray-200 rounded-lg">
+    <thead class="bg-[#fafafa] text-primario">
+      <tr>
+        <th *ngFor="let encabezado of encabezados" class="px-4 py-2 text-left font-medium text-primario">
+          @if(encabezado === "Estado"){
+        <td>
+          <div class="flex">
+            {{encabezado}}
+            <app-filter-option [multiple]="false" [dataFilter]="[]">
+              <button mat-icon-button class="ml-1">
+                <mat-icon>filter_alt</mat-icon>
+              </button>
+            </app-filter-option>
+          </div>
+        </td>
+
+        }@else{
+        {{ encabezado }}
+        }
+
+        </th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-300 text-secundario">
+      <tr *ngFor="let item of dataFiltrada">
+        <td *ngFor="let key of columnas" class="px-4 py-2">
+
+          <ng-container *ngIf="key === 'created_at'; else checkUsuario">
+            {{ item[key] | date: 'mediumDate' }}
+          </ng-container>
+
+          <ng-template #checkUsuario>
+            <ng-container *ngIf="key === 'usuario'; else checkEstado">
+              {{ item['correo']?.split('@')[0] }}
+            </ng-container>
+          </ng-template>
+
+          <ng-template #checkEstado>
+            <ng-container *ngIf="key === 'estado'; else defaultData">
+              <label class="inline-flex items-center cursor-pointer">
+                <div class="flex items-center space-x-2">
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" [checked]="item.estado" (click)="confirmarCambioEstado(item, $event)"
+                      class="sr-only peer">
+                    <div
+                      class="w-14 h-8 bg-gray-200 rounded-full peer peer-checked:bg-blue-600 peer-focus:outline-none peer-checked:after:translate-x-6 after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all">
+                    </div>
+                  </label>
+                </div>
+              </label>
+            </ng-container>
+          </ng-template>
+
+          <ng-template #defaultData>
+            {{ item[key] }}
+          </ng-template>
+        </td>
+
+        <td class="px-9 py-2">
+          <button (click)="verDetalles(item)">
+            <i class="mgc_eye_2_line text-[#7d7d7d] text-2xl"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="flex items-center justify-between mt-6 px-4 py-3 bg-white rounded-lg">
+  <p class="text-sm text-[#303133] font-medium">Total registros: {{ totalRegistros }}</p>
+  <div class="flex items-center space-x-5 ml-auto">
+    <button (click)="paginaAnterior()" [disabled]="paginaActual === 1"
+      class="text-[#0f0f0f] text-lg hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"><span
+        class="mgc_left_line"></span></button>
+    <div class="flex items-center space-x-3">
+      <button *ngFor="let page of totalPaginasArray; let i = index" (click)="irAPagina(i + 1)" [ngClass]="{
+            'border border-[#1751cf] font-medium rounded-md text-[#1751cf] px-2.5': paginaActual === i + 1,
+            'text-secundario px-2': paginaActual !== i + 1
+          }">
+        {{ i + 1 }}
+      </button>
+    </div>
+    <button (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas"
+      class="text-[#0f0f0f] text-lg hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"><span
+        class="mgc_right_line"></span></button>
+    <select [(ngModel)]="registrosPorPagina" (change)="cambiarRegistrosPorPagina()"
+      class="border rounded-lg px-3 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 ml-3">
+      <option *ngFor="let cantidad of [5, 10, 15, 20]" [value]="cantidad">{{ cantidad }} / Página</option>
+    </select>
+  </div>
+</div>

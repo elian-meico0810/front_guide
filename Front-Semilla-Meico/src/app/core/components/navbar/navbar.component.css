@@ -1,0 +1,19 @@
+.navbar{
+    background-color: black;
+    color: aliceblue;
+    height: 60px;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    
+}
+.navbar-links li{
+    float: left;
+    text-decoration: none;
+    margin-right: 10px;
+    list-style-type: none;
+}
+
+.navbar-logo{
+    float: left;
+}

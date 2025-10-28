@@ -1,0 +1,134 @@
+<div class="screen-h p-5">
+  <div class="flex items-center justify-between w-full">
+    <a class="flex items-center p-1 text-3xl font-bold">
+      <i class="mgc_group_3_line text-4xl mr-2 text-[#7d7d7d]"></i>
+      Usuarios
+    </a>
+    <div class="flex">
+      <div class="relative w-96">
+        <input type="search" id="default-search" autocomplete="off" (input)="filtrarUsuarios()" [(ngModel)]="filtro"
+                class="block w-full h-10 pl-4 pr-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 placeholder-gray-400
+                  focus:outline-none focus:ring-1 focus:ring-[#1751cf] focus:border-[#1751cf]"
+                placeholder="Buscar por nombre usuario o empleado"
+        />
+        <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+          <div class="flex items-center p-1 text-3xl font-bold">
+            <i class="mgc_search_line text-xl text-[#7d7d7d]"></i>
+          </div>
+        </div>
+        <ul *ngIf="sugerencias.length > 0" class="absolute w-full bg-white border border-gray-300 rounded-lg mt-1 shadow-lg z-50">
+          <li *ngFor="let usuario of sugerencias"
+              class="p-2 hover:bg-gray-100 cursor-pointer leading-tight"
+              (click)="seleccionarUsuario(usuario)">
+            <span class="text-primario font-medium block">{{ usuario.correo.split('@')[0] }}</span>
+            <span class="text-secundario text-sm block">{{ usuario.nombre }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <a routerLink="crear"
+        class="flex items-center ml-4 px-4 h-10 text-white font-medium bg-[#1651CF] hover:bg-blue-700 rounded-md">
+        <i class="mgc_add_line text-lg mr-2 text-white"></i>
+        Crear usuario
+      </a>
+    </div>
+  </div>
+
+  <div class="overflow-y-auto max-h-[500px] mt-5">
+    <table class="min-w-full divide-y divide-gray-200 rounded-lg">
+      <thead class="bg-[#fafafa] text-primario">
+        <tr>
+          <th class="px-4 py-2 text-left font-medium text-primario">
+            Fecha creación
+          </th>
+          <th class="px-4 py-2 text-left font-medium text-primario">
+            Usuario
+          </th>
+          <th class="px-4 py-2 text-left font-medium text-primario">
+            Nombre del empleado
+          </th>
+          <th class="px-4 py-2 text-left font-medium text-primario">
+            Correo electrónico
+          </th>
+          <th class="px-4 py-2 text-left font-medium text-primario">
+            <div class="flex items-center space-x-1">
+              <span>Área</span>
+              <app-filter-option [multiple]="false" [dataFilter]="areas" (changeData)="filtrarArea($event)">
+              </app-filter-option>
+            </div>
+          </th>
+          <th class="px-4 py-2 text-left font-medium text-primario">
+            <div class="flex items-center space-x-1">
+              <span>Cargo</span>
+            </div>
+          </th>
+          <th class="px-4 py-2 text-left font-medium text-primario">
+            Acciones
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-300 text-secundario">
+        <tr *ngFor="let item of usuariosPaginados">
+          <td class="px-4 py-4">
+            {{item["created_at"] | date: 'mediumDate'}}
+          </td>
+          <td class="px-4 py-4">
+            {{item["correo"].split('@')[0]}}
+          </td>
+          <td class="px-4 py-4">
+            {{item["nombre"]}}
+          </td>
+          <td class="px-4 py-4">
+            {{item["correo"]}}
+          </td>
+          <td class="px-4 py-4">
+            {{item["area"]}}
+          </td>
+          <td class="px-4 py-4 align-middle">
+            {{item["cargo"]}}
+          </td>
+
+          <td class="px-9 py-4">
+            <button [disableHasPermission]="'0003'" (click)="verDetalles(item)">
+              <i class="mgc_eye_2_line text-[#7d7d7d] text-2xl"></i>
+            </button>
+            <button [disableHasPermission]="'0003'" (click)="eliminarUsuario(item)">
+              <i class="mgc_delete_line text-red-500 text-2xl ml-3"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flex items-center justify-between mt-6 px-4 py-3 bg-white rounded-lg">
+    <p class="text-sm text-[#303133] font-medium">Total registros: {{ totalRegistros }}</p>
+    <div class="flex items-center space-x-5 ml-auto">
+      <button (click)="paginaAnterior()" [disabled]="paginaActual === 1"
+        class="text-[#0f0f0f] text-lg hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"><span
+          class="mgc_left_line"></span></button>
+      <div class="flex items-center space-x-3">
+        <button *ngFor="let page of totalPaginasArray; let i = index" (click)="irAPagina(i + 1)" [ngClass]="{
+              'border border-[#1751cf] font-medium rounded-md text-[#1751cf] px-2.5': paginaActual === i + 1,
+              'text-secundario px-2': paginaActual !== i + 1
+            }">
+          {{ i + 1 }}
+        </button>
+      </div>
+      <button (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas"
+        class="text-[#0f0f0f] text-lg hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"><span
+          class="mgc_right_line"></span></button>
+      <select [(ngModel)]="registrosPorPagina" (change)="cambiarRegistrosPorPagina()"
+        class="border rounded-lg px-3 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 ml-3">
+        <option *ngFor="let cantidad of [5, 10, 15, 20]" [value]="cantidad">{{ cantidad }} / Página</option>
+      </select>
+    </div>
+  </div>
+
+<!--   <app-table *ngIf="usuariosFiltrados.length > 0" [columnas]="columnas" [arraydata]="usuariosFiltrados" [encabezados]="encabezados" (CambioEstado)="solicitarCambioEstado($event)"></app-table>
+ -->
+  <app-confirm-modal *ngIf="mostrarModal" [mensaje]="mensajeModal" (confirmar)="manejarConfirmacion($event)"></app-confirm-modal>
+  <app-detalle-usuario *ngIf="mostrarSidebarDetalle" (cerrar)="cerrarSidebar()" [userId]="usuarioDetalle.id" ></app-detalle-usuario>
+</div>
+
+<router-outlet></router-outlet>

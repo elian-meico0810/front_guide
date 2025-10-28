@@ -1,0 +1,42 @@
+
+<div class="w-full h-screen flex flex-col border-r border-gray-300 bg-white">
+  <div class=" top-0 left-0 z-50 flex flex-col  w-full">
+    <!-- Logo -->
+    <div class="mt-5 mb-4 pl-5">
+      <a href="#">
+        <img src="assets/img/logo_meico.png" class="w-[110px] h-auto" alt="Logo Meico">
+      </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex-1 p-3 overflow-y-auto border-t text-black border-gray-300 w-5/6 mx-auto">
+      <ul>
+        <li *ngFor="let module of modules" class="mb-2">
+          <a routerLinkActive="active-link"
+            [routerLink]="hasVisiblePages(module) ? (module.rutaModulo !== '#' ? module.rutaModulo : null) : module.rutaModulo"
+            (click)="module.rutaModulo === '#' || hasVisiblePages(module) ? toggleSubmenu(module.nombreModulo) : null"
+            class="flex items-center p-2 text-14m font-medium rounded-md transition-colors hover:bg-custom-blue hover:bg-opacity-30">
+            <i [ngClass]="'mgc_' + module.icono + ' w-9 text-2xl icono'"></i>
+            {{ module.nombreModulo }}
+            <svg *ngIf="hasVisiblePages(module)"
+              [ngClass]="{'transform rotate-180': submenuOpen[module.nombreModulo], 'transform rotate-90': !submenuOpen[module.nombreModulo]}"
+              class="w-4 h-4 ml-auto transition-transform duration-200" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+            </svg>
+          </a>
+
+          <ul *ngIf="hasVisiblePages(module) && submenuOpen[module.nombreModulo]" class="pl-8 mt-1 space-y-1">
+            <ng-container *ngFor="let page of module.paginas">
+              <li *ngIf="page.paginaVisible">
+                <a routerLinkActive="active-link" [routerLink]="page.rutaPagina"
+                  class="flex items-center p-2 text-sm font-medium rounded-md hover:bg-gray-100 transition-colors">
+                  {{ page.nombrePagina }}
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>

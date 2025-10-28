@@ -1,0 +1,20 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white shadow-md rounded-lg p-10 w-full max-w-md text-center">
+
+        <!-- Icono de Advertencia -->
+        <div class="flex justify-center mb-4">
+            <img src="https://img.icons8.com/emoji/96/cross-mark-emoji.png" alt="Access Denied" class="h-24 w-24" />
+        </div>
+
+        <!-- Mensaje de Error -->
+        <h1 class="text-3xl font-semibold text-red-600 mb-2">Acceso Denegado</h1>
+
+        <p class="text-gray-600 mb-6">No tienes permisos para acceder a esta aplicación.</p>
+
+        <!-- Botón para regresar al inicio -->
+        <button style="background-color: #003383;" (click)="goHome()"
+            class="w-full px-4 py-2 text-white rounded-lg hover:bg-blue-700 transition duration-200">
+            Volver al Login
+        </button>
+    </div>
+</div>
