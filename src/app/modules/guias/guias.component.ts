@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConsolidatedModalComponent } from '../../core/components/consolidated-modal/consolidated-modal.component';
 import { AddGuideModalComponent } from '../../core/components/add-guide-modal/add-guide-modal.component';
+import { ConsolidationSentComponent } from '../../core/components/consolidation-sent/consolidation-sent.component';
 
 @Component({
   selector: 'app-guias',
@@ -172,6 +173,11 @@ export class GuiasComponent {
       if (result) {
         console.log('Consolidado confirmado:', result);
         // Aquí iría la lógica para enviar el consolidado al backend
+        // Mostrar modal de confirmación (alerta)
+        this.dialog.open(ConsolidationSentComponent, {
+          width: '520px',
+          data: { dateLabel: this.returnDateString }
+        });
       }
     });
   }

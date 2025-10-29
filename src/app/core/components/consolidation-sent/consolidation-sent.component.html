@@ -1,0 +1,16 @@
+<div class="p-6 text-center">
+  <div class="flex justify-center mb-4">
+    <div class="w-16 h-16 rounded-full bg-white border flex items-center justify-center">
+      <i class="fa-solid fa-check text-3xl text-[#1751cf]"></i>
+    </div>
+  </div>
+
+  <h3 class="text-base font-semibold mb-4 leading-snug break-words">
+    Se envió consolidado de guías <br />
+    con fecha: <span class="font-bold text-[#1751cf]">{{ data?.dateLabel || '' }}</span>
+  </h3>
+
+  <div class="flex justify-center">
+    <button (click)="close()" class="px-6 py-2 bg-[#1751cf] text-white rounded-lg">Cerrar</button>
+  </div>
+</div>

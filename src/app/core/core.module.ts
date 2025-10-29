@@ -17,6 +17,7 @@ import { RouterModule } from '@angular/router';
 import { TotalizerComponent } from "./components/totalizers/totalizer.component";
 import { TableMastersComponent } from "./components/table-masters/table-masters.component";
 import { AddGuideModalComponent } from './components/add-guide-modal/add-guide-modal.component';
+import { ConsolidationSentComponent } from './components/consolidation-sent/consolidation-sent.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { AddGuideModalComponent } from './components/add-guide-modal/add-guide-m
     TotalizerComponent,
     TableMastersComponent,
     AddGuideModalComponent,
+    ConsolidationSentComponent,
   ],
   imports: [
     CommonModule,
@@ -54,6 +56,7 @@ import { AddGuideModalComponent } from './components/add-guide-modal/add-guide-m
     TotalizerComponent,
     TableMastersComponent,
     AddGuideModalComponent,
+    ConsolidationSentComponent,
   ]
 })
 export class CoreModule { }
