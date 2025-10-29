@@ -18,10 +18,11 @@ import { DashboardComponent } from "./modules/dashboard/dashboard.component";
 import { FormsModule } from '@angular/forms';
 import { UsuariosModule } from "./modules/usuarios/usuarios.module";
 import { GuiasModule } from "./modules/guias/guias.module";
+import { ConsolidatedModalComponent } from "@core/components/consolidated-modal/consolidated-modal.component";
 
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent],
+  declarations: [AppComponent, DashboardComponent,ConsolidatedModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

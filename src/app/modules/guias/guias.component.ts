@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { ConsolidatedModalComponent } from '../../core/components/consolidated-modal/consolidated-modal.component';
 
 @Component({
   selector: 'app-guias',
@@ -91,15 +92,38 @@ export class GuiasComponent {
     { key: 'valorRecaudar', label: 'Valor a recaudar' }
   ];
 
+  selectedGuias: any[] = [];
+
   guides = [
     {
       fechaCreacion: '2025-10-28',
-      numeroGuia: '000005',
+      numeroGuia: '000001',
       facturas: 6,
       transportador: 'Jorge Maury',
-      estado: 'Despachada',
+      estado: 'pendiente',
       fechaRetorno: '2025-10-28',
-      valorRecaudar: '$4,300,000'
+      valorRecaudar: '$4,300,000',
+      selected: false
+    },
+    {
+      fechaCreacion: '2025-10-28',
+      numeroGuia: '000002',
+      facturas: 8,
+      transportador: 'Carlos Rodriguez',
+      estado: 'confirmado',
+      fechaRetorno: '2025-10-28',
+      valorRecaudar: '$3,200,000',
+      selected: false
+    },
+    {
+      fechaCreacion: '2025-10-28',
+      numeroGuia: '000003',
+      facturas: 4,
+      transportador: 'Maria Pérez',
+      estado: 'pendiente',
+      fechaRetorno: '2025-10-28',
+      valorRecaudar: '$2,800,000',
+      selected: false
     }
   ];
 
@@ -116,7 +140,24 @@ export class GuiasComponent {
   }
 
   sendConsolidated() {
-    console.log('Enviando consolidado...');
+    // Filtrar guías seleccionadas
+    this.selectedGuias = this.guides.filter(g => g.selected);
+    
+    const dialogRef = this.dialog.open(ConsolidatedModalComponent, {
+      width: '500px',
+      data: { guias: this.selectedGuias }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Consolidado confirmado:', result);
+        // Aquí iría la lógica para enviar el consolidado al backend
+      }
+    });
+  }
+
+  toggleGuiaSelection(guia: any) {
+    guia.selected = !guia.selected;
+    this.selectedGuias = this.guides.filter(g => g.selected);
   }
 }

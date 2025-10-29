@@ -1,0 +1,34 @@
+<div class="consolidated-modal p-6">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold">Enviar consolidado</h2>
+    </div>
+
+    <!-- Lista de guías -->
+    <div class="space-y-4 mb-6">
+        <div *ngFor="let guia of selectedGuias" class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <!-- Número de guía y estado -->
+            <div class="flex items-center space-x-3">
+                <div class="font-medium">{{guia.numeroGuia || '000000'}}</div>
+                <span [ngClass]="guia.estado === 'pendiente' ? 'pending-status' : 'confirmation-status'">
+                    <i class="mgc_circle_small_fill text-xs mr-1"></i>
+                    {{guia.estado || 'Pendiente por gestionar'}}
+                </span>
+            </div>
+            
+            <!-- Checkmark verde si está confirmado -->
+            <i *ngIf="guia.estado === 'confirmado'" class="mgc_tick_fill text-green-600"></i>
+        </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="flex justify-end space-x-3">
+        <button (click)="cancel()" 
+                class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+            Cancelar
+        </button>
+        <button (click)="send()" 
+                class="px-4 py-2 text-white bg-[#1751cf] rounded-lg hover:bg-[#0f3da6] transition-colors">
+            Confirmar y enviar
+        </button>
+    </div>
+</div>
