@@ -9,13 +9,71 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class GuiasComponent {
   filter: string = '';
-  returnDate: string = new Date().toISOString().split('T')[0]; // fecha actual en formato YYYY-MM-DD
+  returnDate: Date = new Date();
+  allDates: string[] = [];
+
+  ngOnInit() {
+    this.generateAllDates(2025);
+  }
+
+  // Genera todas las fechas de un año en formato "MMMM d, yyyy"
+  generateAllDates(year?: number) {
+    const today = new Date();
+    const currentYear = year ?? today.getFullYear();
+
+    const start = new Date(currentYear, 0, 1); 
+    const end = new Date(currentYear, 11, 31);
+    const dates: string[] = [];
+
+    let current = new Date(start);
+    while (current <= end) {
+      const formatted = current.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+
+      const parts = formatted.split(' ');
+      const day = parts[0];
+      const month = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
+      const yearPart = parts[2];
+      dates.push(`${month} ${day}, ${yearPart}`);
+
+      current.setDate(current.getDate() + 1);
+    }
+
+    this.allDates = dates;
+
+    const todayFormatted = today.toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+    const parts = todayFormatted.split(' ');
+    const day = parts[0];
+    const month = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
+    const yearPart = parts[2];
+    const todayString = `${month} ${day}, ${yearPart}`;
+
+    this.returnDateString = this.allDates.includes(todayString)
+      ? todayString
+      : this.allDates[0];
+
+    this.returnDate = today;
+  }
+
   totalizers = {
     dispatched: 1000,
     confirmed: 10,
     expected: 25000000,
     collected: 19850000
   };
+  returnDateString: string = '';
+
+  onSelectChange(event: any) {
+    this.returnDateString = event.target.value;
+    this.returnDate = new Date(this.returnDateString);
+  }
 
   constructor(
     private router: Router,
