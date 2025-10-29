@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { AppStore, User } from '../../store/app.store';
 import { LoginService } from 'src/app/modules/seguridad/pages/login/services/login-service.service';
 import { environment } from 'src/environments/enviroments';
+import { MenuService } from '../sidebar/services/loadmenu.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -18,15 +19,22 @@ export class NavbarComponent implements OnInit {
     Foto: '',
   };
   public visible: boolean = true;
-  constructor(
-    private loginService: LoginService
-  ) { }
+  public menu: any[] = [];
+  public isMenuOpen = false;
 
+  constructor(
+    private loginService: LoginService,
+    private menuService: MenuService
+
+  ) { }
   ngOnInit(): void {
     this.loginService.userFoto$.subscribe(foto => {
       this.userLogin.Foto = foto;
     });
-
+    this.menuService.menu$.subscribe(menu => {
+    this.menu = menu; 
+    console.log("XXXX: ",this.menu);
+    });
     this.loginService.user$.subscribe(user => {
       if (user) {
         this.userLogin = user;
@@ -41,7 +49,7 @@ export class NavbarComponent implements OnInit {
     this.loginService.logout();
   }
 
-  OnChangeAccount(){
+  OnChangeAccount() {
     this.loginService.ChangeAccount();
   }
 }

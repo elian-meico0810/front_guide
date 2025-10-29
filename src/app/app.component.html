@@ -23,13 +23,13 @@
 <ng-template #appContent>
 
   <div class="grid grid-cols-12 grid-rows-12 gap-1 h-screen">
-    <div class="col-span-2 row-span-5">
+    <div class="hidden">
       <app-sidebar></app-sidebar>
     </div>
-    <div class="col-span-10 col-start-3 row-span-1">
+    <div class="col-span-12 row-span-1">
       <app-navbar></app-navbar>
     </div>
-    <div class="col-span-10 row-span-4 col-start-3 ">
+    <div class="col-span-12 row-span-4">
         <router-outlet></router-outlet>
     </div>
   </div>

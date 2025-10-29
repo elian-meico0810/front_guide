@@ -13,6 +13,7 @@ import { TableComponent } from "./components/table/table.component";
 import { ConfirmModalComponent } from "./components/modal/confirm-modal/confirm-modal.component";
 import { CardComponent } from "./components/card/card.component";
 import { SearchBarComponent } from "./components/search-bar/search-bar.component";
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { SearchBarComponent } from "./components/search-bar/search-bar.component
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    RouterLink
+    RouterModule,
   ],
   exports: [
     NavbarComponent,

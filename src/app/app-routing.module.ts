@@ -12,11 +12,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/dashboard/dashboard-routing.module').then((m) => m.DashboardRoutingModule)
   },
-  {
-    path: 'usuarios',
-    loadChildren: () =>
-      import('./modules/usuarios/usuarios.module').then((m) => m.UsuariosModule)
-  },
+
   {
     path: 'seguridad',
     loadChildren: () =>

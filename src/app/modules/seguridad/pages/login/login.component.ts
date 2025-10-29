@@ -17,7 +17,8 @@ export class LoginComponent {
 
   ngOnInit(): void {
     if (this.loginservice.isAutenticated()) {
-      this.router.navigate(['/usuarios']);
+      this.router.navigate(['/guias']);
+      // this.router.navigate(['/usuarios']);
     }
   }
 

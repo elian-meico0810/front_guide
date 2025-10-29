@@ -24,6 +24,7 @@
     "@angular/router": "^17.2.0",
     "@auth0/angular-jwt": "^5.2.0",
     "@azure/msal-angular": "^3.0.23",
+    "@fortawesome/fontawesome-free": "^7.1.0",
     "@iconify-icons/mingcute": "^1.2.9",
     "@ngrx/signals": "^17.2.0",
     "@ngrx/store": "^17.2.0",

@@ -1,28 +1,85 @@
-<nav class="bg-white border-b border-gray-300 w-full overflow-hidden px-4 py-2.5"
-  *ngIf="visible">
-  <div class="max-w-screen-xl mx-auto flex flex-wrap">
-    <div class="flex items-center justify-end w-full space-x-3">
-      <div class="relative">
-        <div>
-          <button type="button"
-            class="relative flex rounded-full text-sm"
-            id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-            <span class="absolute -inset-1.5"></span>
+<nav class="bg-white border-b border-gray-300 w-full fixed top-0 left-0 z-50" *ngIf="visible">
+  <div class="w-full flex items-center justify-between px-4 py-2.5">
+    <!-- Logo -->
+    <div class="flex items-center">
+      <img src="assets/img/logo_meico.png" class="w-[80px] h-auto" alt="Logo Meico">
+    </div>
+
+    <!-- Sección usuario + botón hamburguesa (móvil) -->
+    <div class="flex items-center space-x-3 md:hidden">
+      <!-- Info usuario compacta -->
+      <div class="flex items-center space-x-2">
+        <img *ngIf="userLogin.Foto != ''" class="w-8 h-8 rounded-full" [src]="userLogin.Foto" alt="Foto de perfil">
+        <div class="flex flex-col leading-tight text-xs">
+          <span class="font-semibold text-gray-700">{{ userLogin.FirstName }}</span>
+          <span class="text-gray-400 text-[10px]">Administrador</span>
+        </div>
+
+        <!-- Botón de cerrar sesión con ícono -->
+        <button (click)="Logout()" class="text-blue-800 hover:text-blue-900 transition-colors" title="Cerrar sesión">
+          <i class="fa-solid fa-right-from-bracket text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Botón menú hamburguesa -->
+      <button (click)="isMenuOpen = !isMenuOpen" class="text-gray-700 hover:text-blue-800 focus:outline-none"
+        title="Abrir menú">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            [attr.d]="isMenuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Menú + Usuario (desktop) -->
+    <div class="hidden md:flex items-center space-x-6">
+      <!-- Menú dinámico -->
+      <ul class="flex space-x-6 h-full">
+        <li *ngFor="let item of menu" class="relative flex items-center h-full group"
+          routerLinkActive="text-blue-800 font-semibold">
+          <a [routerLink]="item.rutaModulo"
+            class="text-gray-700 hover:text-blue-800 font-medium px-2 py-2 transition-colors">
+            {{ item.nombreModulo }}
+          </a>
+          <!-- Línea azul en hover o activo -->
+          <span
+            class="absolute -bottom-[2px] left-0 w-0 h-[3px] bg-blue-800 transition-all duration-300 group-hover:w-full"
+            routerLinkActive="w-full"></span>
+        </li>
+      </ul>
+
+      <!-- Info usuario -->
+      <div class="flex items-center space-x-3">
+        <div class="relative">
+          <button type="button" class="relative flex rounded-full text-sm">
             <img *ngIf="userLogin.Foto != ''" class="size-10 rounded-full" [src]="userLogin.Foto" alt="Foto de perfil">
           </button>
         </div>
+
+        <div class="text-xs sm:text-sm text-left">
+          <span matTooltip="Cambiar de cuenta" class="user-info block font-semibold cursor-pointer hover:underline"
+            (click)="OnChangeAccount()">
+            {{ userLogin.FirstName }}
+          </span>
+          <span class="text-gray-400 block text-[10px] sm:text-xs">Administrador</span>
+        </div>
+
+        <!-- Ícono de salir (desktop) -->
+        <button (click)="Logout()" class="text-blue-800 hover:text-blue-900 transition-colors" title="Cerrar sesión">
+          <i class="fa-solid fa-right-from-bracket text-lg"></i>
+        </button>
       </div>
-
-      <div class="text-xs sm:text-sm text-left">
-        <span matTooltip="Cambiar de cuenta" class="user-info block font-semibold cursor-pointer hover:underline" (click)='OnChangeAccount()'>{{userLogin.FirstName}}</span>
-        <span class="text-gray-400 block text-[10px] sm:text-xs">Administrador</span>
-      </div>
-
-      <button (click)="Logout()"
-        class="btn-logout w-7 h-7 sm:w-6 sm:h-6 text-white rounded-full flex items-center justify-center">
-        Cerrar sesión
-      </button>
-
     </div>
+  </div>
+
+  <!-- Menú desplegable (mobile) -->
+  <div *ngIf="isMenuOpen" class="md:hidden bg-white border-t border-gray-200 flex flex-col space-y-3 px-6 py-3 shadow">
+    <ul class="flex flex-col space-y-2">
+      <li *ngFor="let item of menu">
+        <a [routerLink]="item.rutaModulo" class="text-gray-700 hover:text-blue-800 font-medium block">
+          {{ item.nombreModulo }}
+        </a>
+      </li>
+    </ul>
   </div>
 </nav>

@@ -5,6 +5,7 @@ import { AuthGuard } from '@core/guards/auth.guard';
 import { UsuariosComponent } from './usuarios.component';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
+import { GuiasComponent } from '../guias/guias.component';
 
 const routes: Routes = [
     {
@@ -13,7 +14,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: { requiredPermission: '0001' }
     },
-    {
+    /*{
         path: 'usuarios',
         component: UsuariosComponent,
         canActivate: [AuthGuard],
@@ -32,6 +33,12 @@ const routes: Routes = [
                 data: { requiredPermission: '0004' }
             }
         ]
+    },*/
+    {
+        path: 'guias',
+        component: GuiasComponent,
+        canActivate: [AuthGuard],
+        data: { requiredPermission: '0001' },
     }
 ]
 
