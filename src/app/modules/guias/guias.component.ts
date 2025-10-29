@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConsolidatedModalComponent } from '../../core/components/consolidated-modal/consolidated-modal.component';
+import { AddGuideModalComponent } from '../../core/components/add-guide-modal/add-guide-modal.component';
 
 @Component({
   selector: 'app-guias',
@@ -136,7 +137,26 @@ export class GuiasComponent {
   }
 
   addGuide() {
-    console.log('Abrir formulario para agregar una nueva guía');
+    const dialogRef = this.dialog.open(AddGuideModalComponent, {
+      width: '480px',
+      data: { defaultNumber: '000006' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.numeroGuia) {
+        // Insert new guia at the top
+        this.guides.unshift({
+          fechaCreacion: new Date().toISOString().split('T')[0],
+          numeroGuia: result.numeroGuia,
+          facturas: 0,
+          transportador: '',
+          estado: 'pendiente',
+          fechaRetorno: this.returnDateString || new Date().toISOString().split('T')[0],
+          valorRecaudar: '$0',
+          selected: false
+        });
+      }
+    });
   }
 
   sendConsolidated() {

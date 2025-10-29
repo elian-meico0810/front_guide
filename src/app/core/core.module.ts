@@ -16,6 +16,7 @@ import { SearchBarComponent } from "./components/search-bar/search-bar.component
 import { RouterModule } from '@angular/router';
 import { TotalizerComponent } from "./components/totalizers/totalizer.component";
 import { TableMastersComponent } from "./components/table-masters/table-masters.component";
+import { AddGuideModalComponent } from './components/add-guide-modal/add-guide-modal.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { TableMastersComponent } from "./components/table-masters/table-masters.
     SearchBarComponent,
     TotalizerComponent,
     TableMastersComponent,
+    AddGuideModalComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +53,7 @@ import { TableMastersComponent } from "./components/table-masters/table-masters.
     TableComponent,
     TotalizerComponent,
     TableMastersComponent,
+    AddGuideModalComponent,
   ]
 })
 export class CoreModule { }
