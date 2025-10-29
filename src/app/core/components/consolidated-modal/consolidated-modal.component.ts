@@ -12,12 +12,34 @@ export interface ConsolidatedDialogData {
 })
 export class ConsolidatedModalComponent {
   selectedGuias: any[] = [];
-  
+  causales: string[] = ['Entrega fallida', 'Dirección incorrecta', 'Cliente ausente', 'Otro motivo'];
+
+  numeroGuiaSeleccionada: string = '';
+  causalSeleccionada: string = '';
+
   constructor(
     public dialogRef: MatDialogRef<ConsolidatedModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConsolidatedDialogData
   ) {
-    this.selectedGuias = data.guias || [];
+    // Datos de prueba si no se recibe desde el padre
+    this.selectedGuias = data?.guias?.length ? data.guias : [
+      { numeroGuia: '000001', estado: 'confirmado' },
+      { numeroGuia: '000002', estado: 'pendiente' },
+      { numeroGuia: '000003', estado: 'confirmado' },
+      { numeroGuia: '000004', estado: 'pendiente' },
+      { numeroGuia: '000005', estado: 'confirmado' },
+      { numeroGuia: '000005', estado: 'confirmado' },
+      { numeroGuia: '000005', estado: 'confirmado' },
+      { numeroGuia: '000005', estado: 'confirmado' },
+      { numeroGuia: '000005', estado: 'confirmado' },
+      { numeroGuia: '000005', estado: 'confirmado' },
+      { numeroGuia: '000005', estado: 'confirmado' },
+      { numeroGuia: '000005', estado: 'confirmado' },
+      { numeroGuia: '000005', estado: 'confirmado' },
+      { numeroGuia: '000005', estado: 'confirmado' },
+      { numeroGuia: '000005', estado: 'confirmado' },
+      { numeroGuia: '000005', estado: 'confirmado' },
+    ];
   }
 
   cancel(): void {
@@ -25,6 +47,13 @@ export class ConsolidatedModalComponent {
   }
 
   send(): void {
-    this.dialogRef.close(this.selectedGuias);
+    console.log('Guía seleccionada:', this.numeroGuiaSeleccionada);
+    console.log('Causal seleccionada:', this.causalSeleccionada);
+    console.log('Todas las guías:', this.selectedGuias);
+    this.dialogRef.close({
+      guia: this.numeroGuiaSeleccionada,
+      causal: this.causalSeleccionada,
+      guias: this.selectedGuias
+    });
   }
 }
