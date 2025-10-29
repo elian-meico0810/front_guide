@@ -17,6 +17,7 @@ import { SharedModule } from "./shared/shared.module";
 import { DashboardComponent } from "./modules/dashboard/dashboard.component";
 import { FormsModule } from '@angular/forms';
 import { UsuariosModule } from "./modules/usuarios/usuarios.module";
+import { GuiasModule } from "./modules/guias/guias.module";
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { UsuariosModule } from "./modules/usuarios/usuarios.module";
     HttpClientModule,
     SharedModule,
     UsuariosModule,
+    GuiasModule,
     BrowserAnimationsModule,
     FormsModule  ,
     NgxSpinnerModule.forRoot({ type: 'ball-fussion' }),

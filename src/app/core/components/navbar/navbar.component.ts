@@ -33,7 +33,6 @@ export class NavbarComponent implements OnInit {
     });
     this.menuService.menu$.subscribe(menu => {
     this.menu = menu; 
-    console.log("XXXX: ",this.menu);
     });
     this.loginService.user$.subscribe(user => {
       if (user) {

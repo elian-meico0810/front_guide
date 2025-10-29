@@ -12,12 +12,14 @@ import { MatFormField } from '@angular/material/select';
 import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 import { SharedModule } from '@shared/shared.module';
+import { GuiasRoutingModule } from '../guias/guias-routing.module';
 
 @NgModule({
   declarations: [UsuariosComponent, CrearUsuarioComponent, DetalleUsuarioComponent, EditarUsuarioComponent],
   imports: [
     CommonModule,
-    UsuariosRoutingModule,
+    // UsuariosRoutingModule,
+    GuiasRoutingModule,
     ReactiveFormsModule,
     CoreModule,
     MatSelect,
