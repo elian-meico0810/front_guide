@@ -14,6 +14,8 @@ import { ConfirmModalComponent } from "./components/modal/confirm-modal/confirm-
 import { CardComponent } from "./components/card/card.component";
 import { SearchBarComponent } from "./components/search-bar/search-bar.component";
 import { RouterModule } from '@angular/router';
+import { TotalizerComponent } from "./components/totalizers/totalizer.component";
+import { TableMastersComponent } from "./components/table-masters/table-masters.component";
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { RouterModule } from '@angular/router';
     TableComponent,
     ConfirmModalComponent,
     CardComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    TotalizerComponent,
+    TableMastersComponent,
   ],
   imports: [
     CommonModule,
@@ -41,10 +45,12 @@ import { RouterModule } from '@angular/router';
     AcordeonComponent,
     FilterOptionComponent,
     ModalComponent,
-    TableComponent,
     ConfirmModalComponent,
     CardComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    TableComponent,
+    TotalizerComponent,
+    TableMastersComponent,
   ]
 })
 export class CoreModule { }

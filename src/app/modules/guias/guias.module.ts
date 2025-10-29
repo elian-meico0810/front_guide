@@ -12,7 +12,8 @@ import { CoreModule } from 'src/app/core/core.module';
   imports: [
     CommonModule,
     FormsModule,         
-    GuiasRoutingModule
+    GuiasRoutingModule,
+    CoreModule 
   ]
 })
 export class GuiasModule { }

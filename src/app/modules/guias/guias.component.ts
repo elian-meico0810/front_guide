@@ -10,45 +10,55 @@ import { MatDialog } from '@angular/material/dialog';
 export class GuiasComponent {
   filter: string = '';
   returnDate: string = new Date().toISOString().split('T')[0]; // fecha actual en formato YYYY-MM-DD
+  totalizers = {
+    dispatched: 1000,
+    confirmed: 10,
+    expected: 25000000,
+    collected: 19850000
+  };
 
   constructor(
     private router: Router,
     private dialog: MatDialog,
     // private consolidadoService: ConsolidadoService
-  ) {}
+  ) { }
+
+  columns = [
+    { key: 'fechaCreacion', label: 'Fecha creación' },
+    { key: 'numeroGuia', label: 'N° Guía' },
+    { key: 'facturas', label: 'Facturas' },
+    { key: 'transportador', label: 'Transportador' },
+    { key: 'estado', label: 'Estado' },
+    { key: 'fechaRetorno', label: 'Fecha retorno' },
+    { key: 'valorRecaudar', label: 'Valor a recaudar' }
+  ];
+
+  guides = [
+    {
+      fechaCreacion: '2025-10-28',
+      numeroGuia: '000005',
+      facturas: 6,
+      transportador: 'Jorge Maury',
+      estado: 'Despachada',
+      fechaRetorno: '2025-10-28',
+      valorRecaudar: '$4,300,000'
+    }
+  ];
 
   filterGuide() {
     console.log('Filtrando por:', this.filter);
   }
 
-  addGuide() {
-    console.log('Abrir formulario para agregar una nueva guía');
-    //const dialogRef = this.dialog.open(NuevaGuiaComponent, {
-    //  width: '600px',
-    //  disableClose: true,
-    //});
+  loadTotalizers() {
 
-    //dialogRef.afterClosed().subscribe((result) => {
-    //  if (result) {
-    //    console.log('Nueva guía agregada:', result);
-    //   
-    //  }
-    //});
   }
 
-  /** 📦 Enviar consolidado */
+  addGuide() {
+    console.log('Abrir formulario para agregar una nueva guía');
+  }
+
   sendConsolidated() {
     console.log('Enviando consolidado...');
-    //// Si tienes un servicio que gestiona consolidaciones
-    //this.consolidadoService.enviarConsolidado().subscribe({
-    //  next: (resp) => {
-    //    console.log('Consolidado enviado:', resp);
-    //    alert('✅ Consolidado enviado correctamente');
-    //  },
-    //  error: (err) => {
-    //    console.error('Error al enviar consolidado', err);
-    //    alert('❌ Ocurrió un error al enviar el consolidado');
-    //  },
-    //});
+
   }
 }
