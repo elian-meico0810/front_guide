@@ -38,7 +38,7 @@
         <li *ngFor="let item of menu" class="relative flex items-center h-full group"
           routerLinkActive="text-blue-800 font-semibold">
           <a [routerLink]="item.rutaModulo"
-            class="text-gray-700 hover:text-blue-800 font-medium px-2 py-2 transition-colors">
+            class="text-gray-400 hover:text-blue-800 font-medium px-2 py-2 transition-colors">
             {{ item.nombreModulo }}
           </a>
           <!-- Línea azul en hover o activo -->
@@ -76,7 +76,7 @@
   <div *ngIf="isMenuOpen" class="md:hidden bg-white border-t border-gray-200 flex flex-col space-y-3 px-6 py-3 shadow">
     <ul class="flex flex-col space-y-2">
       <li *ngFor="let item of menu">
-        <a [routerLink]="item.rutaModulo" class="text-gray-700 hover:text-blue-800 font-medium block">
+        <a [routerLink]="item.rutaModulo" class="text-gray-400 hover:text-blue-800 font-medium block">
           {{ item.nombreModulo }}
         </a>
       </li>
