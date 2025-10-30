@@ -1,5 +1,4 @@
 .consolidated-modal {
-    max-height: 80vh;
     overflow-y: auto;
     min-width: 500px;
 }
@@ -29,4 +28,10 @@
 .consolidated-modal select {
   background-image: none !important;
   box-shadow: none !important;
+}
+
+.mat-dialog-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
 }
