@@ -449,5 +449,15 @@ body {
   border-radius: 8px !important;
 }
 
+.custom-dialog .mat-dialog-container {
+  padding: 0; 
+  border-radius: 1.5rem; 
+  overflow: visible;
+}
+
+.cdk-overlay-backdrop {
+  backdrop-filter: blur(4px);
+}
+
 
 

@@ -139,7 +139,8 @@ export class GuiasComponent {
 
   addGuide() {
     const dialogRef = this.dialog.open(AddGuideModalComponent, {
-      width: '480px',
+      width: '540px',
+      panelClass: 'custom-dialog',
       data: { defaultNumber: '000006' }
     });
 
