@@ -1,54 +1,45 @@
-<!-- Modal principal -->
-<div class="add-guide-modal p-6 bg-white rounded-[2rem] shadow-xl w-[540px] max-w-[90vw] overflow-hidden relative">
-  <!-- Título -->
-  <h2 class="text-2xl font-semibold mb-4 text-gray-800 text-start">Agregar guía</h2>
+<!-- Overlay -->
+<div class="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
+    <!-- Modal principal -->
+    <div class="relative p-8 bg-white rounded-[2rem] shadow-xl overflow-hidden"
+        style="width: 540px; max-width: 90vw; max-height: 85vh;">
+        <!-- Título -->
+        <h2 class="text-2xl font-semibold mb-6 text-gray-800 text-start">
+            Agregar guía
+        </h2>
 
-  <!-- Campo de entrada -->
-  <div class="mb-4 text-left">
-    <label class="text-sm text-gray-600">
-      Número de guía <span class="text-red-500">*</span>
-    </label>
-    <input
-      [(ngModel)]="numeroGuia"
-      class="w-full border border-gray-300 rounded-2xl px-3 py-2 mt-1 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#1751cf] focus:border-transparent"
-      placeholder="Ingrese número de guía"
-    />
-  </div>
+        <!-- Campo de entrada -->
+        <div class="mb-6 text-left">
+            <label class="text-sm text-gray-600">
+                Número de guía <span class="text-red-500">*</span>
+            </label>
+            <input [(ngModel)]="numeroGuia"
+                class="w-full border border-gray-300 rounded-2xl px-3 py-2 mt-1 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#1751cf] focus:border-transparent"
+                placeholder="Ingrese número de guía" />
+        </div>
 
-  <!-- Botones centrados -->
-  <div class="flex justify-center gap-4 mt-6">
-    <!-- Cancelar -->
-    <button
-      (click)="cancel()"
-      class="flex items-center px-5 py-2.5 text-gray-700 bg-gray-100 rounded-2xl hover:bg-gray-200 transition-colors"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-4 h-4 mr-2"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-      Cancelar
-    </button>
+        <!-- Botones centrados -->
+        <div class="grid grid-cols-2 gap-3 mt-6 w-full">
+            <!-- Cancelar -->
+            <button (click)="cancel()"
+                class="flex items-center justify-center w-full px-4 py-2 text-gray-700 bg-gray-0 rounded-2xl hover:bg-gray-200 transition-colors shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Cancelar
+            </button>
 
-    <!-- Agregar -->
-    <button
-      (click)="add()"
-      class="flex items-center px-5 py-2.5 text-white bg-[#1751cf] rounded-2xl hover:bg-[#1541a8] transition-colors"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-4 h-4 mr-2"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-      </svg>
-      Agregar
-    </button>
-  </div>
+            <!-- Agregar -->
+            <button (click)="add()"
+                class="flex items-center justify-center w-full px-4 py-2 text-white bg-[#1751cf] rounded-2xl hover:bg-[#1545b8] transition-colors shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Agregar
+            </button>
+        </div>
+
+    </div>
 </div>
