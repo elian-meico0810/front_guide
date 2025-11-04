@@ -13,10 +13,16 @@ import { DisableHasPermissionDirective } from "./directives/disable.directive";
 import { PaginationComponent } from "./pagination/pagination.component";
 
 @NgModule({
-  declarations: [HasPermissionDirective, DisableHasPermissionDirective, PaginationComponent ],
+  declarations: [
+    HasPermissionDirective,
+    DisableHasPermissionDirective,
+    PaginationComponent
+  ],
   providers: [{ provide: MatDialogRef, useValue: {} }],
   imports: [
     CommonModule,
+    FormsModule,        
+    ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
     MatTableModule,

@@ -1,51 +1,49 @@
-.pagination-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.pagination-info {
-  font-weight: 500;
-  margin-bottom: 0.25rem;
-}
-
-.pagination-container {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  justify-content: center;
-}
-
-.btn {
-  background-color: #f3f4f6;
+button {
+  background: none;
   border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
   cursor: pointer;
-  transition: 0.2s;
-
-  &:hover:not(:disabled) {
-    background-color: #e2e8f0;
-  }
-
-  &.active {
-    background-color: #2563eb;
-    color: white;
-    font-weight: bold;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+  font-size: 14px;
+  border-radius: 6px;
+  padding: 4px 8px;
+  transition: all 0.2s ease;
+  color: #374151;
 }
 
-.page-size-select {
-  margin-left: 12px;
-  padding: 6px 8px;
-  border-radius: 6px;
+button:hover {
+  color: #2563eb;
+}
+
+/* Página activa */
+button.active {
+  border: 1px solid #2563eb;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* Flechas deshabilitadas */
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Selector */
+select {
+  background: transparent;
   border: 1px solid #d1d5db;
-  background: white;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 14px;
+  color: #374151;
   cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+select:hover {
+  border-color: #93c5fd;
+}
+
+select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px #2563eb;
 }

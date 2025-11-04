@@ -124,7 +124,7 @@ export class GuiasComponent implements OnInit {
     });
   }
 
-  
+
   filterGuide() {
     // Opcional: si quieres filtrar las guías localmente sin llamar a la API
     if (!this.filter) {
@@ -138,6 +138,12 @@ export class GuiasComponent implements OnInit {
       )
     );
   }
+
+  changePerPage(newSize: number) {
+    this.perPage = newSize;
+    this.loadGuides(1); 
+  }
+
   get totalPages(): number {
     return Math.ceil(this.totalItems / this.perPage);
   }

@@ -1,24 +1,38 @@
-<nav *ngIf="totalPages > 1" class="pagination-container">
-  <button 
-    class="btn" 
-    [disabled]="currentPage === 1 || loading" 
-    (click)="changePage(currentPage - 1)">
-    ‹ Anterior
-  </button>
+<div class="flex items-center justify-between mt-4 px-4" *ngIf="totalPages > 1">
+  <!-- Total registros -->
+  <div class="text-sm font-semibold text-gray-700">
+    Total registros: {{ totalItems }}
+  </div>
 
-  <button 
-    *ngFor="let page of pages"
-    class="btn"
-    [class.active]="page === currentPage"
-    [disabled]="loading"
-    (click)="changePage(page)">
-    {{ page }}
-  </button>
+  <!-- Controles de paginación -->
+  <div class="flex items-center space-x-2">
+    <!-- Botón anterior -->
+    <button class="text-gray-600 hover:text-blue-600 disabled:opacity-40 px-2" [disabled]="currentPage === 1 || loading"
+      (click)="changePage(currentPage - 1)">
+      ‹
+    </button>
 
-  <button 
-    class="btn" 
-    [disabled]="currentPage === totalPages || loading" 
-    (click)="changePage(currentPage + 1)">
-    Siguiente ›
-  </button>
-</nav>
+    <!-- Números de página -->
+    <button *ngFor="let page of pages" class="px-3 py-1 rounded-md text-gray-700 hover:text-blue-600 transition-colors"
+      [ngClass]="{
+        'active': page === currentPage
+      }" [disabled]="loading" (click)="changePage(page)">
+      {{ page }}
+    </button>
+
+    <!-- Botón siguiente -->
+    <button class="text-gray-600 hover:text-blue-600 disabled:opacity-40 px-2"
+      [disabled]="currentPage === totalPages || loading" (click)="changePage(currentPage + 1)">
+      ›
+    </button>
+
+    <!-- Selector de cantidad por página -->
+    <select
+      class="ml-3 text-sm bg-transparent border border-gray-300 rounded-md px-2 py-1 text-gray-700 hover:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+      [(ngModel)]="perPage" (change)="onPageSizeChange($event)">
+      <option *ngFor="let size of pageSizes" [value]="size">
+        {{ size }} / Página
+      </option>
+    </select>
+  </div>
+</div>
