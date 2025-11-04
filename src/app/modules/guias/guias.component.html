@@ -72,4 +72,8 @@
     <app-table-masters [columns]="columns" [data]="guides" [showActions]="true">
     </app-table-masters>
 
+    <app-pagination [totalItems]="totalItems" [currentPage]="currentPage" [perPage]="perPage"
+        (pageChange)="loadGuides($event)">
+    </app-pagination>
+
 </div>

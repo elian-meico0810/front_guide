@@ -5,6 +5,7 @@ import { GuiasRoutingModule } from './guias-routing.module';
 import { GuiasComponent } from './guias.component';
 import { CoreModule } from 'src/app/core/core.module';
 import { MaterialModule } from 'src/app/core/material.module';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { MaterialModule } from 'src/app/core/material.module';
     FormsModule,         
     GuiasRoutingModule,
     CoreModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule 
   ]
 })
 export class GuiasModule { }

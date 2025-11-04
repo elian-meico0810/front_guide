@@ -10,9 +10,10 @@ import { MatTableModule } from "@angular/material/table";
 import { HasPermissionDirective } from "./directives/has-permission.directive";
 import { MatDividerModule } from "@angular/material/divider";
 import { DisableHasPermissionDirective } from "./directives/disable.directive";
+import { PaginationComponent } from "./pagination/pagination.component";
 
 @NgModule({
-  declarations: [HasPermissionDirective, DisableHasPermissionDirective],
+  declarations: [HasPermissionDirective, DisableHasPermissionDirective, PaginationComponent ],
   providers: [{ provide: MatDialogRef, useValue: {} }],
   imports: [
     CommonModule,
@@ -21,7 +22,7 @@ import { DisableHasPermissionDirective } from "./directives/disable.directive";
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   exports: [
     MatButtonModule,
@@ -33,7 +34,8 @@ import { DisableHasPermissionDirective } from "./directives/disable.directive";
     ReactiveFormsModule,
     MatIconModule,
     HasPermissionDirective,
-    DisableHasPermissionDirective
+    DisableHasPermissionDirective,
+    PaginationComponent
   ]
 })
 export class SharedModule { }
