@@ -73,7 +73,8 @@
     </app-table-masters>
 
     <app-pagination [totalItems]="totalItems" [currentPage]="currentPage" [perPage]="perPage"
-        (pageChange)="loadGuides($event)">
+        (pageChange)="loadGuides($event)" (perPageChange)="changePerPage($event)">
     </app-pagination>
+
 
 </div>

@@ -105,7 +105,7 @@ export class GuiasComponent implements OnInit {
 
   loadGuides(page: number = 1) {
     this.loading = true;
-    const params = { page: page.toString(), per_page: this.perPage.toString() };
+    const params = { page: page.toString(), page_size: this.perPage.toString() };
     this.http.get<any>(this.API_URL, { params }).subscribe({
       next: (res) => {
         if (res.success && res.data) {
@@ -123,6 +123,7 @@ export class GuiasComponent implements OnInit {
       }
     });
   }
+
 
 
   filterGuide() {
