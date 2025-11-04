@@ -12,7 +12,7 @@ export class PaginationComponent implements OnChanges {
   @Output() pageChange = new EventEmitter<number>();
   @Output() perPageChange = new EventEmitter<number>();
 
-  pages: number[] = [];
+  pages: (number | string)[] = [];
   pageSizes: number[] = [5, 10, 20];
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -24,11 +24,38 @@ export class PaginationComponent implements OnChanges {
   }
 
   generatePages() {
-    const totalPages = this.totalPages;
-    this.pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    const total = this.totalPages;
+    const current = this.currentPage;
+    const visibleRange = 5; // cantidad máxima de páginas visibles
+    const pages: (number | string)[] = [];
+
+    if (total <= visibleRange + 2) {
+      // si hay pocas páginas, las mostramos todas
+      for (let i = 1; i <= total; i++) pages.push(i);
+    } else {
+      // siempre mostramos la primera y la última
+      const start = Math.max(2, current - 2);
+      const end = Math.min(total - 1, current + 2);
+
+      pages.push(1);
+
+      if (start > 2) pages.push('…');
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+
+      if (end < total - 1) pages.push('…');
+
+      pages.push(total);
+    }
+
+    this.pages = pages;
   }
 
-  changePage(page: number) {
+  changePage(page: number | string) {
+    if (typeof page !== 'number') return;
+    if (page < 1 || page > this.totalPages) return;
     this.pageChange.emit(page);
   }
 

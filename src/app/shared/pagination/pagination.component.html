@@ -1,35 +1,28 @@
-<div class="flex items-center justify-between mt-4 px-4" *ngIf="totalPages > 1">
+<div class="flex items-center justify-between mt-4 px-4" *ngIf="totalItems > 0">
   <div class="text-sm font-semibold text-gray-700">
     Total registros: {{ totalItems }}
   </div>
 
   <div class="flex items-center space-x-2">
-    <button
-      class="text-gray-600 hover:text-blue-600 disabled:opacity-40 px-2"
-      [disabled]="currentPage === 1"
+    <button class="text-gray-600 hover:text-blue-600 disabled:opacity-40 px-2" [disabled]="currentPage === 1"
       (click)="changePage(currentPage - 1)">
       ‹
     </button>
 
-    <button
-      *ngFor="let page of pages"
-      class="px-3 py-1 rounded-md text-gray-700 hover:text-blue-600 transition-colors"
-      [ngClass]="{ 'active': page === currentPage }"
-      (click)="changePage(page)">
+    <button *ngFor="let page of pages" class="px-3 py-1 rounded-md text-gray-700 hover:text-blue-600 transition-colors"
+      [ngClass]="{ 'active': page === currentPage }" [disabled]="page === '…'" [ngClass]="{
+    'border-blue-500 active': page === currentPage
+  }" (click)="changePage(page)">
       {{ page }}
     </button>
-
-    <button
-      class="text-gray-600 hover:text-blue-600 disabled:opacity-40 px-2"
-      [disabled]="currentPage === totalPages"
+    <button class="text-gray-600 hover:text-blue-600 disabled:opacity-40 px-2" [disabled]="currentPage === totalPages"
       (click)="changePage(currentPage + 1)">
       ›
     </button>
 
     <select
       class="ml-3 text-sm bg-transparent border border-gray-300 rounded-md px-2 py-1 text-gray-700 hover:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
-      [(ngModel)]="perPage"
-      (change)="onPageSizeChange($event)">
+      [(ngModel)]="perPage" (change)="onPageSizeChange($event)">
       <option *ngFor="let size of pageSizes" [value]="size">
         {{ size }} / Página
       </option>
