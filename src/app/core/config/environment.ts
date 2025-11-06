@@ -6,4 +6,7 @@ export class Environment {
   static readonly USERS = `${Environment.API_BASE_URL}/users/obtener/`;
   static readonly ROLES = `${Environment.API_BASE_URL}/roles/`;
   static readonly GUIAS = `${Environment.API_BASE_URL}/guias/`;
+
+
+  static readonly INFO_GUIAS = `${Environment.API_BASE_URL}/gestionGuias/obtener-planilla-detalles/`;
 }

@@ -21,12 +21,14 @@ export class GuiasComponent implements OnInit {
   guides: any[] = [];
   selectedGuias: any[] = [];
 
-  // ✅ columnas para la tabla
+  // columnas para la tabla
   columns = [
-    { key: 'correo', label: 'Correo' },
-    { key: 'nombre', label: 'Nombre' },
-    { key: 'ciudad', label: 'Ciudad' },
-    { key: 'estado', label: 'Estado' },
+    { key: 'fecha_creacion_guia', label: 'Fecha creación', type: 'date' },
+    { key: 'numero_guia', label: 'N° Guía' },
+    { key: 'cantidad_facturas', label: 'Facturas', type: 'number' },
+    { key: 'estado_guia', label: 'Estado' },
+    { key: 'fecha_retorno', label: 'Fecha retorno', type: 'date' },
+    { key: 'valor_recaudar', label: 'Valor recaudar', type: 'currency' },
   ];
 
   // Paginación
@@ -37,7 +39,7 @@ export class GuiasComponent implements OnInit {
   prevPageUrl: string | null = null;
   loading = false;
 
-  private readonly API_URL = Environment.USERS;
+  private readonly API_URL = Environment.INFO_GUIAS;
 
   totalizers = {
     dispatched: 1000,
