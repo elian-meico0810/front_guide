@@ -6,18 +6,23 @@ import { GuiasComponent } from './guias.component';
 import { CoreModule } from 'src/app/core/core.module';
 import { MaterialModule } from 'src/app/core/material.module';
 import { SharedModule } from '@shared/shared.module';
+import { DetalleGuiasComponent } from './pages/detalle-guias/detalle-guias.component';
+import { ConsignacionesComponent } from './pages/consignaciones/consignaciones.component';
 
 @NgModule({
   declarations: [
     GuiasComponent,
+    DetalleGuiasComponent,
+    ConsignacionesComponent
+
   ],
   imports: [
     CommonModule,
-    FormsModule,         
+    FormsModule,
     GuiasRoutingModule,
     CoreModule,
     MaterialModule,
-    SharedModule 
+    SharedModule
   ]
 })
 export class GuiasModule { }

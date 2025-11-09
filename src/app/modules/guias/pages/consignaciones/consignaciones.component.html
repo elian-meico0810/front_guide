@@ -1,0 +1,11 @@
+<div class="screen-h p-5">
+
+    <!-- Tabla -->
+    <app-table-masters-select [columns]="columns" [data]="guides" [showActions]="true" (deleteItem)="OnDelete($event)">
+    </app-table-masters-select>
+
+    <!-- Paginación -->
+    <app-pagination [totalItems]="totalItems" [currentPage]="currentPage" [perPage]="perPage"
+        (pageChange)="loadGuides($event)" (perPageChange)="changePerPage($event)">
+    </app-pagination>
+</div>

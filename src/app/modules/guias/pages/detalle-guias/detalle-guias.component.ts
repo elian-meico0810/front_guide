@@ -1,25 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Environment } from '@core/config/environment';
-import { ConsolidatedModalComponent } from '../../core/components/consolidated-modal/consolidated-modal.component';
-import { AddGuideModalComponent } from '../../core/components/add-guide-modal/add-guide-modal.component';
-import { ConsolidationSentComponent } from '../../core/components/consolidation-sent/consolidation-sent.component';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-guias',
-  templateUrl: './guias.component.html',
-  styleUrls: ['./guias.component.css'],
+  selector: 'app-detalle-guias',
+  templateUrl: './detalle-guias.component.html',
+  styleUrls: ['./detalle-guias.component.css'],
 })
-export class GuiasComponent implements OnInit {
+export class DetalleGuiasComponent implements OnInit {
 
+  numeroGuia!: string;
+  guia: any = null;
+  loading = true;
   filter: string = '';
-  returnDate: Date = new Date();
   allDates: string[] = [];
   returnDateString: string = '';
   guides: any[] = [];
   selectedGuias: any[] = [];
+  activeTab: 'detalle' | 'consignaciones' = 'detalle';
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private http: HttpClient
+  ) { }
+
+  // Paginación
+  totalItems = 0;
+  currentPage = 1;
+  perPage = 10;
+  nextPageUrl: string | null = null;
+  prevPageUrl: string | null = null;
 
   // columnas para la tabla
   columns = [
@@ -31,13 +44,6 @@ export class GuiasComponent implements OnInit {
     { key: 'valor_recaudar', label: 'Valor recaudar', type: 'currency' },
   ];
 
-  // Paginación
-  totalItems = 0;
-  currentPage = 1;
-  perPage = 10;
-  nextPageUrl: string | null = null;
-  prevPageUrl: string | null = null;
-  loading = false;
 
   private readonly API_URL = Environment.INFO_GUIAS;
 
@@ -48,15 +54,28 @@ export class GuiasComponent implements OnInit {
     collected: 19850000
   };
 
-  constructor(
-    private router: Router,
-    private dialog: MatDialog,
-    private http: HttpClient
-  ) { }
-
   ngOnInit() {
+    // Datos de ejemplo (simular respuesta de API)
+    this.guia = {
+      cantidad_facturas: 4,
+      transportador: 'Jorge Maury',
+      estado: 'Despachada',
+      bodega: 'BQ1',
+      valor_a_recaudar: 6682112,
+      diferencia: 15831.6,
+      total_recaudado: 6666281,
+      recaudado_consignacion: 300000,
+      recaudado_qr: 208127,
+      fecha_retorno: '2025-10-28'
+    };
+
     this.generateAllDates(2025);
     this.loadGuides();
+    this.numeroGuia = this.route.snapshot.paramMap.get('id') ?? '';
+  }
+
+  goBack() {
+    this.router.navigate(['/guias']); 
   }
 
   generateAllDates(year?: number) {
@@ -94,15 +113,6 @@ export class GuiasComponent implements OnInit {
     const yearPart = parts[2];
     const todayString = `${month} ${day}, ${yearPart}`;
 
-    this.returnDateString = this.allDates.includes(todayString)
-      ? todayString
-      : this.allDates[0];
-    this.returnDate = today;
-  }
-
-  onSelectChange(event: any) {
-    this.returnDateString = event.target.value;
-    this.returnDate = new Date(this.returnDateString);
   }
 
   loadGuides(page: number = 1) {
@@ -129,7 +139,6 @@ export class GuiasComponent implements OnInit {
 
   goToDetail(guia: any) {
     console.log('Guía seleccionada:', guia);
-    this.router.navigate(['detalle', guia.numero_guia]);
   }
 
 
@@ -161,49 +170,9 @@ export class GuiasComponent implements OnInit {
     this.loadGuides(page);
   }
 
-  addGuide() {
-    const dialogRef = this.dialog.open(AddGuideModalComponent, {
-      width: '540px',
-      panelClass: 'custom-dialog',
-      data: { defaultNumber: '000006' }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result && result.numeroGuia) {
-        this.guides.unshift({
-          fechaCreacion: new Date().toISOString().split('T')[0],
-          numeroGuia: result.numeroGuia,
-          facturas: 0,
-          transportador: '',
-          estado: 'pendiente',
-          fechaRetorno: new Date().toISOString().split('T')[0],
-          valorRecaudar: '$0',
-          selected: false
-        });
-      }
-    });
+  addConsignacion() {
+    console.log("llego aca");
   }
 
-  sendConsolidated() {
-    this.selectedGuias = this.guides.filter(g => g.selected);
-    const dialogRef = this.dialog.open(ConsolidatedModalComponent, {
-      width: '500px',
-      data: { guias: this.selectedGuias }
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log('Consolidado confirmado:', result);
-        this.dialog.open(ConsolidationSentComponent, {
-          width: '520px',
-          data: { dateLabel: this.returnDateString }
-        });
-      }
-    });
-  }
-
-  toggleGuiaSelection(guia: any) {
-    guia.selected = !guia.selected;
-    this.selectedGuias = this.guides.filter(g => g.selected);
-  }
 }

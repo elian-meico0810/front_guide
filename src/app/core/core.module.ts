@@ -18,6 +18,7 @@ import { TotalizerComponent } from "./components/totalizers/totalizer.component"
 import { TableMastersComponent } from "./components/table-masters/table-masters.component";
 import { AddGuideModalComponent } from './components/add-guide-modal/add-guide-modal.component';
 import { ConsolidationSentComponent } from './components/consolidation-sent/consolidation-sent.component';
+import { TableMastersSelectComponent } from "./components/table-masters-select/table-masters-select.component";
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { ConsolidationSentComponent } from './components/consolidation-sent/cons
     SearchBarComponent,
     TotalizerComponent,
     TableMastersComponent,
+    TableMastersSelectComponent,
     AddGuideModalComponent,
     ConsolidationSentComponent,
   ],
@@ -55,6 +57,7 @@ import { ConsolidationSentComponent } from './components/consolidation-sent/cons
     TableComponent,
     TotalizerComponent,
     TableMastersComponent,
+    TableMastersSelectComponent,
     AddGuideModalComponent,
     ConsolidationSentComponent,
   ]

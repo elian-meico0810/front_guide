@@ -69,8 +69,9 @@
         <app-totalizer label="Valor total recaudado" [value]="totalizers.collected"></app-totalizer>
     </div>
 
-    <app-table-masters [columns]="columns" [data]="guides" [showActions]="true">
-    </app-table-masters>
+    <app-table-masters [columns]="columns" [data]="guides" [showActions]="true"
+        (viewItem)="goToDetail($event)"></app-table-masters>
+
 
     <app-pagination [totalItems]="totalItems" [currentPage]="currentPage" [perPage]="perPage"
         (pageChange)="loadGuides($event)" (perPageChange)="changePerPage($event)">

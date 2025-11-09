@@ -1,0 +1,13 @@
+.cubuttom {
+  background-color: #1651cf;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.cubuttom:hover {
+  background-color: #0f3da6;
+}
+
+:host {
+  flex: 1 1 250px; 
+}

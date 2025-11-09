@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "data": {
+    "count": 4,
+    "next": null,
+    "previous": null,
+    "results": [
+      {
+        "fecha_creacion_guia": "2025-11-05",
+        "numero_guia": "G-1001",
+        "cantidad_facturas": 5,
+        "estado_guia": "Despachada",
+        "fecha_retorno": "2025-11-06",
+        "valor_recaudar": 1250000
+      },
+      {
+        "fecha_creacion_guia": "2025-11-06",
+        "numero_guia": "G-1002",
+        "cantidad_facturas": 8,
+        "estado_guia": "Pendiente",
+        "fecha_retorno": "2025-11-08",
+        "valor_recaudar": 3100000
+      },
+      {
+        "fecha_creacion_guia": "2025-11-07",
+        "numero_guia": "G-1003",
+        "cantidad_facturas": 3,
+        "estado_guia": "Confirmada",
+        "fecha_retorno": "2025-11-07",
+        "valor_recaudar": 890000
+      },
+      {
+        "fecha_creacion_guia": "2025-11-08",
+        "numero_guia": "G-1004",
+        "cantidad_facturas": 6,
+        "estado_guia": "En ruta",
+        "fecha_retorno": "2025-11-09",
+        "valor_recaudar": 2100000
+      }
+    ]
+  }
+}
