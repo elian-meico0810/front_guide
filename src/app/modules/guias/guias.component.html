@@ -77,7 +77,10 @@
     </div>
 
     <app-table-masters [columns]="columns" [data]="guides" [showActions]="true" (viewItem)="goToDetail($event)"
-        (filterColumn)="onFilterColumn($event)"></app-table-masters>
+        (filterColumn)="onFilterColumn($event)">
+    </app-table-masters>
+
+
 
 
     <app-pagination [totalItems]="totalItems" [currentPage]="currentPage" [perPage]="perPage"

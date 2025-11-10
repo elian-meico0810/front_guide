@@ -21,6 +21,7 @@ export class GuiasComponent implements OnInit {
   guides: any[] = [];
   selectedGuias: any[] = [];
   isOpen = false;
+  originalData: any[] = [];
 
   // columnas para la tabla
   columns = [
@@ -116,6 +117,7 @@ export class GuiasComponent implements OnInit {
       next: (res) => {
         if (res.success && res.data) {
           this.guides = res.data.results;
+          this.originalData = [...res.data.results];
           this.totalItems = res.data.count;
           this.nextPageUrl = res.data.next;
           this.prevPageUrl = res.data.previous;
@@ -209,6 +211,29 @@ export class GuiasComponent implements OnInit {
     this.selectedGuias = this.guides.filter(g => g.selected);
   }
 
-  onFilterColumn(columnKey: string) {
+
+  onFilterColumn(event: { key: string; value: any }) { // any, no string
+    const { key, value } = event;
+
+    if (value === null || value === undefined || value === '') {
+      // Restaurar datos originales si filtro vacío
+      this.guides = [...this.originalData];
+      return;
+    }
+
+    const filterValue = value.toString().toLowerCase(); // seguro para cualquier tipo
+
+    // Filtra los datos
+    this.guides = this.originalData.filter((guia: any) => {
+      const cellValue = guia[key];
+
+      if (cellValue === null || cellValue === undefined) return false;
+
+      const cellString = cellValue.toString(); // convertir a string
+      return cellString.toLowerCase().includes(filterValue);
+    });
   }
+
+
+
 }

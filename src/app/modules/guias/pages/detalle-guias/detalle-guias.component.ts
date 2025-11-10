@@ -22,13 +22,14 @@ export class DetalleGuiasComponent implements OnInit {
   guides: any[] = [];
   selectedGuias: any[] = [];
   activeTab: 'detalle' | 'consignaciones' = 'detalle';
+  originalData: any[] = [];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient,
     private dialog: MatDialog,
-    
+
   ) { }
 
   // Paginación
@@ -126,6 +127,7 @@ export class DetalleGuiasComponent implements OnInit {
       next: (res) => {
         if (res.success && res.data) {
           this.guides = res.data.results;
+          this.originalData = [...res.data.results];
           this.totalItems = res.data.count;
           this.nextPageUrl = res.data.next;
           this.prevPageUrl = res.data.previous;
@@ -177,11 +179,28 @@ export class DetalleGuiasComponent implements OnInit {
     const dialogRef = this.dialog.open(AddConsignacionModalComponent, {
       width: '540px',
       panelClass: 'custom-dialog',
-      data: { numeroGuia:  this.numeroGuia }
+      data: { numeroGuia: this.numeroGuia }
     });
   }
 
-  onFilterColumn(columnKey: string) {
+  onFilterColumn(event: { key: string; value: any }) {
+    const { key, value } = event;
+
+    if (value === null || value === undefined || value === '') {
+      this.guides = [...this.originalData];
+      return;
+    }
+
+    const filterValue = value.toString().toLowerCase()
+
+    this.guides = this.originalData.filter((guia: any) => {
+      const cellValue = guia[key];
+
+      if (cellValue === null || cellValue === undefined) return false;
+
+      const cellString = cellValue.toString();
+      return cellString.toLowerCase().includes(filterValue);
+    });
   }
 
 }

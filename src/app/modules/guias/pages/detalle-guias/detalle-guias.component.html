@@ -145,7 +145,8 @@
         </div>
 
         <!-- Tabla -->
-        <app-table-masters [columns]="columns" [data]="guides" [showActions]="true" (viewItem)="goToDetail($event)"  (filterColumn)="onFilterColumn($event)">
+        <app-table-masters [columns]="columns" [data]="guides" [showActions]="true" (viewItem)="goToDetail($event)"
+            (filterColumn)="onFilterColumn($event)">
         </app-table-masters>
 
         <!-- Paginación -->
@@ -156,7 +157,7 @@
 
     <!-- Contenido TAB: Consignaciones -->
     <div *ngIf="activeTab === 'consignaciones'">
-    <app-consignaciones [numeroGuia]="numeroGuia"></app-consignaciones>
-  </div> 
+        <app-consignaciones [numeroGuia]="numeroGuia"></app-consignaciones>
+    </div>
 
 </div>

@@ -86,10 +86,6 @@ export class ConsignacionesComponent {
     }
 
 
-    goToDetail(guia: any) {
-    }
-
-
     filterGuide() {
         // Opcional: si quieres filtrar las guías localmente sin llamar a la API
         if (!this.filter) {
@@ -120,7 +116,38 @@ export class ConsignacionesComponent {
 
     addConsignacion() {
     }
-    OnDelete(item: any) {
+
+    onFilterColumn(event: { key: string; value: any }) {
+        const { key, value } = event;
+
+        if (value === null || value === undefined || value === '') {
+            this.loadGuides(this.currentPage);
+            return;
+        }
+
+        const filterValue = String(value).toLowerCase();
+
+        this.guides = this.guides.filter(guia => {
+            const cellValue = guia[key];
+
+            if (cellValue === null || cellValue === undefined) return false;
+
+            const cellString = String(cellValue);
+
+            return cellString.toLowerCase().includes(filterValue);
+        });
     }
+
+
+
+    OnDelete(item: any) {
+        this.guides = this.guides.filter(g => g !== item);
+        this.totalItems = this.guides.length;
+    }
+
+    goToDetail(item: any) {
+        this.router.navigate(['/detalle-guia', item.numero_guia]);
+    }
+
 
 }
