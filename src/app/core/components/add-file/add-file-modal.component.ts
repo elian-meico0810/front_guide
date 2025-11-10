@@ -39,13 +39,45 @@ export class AddFileModalComponent {
 
 
   save() {
-    this.dialog.open(SuccessModalComponent, {
-      data: {
-        mensaje: 'Archivo cargado exitosamente',
-        textoBoton: 'Continuar'
-      }
-    });
-    this.dialogRef.close(this.selectedFile ?? null);
+    if (!this.selectedFile) {
+      return;
+    }
 
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64String = reader.result as string; 
+      const fileName = this.selectedFile!.name;     
+
+      console.log("base64String: ", base64String)
+      console.log("fileName: ", fileName)
+      // Abrir modal de éxito
+      this.dialog.open(SuccessModalComponent, {
+        data: {
+          mensaje: 'Archivo cargado exitosamente',
+          textoBoton: 'Continuar',
+          success: true
+        }
+      });
+
+      // Cerrar modal y devolver un objeto con Base64 y nombre
+      this.dialogRef.close({
+        base64: base64String,
+        name: fileName
+      });
+    };
+
+    reader.onerror = (error) => {
+      console.error('Error al leer el archivo:', error);
+      this.dialog.open(SuccessModalComponent, {
+        data: {
+          mensaje: 'Error al cargar el archivo',
+          textoBoton: 'Cerrar',
+          success: false
+        }
+      });
+    };
+
+    reader.readAsDataURL(this.selectedFile); // convierte el archivo a Base64
   }
+
 }
