@@ -20,6 +20,7 @@ export class GuiasComponent implements OnInit {
   returnDateString: string = '';
   guides: any[] = [];
   selectedGuias: any[] = [];
+  isOpen = false;
 
   // columnas para la tabla
   columns = [
@@ -100,10 +101,12 @@ export class GuiasComponent implements OnInit {
     this.returnDate = today;
   }
 
-  onSelectChange(event: any) {
-    this.returnDateString = event.target.value;
-    this.returnDate = new Date(this.returnDateString);
+  onSelectChange(date: string) {
+    this.returnDateString = date;
+    this.returnDate = new Date(date);
+    this.isOpen = false;
   }
+
 
   loadGuides(page: number = 1) {
     this.loading = true;
