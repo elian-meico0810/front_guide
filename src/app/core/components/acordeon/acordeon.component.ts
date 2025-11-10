@@ -66,7 +66,6 @@ export class AcordeonComponent   {
         contentParent!.style.maxHeight = contentParent!.scrollHeight + 'px';
       })
     }
-    console.log("hijo", child, "padre", parent)
   }
 
   changesDetect() {

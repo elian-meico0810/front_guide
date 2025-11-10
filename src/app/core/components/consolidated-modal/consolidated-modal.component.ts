@@ -47,9 +47,6 @@ export class ConsolidatedModalComponent {
   }
 
   send(): void {
-    console.log('Guía seleccionada:', this.numeroGuiaSeleccionada);
-    console.log('Causal seleccionada:', this.causalSeleccionada);
-    console.log('Todas las guías:', this.selectedGuias);
     this.dialogRef.close({
       guia: this.numeroGuiaSeleccionada,
       causal: this.causalSeleccionada,

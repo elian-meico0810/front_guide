@@ -7,22 +7,16 @@ import { DetalleGuiasComponent } from './pages/detalle-guias/detalle-guias.compo
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'guias',
         component: GuiasComponent,
         canActivate: [AuthGuard],
         data: { requiredPermission: '0001' }
     },
     {
-        path: 'guias',
-        component: GuiasComponent,
-        canActivate: [AuthGuard],
-        data: {},
-    },
-    {
         path: 'detalle/:id',
         component: DetalleGuiasComponent,
         canActivate: [AuthGuard],
-        data: {},
+        data: { requiredPermission: '0001' }
     }
   
 ]

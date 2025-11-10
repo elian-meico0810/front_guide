@@ -63,7 +63,6 @@ export class ConsignacionesComponent {
 
         this.loadGuides();
         this.numeroGuia = this.route.snapshot.paramMap.get('id') ?? '';
-        console.log("Número de Guía:", this.numeroGuia);
     }
     loadGuides(page: number = 1) {
         this.loading = true;
@@ -88,7 +87,6 @@ export class ConsignacionesComponent {
 
 
     goToDetail(guia: any) {
-        console.log('Guía seleccionada:', guia);
     }
 
 
@@ -121,10 +119,8 @@ export class ConsignacionesComponent {
     }
 
     addConsignacion() {
-        console.log("llego aca");
     }
     OnDelete(item: any) {
-        console.log('Eliminar:', item);
     }
 
 }

@@ -108,6 +108,7 @@ export class GuiasComponent implements OnInit {
   loadGuides(page: number = 1) {
     this.loading = true;
     const params = { page: page.toString(), page_size: this.perPage.toString() };
+    // this.http.get<any>(this.API_URL, { params }).subscribe({
     this.http.get<any>('assets/mocks/guias.json').subscribe({
       next: (res) => {
         if (res.success && res.data) {
@@ -128,7 +129,6 @@ export class GuiasComponent implements OnInit {
 
 
   goToDetail(guia: any) {
-    console.log('Guía seleccionada:', guia);
     this.router.navigate(['detalle', guia.numero_guia]);
   }
 
@@ -193,7 +193,6 @@ export class GuiasComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Consolidado confirmado:', result);
         this.dialog.open(ConsolidationSentComponent, {
           width: '520px',
           data: { dateLabel: this.returnDateString }
@@ -205,5 +204,8 @@ export class GuiasComponent implements OnInit {
   toggleGuiaSelection(guia: any) {
     guia.selected = !guia.selected;
     this.selectedGuias = this.guides.filter(g => g.selected);
+  }
+
+  onFilterColumn(columnKey: string) {
   }
 }

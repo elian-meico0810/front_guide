@@ -11,6 +11,7 @@ export class TableMastersSelectComponent {
   @Input() showActions = false;
 
   @Output() deleteItem = new EventEmitter<any>(); // 🔹 nuevo evento individual
+  filters: { [key: string]: string } = {}; // <-- propiedad para los filtros
 
   selectedItems: any[] = [];
   selectAll = false;
@@ -33,5 +34,9 @@ export class TableMastersSelectComponent {
   toggleAllSelections() {
     this.data.forEach(item => (item.selected = this.selectAll));
     this.selectedItems = this.selectAll ? [...this.data] : [];
+  }
+
+  applyFilter(key: string, value: string) {
+    // Aquí puedes aplicar tu lógica real de filtrado sobre this.data
   }
 }

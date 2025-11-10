@@ -19,7 +19,7 @@ import { TableMastersComponent } from "./components/table-masters/table-masters.
 import { AddGuideModalComponent } from './components/add-guide-modal/add-guide-modal.component';
 import { ConsolidationSentComponent } from './components/consolidation-sent/consolidation-sent.component';
 import { TableMastersSelectComponent } from "./components/table-masters-select/table-masters-select.component";
-
+import { SuccessModalComponent } from "./components/success-modal/success-modal.component";
 
 @NgModule({
   declarations: [
@@ -36,6 +36,7 @@ import { TableMastersSelectComponent } from "./components/table-masters-select/t
     TableMastersSelectComponent,
     AddGuideModalComponent,
     ConsolidationSentComponent,
+    SuccessModalComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +61,7 @@ import { TableMastersSelectComponent } from "./components/table-masters-select/t
     TableMastersSelectComponent,
     AddGuideModalComponent,
     ConsolidationSentComponent,
+    SuccessModalComponent,
   ]
 })
 export class CoreModule { }

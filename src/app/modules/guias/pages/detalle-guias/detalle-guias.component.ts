@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Environment } from '@core/config/environment';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AddConsignacionModalComponent } from '@core/components/add-consignacion-modal/add-consignacion-modal.component';
 
 @Component({
   selector: 'app-detalle-guias',
@@ -24,7 +26,9 @@ export class DetalleGuiasComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private dialog: MatDialog,
+    
   ) { }
 
   // Paginación
@@ -75,7 +79,7 @@ export class DetalleGuiasComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/guias']); 
+    this.router.navigate(['/guias']);
   }
 
   generateAllDates(year?: number) {
@@ -138,7 +142,6 @@ export class DetalleGuiasComponent implements OnInit {
 
 
   goToDetail(guia: any) {
-    console.log('Guía seleccionada:', guia);
   }
 
 
@@ -171,8 +174,14 @@ export class DetalleGuiasComponent implements OnInit {
   }
 
   addConsignacion() {
-    console.log("llego aca");
+    const dialogRef = this.dialog.open(AddConsignacionModalComponent, {
+      width: '540px',
+      panelClass: 'custom-dialog',
+      data: { numeroGuia:  this.numeroGuia }
+    });
   }
 
+  onFilterColumn(columnKey: string) {
+  }
 
 }

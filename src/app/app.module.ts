@@ -19,10 +19,15 @@ import { FormsModule } from '@angular/forms';
 import { UsuariosModule } from "./modules/usuarios/usuarios.module";
 import { GuiasModule } from "./modules/guias/guias.module";
 import { ConsolidatedModalComponent } from "@core/components/consolidated-modal/consolidated-modal.component";
+import { AddConsignacionModalComponent } from "@core/components/add-consignacion-modal/add-consignacion-modal.component";
+import { AddFileModalComponent } from "@core/components/add-file/add-file-modal.component";
 
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent,ConsolidatedModalComponent],
+  declarations: [AppComponent, DashboardComponent,
+    ConsolidatedModalComponent, AddConsignacionModalComponent,
+    AddFileModalComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

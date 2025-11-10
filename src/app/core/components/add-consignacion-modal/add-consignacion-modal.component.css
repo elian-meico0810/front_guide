@@ -1,0 +1,7 @@
+.add-guide-modal {
+  min-width: 420px;
+}
+
+input[ngmodel] {
+  outline: none;
+}
