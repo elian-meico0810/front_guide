@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { DbEnums } from '@core/config/db';
 
 @Component({
   selector: 'app-table-masters-select',
@@ -6,18 +7,19 @@ import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange
   styleUrls: ['./table-masters-select.component.css']
 })
 export class TableMastersSelectComponent implements OnInit, OnChanges {
-  @Input() columns: { key: string; label: string }[] = [];
+  @Input() columns: { key: string; label: string; type?: string }[] = [];
   @Input() data: any[] = [];
   @Input() showActions = false;
 
-  @Output() deleteItem = new EventEmitter<any>(); // eliminar fila
-  @Output() viewItem = new EventEmitter<any>(); // ver detalle
-  @Output() filterColumn = new EventEmitter<{ key: string; value: string }>(); // filtro al padre
+  @Output() deleteItem = new EventEmitter<any>();
+  @Output() viewItem = new EventEmitter<any>();
+  @Output() filterColumn = new EventEmitter<{ key: string; value: string }>();
 
   // selección
   selectedItems: any[] = [];
   selectAll = false;
   activeFilter: string | null = null;
+  DbEnums = DbEnums;
 
   // filtros
   filters: { [key: string]: string } = {};
@@ -119,6 +121,27 @@ export class TableMastersSelectComponent implements OnInit, OnChanges {
   // Cerrar dropdown de filtro
   closeFilter() {
     this.activeFilter = null;
+  }
+
+
+  formatDate(value: any): string {
+    if (!value) return '';
+    const date = new Date(value);
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: '2-digit',
+      year: 'numeric'
+    }); // Ej: "Oct 28, 2025"
+  }
+
+  formatCurrency(value: any): string {
+    if (value == null || value === '') return '';
+    const numberValue = Number(value);
+    return numberValue.toLocaleString('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 2
+    });
   }
 
 }

@@ -40,3 +40,14 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+
+# Archivos de entorno
+.env
+.env.local
+.env.development
+.env.production
+
+
+src\environments\enviroments.qa.ts
+src\environments\enviroments.ts

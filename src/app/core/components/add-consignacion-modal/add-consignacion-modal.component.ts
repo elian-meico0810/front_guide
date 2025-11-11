@@ -71,6 +71,7 @@ export class AddConsignacionModalComponent {
     const bodyParams = {
       numero_guia: this.numeroGuia,
       numero_planilla: 1001,
+      nombre_archivo:this.selectedFile?.name || null,
       tipo_consignacion: this.tipoConsignacion,
       valor_consignacion: valorProcesado,
       ruta_archivo_soporte: this.selectedFile?.base64 || null,
@@ -90,11 +91,6 @@ export class AddConsignacionModalComponent {
       httpHeaders
     ).subscribe({
       next: (res) => {
-        console.log('Código:', res.statusCode);
-        console.log('Éxito:', res.success);
-        console.log('Mensajes:', res.messages);
-        console.log('Data:', res.data);
-
         this.dialog.open(SuccessModalComponent, {
           data: {
             mensaje: res.success
@@ -105,7 +101,6 @@ export class AddConsignacionModalComponent {
           }
         });
 
-        // Solo cerramos el modal y regresamos datos si es éxito
         if (res.success) {
           this.dialogRef.close({ numeroGuia: this.numeroGuia });
         }

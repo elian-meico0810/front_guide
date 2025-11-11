@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DbEnums } from '@core/config/db';
 import { Environment } from '@core/config/environment';
+import { ObjParam } from '@core/interfaces/base/obj-param.interface';
+import { HttpBaseAppService } from '@core/services/http-base-app.service';
+import { HttpBaseService } from '@core/services/http-base.service';
 
 @Component({
     selector: 'app-consignaciones',
@@ -19,26 +23,31 @@ export class ConsignacionesComponent {
     guides: any[] = [];
     selectedGuias: any[] = [];
     activeTab: 'detalle' | 'consignaciones' = 'detalle';
+    originalData: any[] = [];
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private http: HttpClient
+        private http: HttpClient,
+        private httpAppService: HttpBaseAppService,
     ) { }
 
     // columnas para la tabla
     columns = [
-        { key: 'fecha_creacion_guia', label: 'Fecha creación', type: 'date' },
-        { key: 'numero_guia', label: 'N° Guía' },
-        { key: 'cantidad_facturas', label: 'Facturas', type: 'number' },
-        { key: 'estado_guia', label: 'Estado' },
-        { key: 'fecha_retorno', label: 'Fecha retorno', type: 'date' },
-        { key: 'valor_recaudar', label: 'Valor recaudar', type: 'currency' },
+        { key: 'fecha_consignacion_corta', label: 'Fecha', type: 'date' },
+        { key: 'valor_consignacion', label: 'Valor consignación', type: 'currency' },
+        { key: 'tipo_consignacion', label: 'Tipo' },
+        { key: 'nombre_archivo', label: 'Soporte', type: 'soporte' },
     ];
 
-
-    private readonly API_URL = Environment.INFO_GUIAS;
-
+    filteredData = [
+        {
+            nombre_archivo: 'nombre_archivo',
+            ruta_archivo_soporte: 'ruta_archivo_soporte',
+            sas_token: DbEnums.TOKEN_AZURE
+        },
+    ];
+    
     // Paginación
     totalItems = 0;
     currentPage = 1;
@@ -64,30 +73,42 @@ export class ConsignacionesComponent {
         this.loadGuides();
         this.numeroGuia = this.route.snapshot.paramMap.get('id') ?? '';
     }
+
     loadGuides(page: number = 1) {
         this.loading = true;
-        const params = { page: page.toString(), page_size: this.perPage.toString() };
-        this.http.get<any>('assets/mocks/guias.json').subscribe({
-            next: (res) => {
-                if (res.success && res.data) {
-                    this.guides = res.data.results;
-                    this.totalItems = res.data.count;
-                    this.nextPageUrl = res.data.next;
-                    this.prevPageUrl = res.data.previous;
-                    this.currentPage = page;
-                }
-                this.loading = false;
-            },
-            error: (err) => {
-                console.error('Error al cargar las guías:', err);
-                this.loading = false;
-            }
-        });
+
+        // Definir parámetros
+        const params: ObjParam[] = [
+            { campo: 'page', valor: page.toString() },
+            { campo: 'page_size', valor: this.perPage.toString() },
+        ];
+
+        // Llamada al backend con el servicio base
+        this.httpAppService
+            .get<any>(Environment.GET_ALL_CONSIGNACIONES, params)
+            .subscribe({
+                next: (res) => {
+
+                   if (res.data?.results) {
+                        this.guides = res.data.results;
+                        this.originalData = [...res.data.results];
+                        this.totalItems = res.data.count;
+                        this.nextPageUrl = res.data.next;
+                        this.prevPageUrl = res.data.previous;
+                        this.currentPage = page;
+                    }
+
+                    this.loading = false;
+                },
+                error: (err) => {
+                    console.error('Error al cargar consignaciones:', err);
+                    this.loading = false;
+                },
+            });
     }
 
 
     filterGuide() {
-        // Opcional: si quieres filtrar las guías localmente sin llamar a la API
         if (!this.filter) {
             this.loadGuides(this.currentPage);
             return;

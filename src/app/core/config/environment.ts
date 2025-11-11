@@ -12,4 +12,5 @@ export class Environment {
 
   // Crear registro de consignaciones
   static readonly SEND_CONSIGNACIONES = `${Environment.API_BASE_URL}/consignaciones/crear/`;
+  static readonly GET_ALL_CONSIGNACIONES  = `${Environment.API_BASE_URL}/consignaciones/obtener-consignaciones/`;
 }
