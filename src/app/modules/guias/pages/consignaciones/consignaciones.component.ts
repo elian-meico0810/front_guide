@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationModalComponent } from '@core/components/confirmation-modal/confirmation-modal.component';
 import { DbEnums } from '@core/config/db';
 import { Environment } from '@core/config/environment';
 import { ObjParam } from '@core/interfaces/base/obj-param.interface';
 import { HttpBaseAppService } from '@core/services/http-base-app.service';
-import { HttpBaseService } from '@core/services/http-base.service';
 
 @Component({
     selector: 'app-consignaciones',
@@ -33,6 +34,7 @@ export class ConsignacionesComponent {
         private route: ActivatedRoute,
         private http: HttpClient,
         private httpAppService: HttpBaseAppService,
+        private dialog: MatDialog
     ) { }
 
     // columnas para la tabla
@@ -164,8 +166,47 @@ export class ConsignacionesComponent {
 
 
     OnDelete(item: any) {
-        this.guides = this.guides.filter(g => g !== item);
-        this.totalItems = this.guides.length;
+        const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+            data: {
+                mensaje: `¿Deseas eliminar el registro "${item.nombre_archivo}"?`,
+                submensaje: 'Esta acción no se puede deshacer.',
+                textoBotonAceptar: 'Sí, eliminar',
+                textoBotonCancelar: 'Cancelar',
+                success: false
+            }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result === true) {
+                this.httpAppService.deleteMethod(`${Environment.DELETE_CONSIGNACIONES}/?id=${item.id}`).subscribe({
+                    next: (res: any) => {
+                        this.dialog.open(ConfirmationModalComponent, {
+                            data: {
+                                mensaje: res?.success
+                                    ? 'El registro fue eliminado correctamente.'
+                                    : res?.messages || 'No se pudo eliminar el registro.',
+                                textoBotonAceptar: 'Cerrar',
+                                success: res?.success ?? true
+                            }
+                        });
+
+                        if (res?.success) {
+                            this.loadGuides(this.currentPage, this.activeFilters);
+                        }
+                    },
+                    error: (err) => {
+                        console.error('Error al eliminar:', err);
+                        this.dialog.open(ConfirmationModalComponent, {
+                            data: {
+                                mensaje: 'Ocurrió un error al eliminar el registro.',
+                                textoBotonAceptar: 'Cerrar',
+                                success: false
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 
     goToDetail(item: any) {

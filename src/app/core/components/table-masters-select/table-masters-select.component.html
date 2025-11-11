@@ -32,9 +32,9 @@
             <!-- Lista de valores -->
             <ul class="max-h-64 overflow-auto">
               <li *ngFor="let value of getUniqueValues(col.key)" (click)="selectFilter(col.key, value)" [ngClass]="{
-      'bg-blue-100 text-blue-800 font-semibold': filters[col.key] === value,
-      'hover:bg-blue-50 text-gray-700': filters[col.key] !== value
-    }" class="px-3 py-2 text-sm cursor-pointer break-words whitespace-normal leading-snug transition-colors duration-150 rounded-md">
+                  'bg-blue-100 text-blue-800 font-semibold': filters[col.key] === value,
+                  'hover:bg-blue-50 text-gray-700': filters[col.key] !== value
+                }" class="px-3 py-2 text-sm cursor-pointer break-words whitespace-normal leading-snug transition-colors duration-150 rounded-md">
                 {{ value }}
               </li>
             </ul>

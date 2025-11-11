@@ -20,6 +20,7 @@ import { AddGuideModalComponent } from './components/add-guide-modal/add-guide-m
 import { ConsolidationSentComponent } from './components/consolidation-sent/consolidation-sent.component';
 import { TableMastersSelectComponent } from "./components/table-masters-select/table-masters-select.component";
 import { SuccessModalComponent } from "./components/success-modal/success-modal.component";
+import { ConfirmationModalComponent } from "./components/confirmation-modal/confirmation-modal.component";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { SuccessModalComponent } from "./components/success-modal/success-modal.
     AddGuideModalComponent,
     ConsolidationSentComponent,
     SuccessModalComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     CommonModule,
@@ -62,6 +64,7 @@ import { SuccessModalComponent } from "./components/success-modal/success-modal.
     AddGuideModalComponent,
     ConsolidationSentComponent,
     SuccessModalComponent,
+    ConfirmationModalComponent,
   ]
 })
 export class CoreModule { }
