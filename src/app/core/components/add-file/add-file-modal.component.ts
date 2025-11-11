@@ -27,11 +27,31 @@ export class AddFileModalComponent {
   onFileSelected(event: any) {
     const file = event?.target?.files?.[0] ?? null;
     if (file) {
-      this.selectedFile = file;
+      // Obtener la extensión del archivo
+      const allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+      if (fileExtension && allowedExtensions.includes(fileExtension)) {
+        // Archivo permitido
+        this.selectedFile = file;
+      } else {
+        // Archivo no permitido
+        this.selectedFile = null;
+
+        // Mostrar mensaje de error
+        this.dialog.open(SuccessModalComponent, {
+          data: {
+            mensaje: 'Tipo de archivo no permitido. Solo se permiten jpg, png o pdf.',
+            textoBoton: 'Cerrar',
+            success: false
+          }
+        });
+      }
     } else {
       this.selectedFile = null;
     }
   }
+
 
   cancel() {
     this.dialogRef.close();
@@ -45,8 +65,8 @@ export class AddFileModalComponent {
 
     const reader = new FileReader();
     reader.onload = () => {
-      const base64String = reader.result as string; 
-      const fileName = this.selectedFile!.name;     
+      const base64String = reader.result as string;
+      const fileName = this.selectedFile!.name;
 
       console.log("base64String: ", base64String)
       console.log("fileName: ", fileName)

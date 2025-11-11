@@ -17,12 +17,13 @@
                     d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 12V4m0 0l-4 4m4-4l4 4" />
             </svg>
             <p class="text-sm">
-                Subir archivo <span class="font-semibold">jpg, png o excel.</span><br />
+                Subir archivo <span class="font-semibold">jpg, png o pdf.</span><br />
                 Tamaño: 10 MB
             </p>
 
-            <input type="file" (change)="onFileSelected($event)"
+            <input type="file" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png,.pdf"
                 class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
+
         </div>
 
         <!-- Archivo cargado (opcional, visible solo si existe archivo) -->
