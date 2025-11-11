@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { DbEnums } from '@core/config/db';
 
 @Component({
   selector: 'app-table-masters-select',
@@ -15,12 +14,12 @@ export class TableMastersSelectComponent implements OnInit, OnChanges {
   @Output() viewItem = new EventEmitter<any>();
   @Output() filterColumn = new EventEmitter<{ key: string; value: string }>();
   @Input() filterOptions: any[] = [];
+  @Output() openFile = new EventEmitter<any>();
 
   // selección
   selectedItems: any[] = [];
   selectAll = false;
   activeFilter: string | null = null;
-  DbEnums = DbEnums;
 
   // filtros
   filters: { [key: string]: string } = {};

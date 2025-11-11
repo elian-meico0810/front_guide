@@ -3,7 +3,6 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationModalComponent } from '@core/components/confirmation-modal/confirmation-modal.component';
-import { DbEnums } from '@core/config/db';
 import { Environment } from '@core/config/environment';
 import { ObjParam } from '@core/interfaces/base/obj-param.interface';
 import { HttpBaseAppService } from '@core/services/http-base-app.service';
@@ -43,14 +42,6 @@ export class ConsignacionesComponent {
         { key: 'valor_consignacion', label: 'Valor consignación', type: 'currency', filter: false },
         { key: 'tipo_consignacion', label: 'Tipo', filter: false },
         { key: 'nombre_archivo', label: 'Soporte', type: 'soporte', filter: true },
-    ];
-
-    filteredData = [
-        {
-            nombre_archivo: 'nombre_archivo',
-            ruta_archivo_soporte: 'ruta_archivo_soporte',
-            sas_token: DbEnums.TOKEN_AZURE
-        },
     ];
 
     // Paginación
@@ -160,10 +151,30 @@ export class ConsignacionesComponent {
         this.loadGuides(page);
     }
 
-    addConsignacion() {
+    OpenArchivo(item: any) {
+        if (!item.ruta_archivo_soporte) return;
+
+        // Llamamos al backend para obtener la URL SAS
+        this.httpAppService.post<any>(
+            'api/consignaciones/public-azure/',
+            {
+                file_nombre: "20251111_1001_G-1001_32_Untitled.png_961a14f1-220f-4165-a566-8abb9a12924d.png",
+                folder: "Consignaciones"
+            } // enviamos la ruta al backend
+        ).subscribe({
+            next: (res) => {
+                if (res && res.data?.url_sas) {
+                    // Abrir en una pestaña nueva
+                    window.open(res.data.url_sas, '_blank');
+                } else {
+                    console.error('No se recibió URL SAS del backend');
+                }
+            },
+            error: (err) => {
+                console.error('Error al obtener SAS', err);
+            }
+        });
     }
-
-
 
     OnDelete(item: any) {
         const dialogRef = this.dialog.open(ConfirmationModalComponent, {
