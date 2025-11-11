@@ -7,13 +7,14 @@ import { DbEnums } from '@core/config/db';
   styleUrls: ['./table-masters-select.component.css']
 })
 export class TableMastersSelectComponent implements OnInit, OnChanges {
-  @Input() columns: { key: string; label: string; type?: string }[] = [];
+  @Input() columns: { key: string; label: string; type?: string; filter?: boolean }[] = [];
   @Input() data: any[] = [];
   @Input() showActions = false;
 
   @Output() deleteItem = new EventEmitter<any>();
   @Output() viewItem = new EventEmitter<any>();
   @Output() filterColumn = new EventEmitter<{ key: string; value: string }>();
+  @Input() filterOptions: any[] = [];
 
   // selección
   selectedItems: any[] = [];
@@ -65,43 +66,32 @@ export class TableMastersSelectComponent implements OnInit, OnChanges {
   }
 
   // Aplicar filtro local y emitir al padre
-  applyFilter(colKey: string, value: any) { // value puede ser cualquier tipo
-    // Guardar el filtro
+  applyFilter(colKey: string, value: any) {
     this.filters[colKey] = value;
 
-    // Emitir al padre
     this.filterColumn.emit({ key: colKey, value });
 
-    // Convertir valor del filtro a string seguro
-    const filterValueSafe = (value !== null && value !== undefined) ? String(value).toLowerCase() : '';
-
-    // Filtrado local
     this.filteredData = this.originalData.filter(item => {
-      return Object.keys(this.filters).every(key => {
-        const filterVal = this.filters[key];
-
-        if (filterVal === null || filterVal === undefined || filterVal === '') return true;
-
-        const cellValue = item[key];
-        if (cellValue === null || cellValue === undefined) return false;
-
-        // Convertir la celda a string seguro
-        const cellString = String(cellValue);
-
-        return cellString.toLowerCase().includes(filterValueSafe);
-      });
+      const filterVal = (value ?? '').toString().toLowerCase();
+      const cellVal = (item[colKey] ?? '').toString().toLowerCase();
+      return cellVal.includes(filterVal);
     });
 
     this.updateSelectionState();
   }
+
 
   clearFilter(colKey: string) {
     this.applyFilter(colKey, '');
   }
 
   getUniqueValues(key: string): string[] {
+    if (this.filterOptions.length > 0) {
+      return Array.from(new Set(this.filterOptions.map(item => item[key]))).filter(Boolean);
+    }
     return Array.from(new Set(this.originalData.map(item => item[key]))).filter(Boolean);
   }
+
 
   private updateSelectionState() {
     this.selectedItems = this.filteredData.filter(d => d.selected);
@@ -112,13 +102,11 @@ export class TableMastersSelectComponent implements OnInit, OnChanges {
     this.activeFilter = this.activeFilter === col.key ? null : col.key;
   }
 
-  // Selecciona un valor de filtro desde el dropdown y aplica el filtrado
   selectFilter(colKey: string, value: string) {
     this.applyFilter(colKey, value);
     this.closeFilter();
   }
 
-  // Cerrar dropdown de filtro
   closeFilter() {
     this.activeFilter = null;
   }
@@ -131,7 +119,7 @@ export class TableMastersSelectComponent implements OnInit, OnChanges {
       month: 'short',
       day: '2-digit',
       year: 'numeric'
-    }); // Ej: "Oct 28, 2025"
+    });
   }
 
   formatCurrency(value: any): string {

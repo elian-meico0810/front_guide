@@ -24,6 +24,9 @@ export class ConsignacionesComponent {
     selectedGuias: any[] = [];
     activeTab: 'detalle' | 'consignaciones' = 'detalle';
     originalData: any[] = [];
+    groupFilters: any[] = [];
+    activeFilters: any[] = [];
+
 
     constructor(
         private router: Router,
@@ -34,10 +37,10 @@ export class ConsignacionesComponent {
 
     // columnas para la tabla
     columns = [
-        { key: 'fecha_consignacion_corta', label: 'Fecha', type: 'date' },
-        { key: 'valor_consignacion', label: 'Valor consignación', type: 'currency' },
-        { key: 'tipo_consignacion', label: 'Tipo' },
-        { key: 'nombre_archivo', label: 'Soporte', type: 'soporte' },
+        { key: 'fecha_consignacion_corta', label: 'Fecha', type: 'date', filter: false },
+        { key: 'valor_consignacion', label: 'Valor consignación', type: 'currency', filter: false },
+        { key: 'tipo_consignacion', label: 'Tipo', filter: false },
+        { key: 'nombre_archivo', label: 'Soporte', type: 'soporte', filter: true },
     ];
 
     filteredData = [
@@ -47,7 +50,7 @@ export class ConsignacionesComponent {
             sas_token: DbEnums.TOKEN_AZURE
         },
     ];
-    
+
     // Paginación
     totalItems = 0;
     currentPage = 1;
@@ -57,47 +60,53 @@ export class ConsignacionesComponent {
 
     ngOnInit() {
         // Datos de ejemplo (simular respuesta de API)
-        this.guia = {
-            cantidad_facturas: 4,
-            transportador: 'Jorge Maury',
-            estado: 'Despachada',
-            bodega: 'BQ1',
-            valor_a_recaudar: 6682112,
-            diferencia: 15831.6,
-            total_recaudado: 6666281,
-            recaudado_consignacion: 300000,
-            recaudado_qr: 208127,
-            fecha_retorno: '2025-10-28'
-        };
-
+        this.loadGroupGuides();
         this.loadGuides();
         this.numeroGuia = this.route.snapshot.paramMap.get('id') ?? '';
     }
 
-    loadGuides(page: number = 1) {
+    loadGroupGuides() {
+        this.loading = true;
+        this.httpAppService
+            .get<any>(Environment.GET_GROUP_PARAMETROS, [])
+            .subscribe({
+                next: (res) => {
+                    if (res.data) {
+                        this.groupFilters = res.data;
+                    }
+                    this.loading = false;
+                },
+                error: (err) => {
+                    console.error('Error al cargar parámetros:', err);
+                    this.loading = false;
+                },
+            });
+    }
+
+    // Cargar registros paginados
+    loadGuides(page: number = 1, filters: any = {}) {
         this.loading = true;
 
-        // Definir parámetros
         const params: ObjParam[] = [
             { campo: 'page', valor: page.toString() },
             { campo: 'page_size', valor: this.perPage.toString() },
         ];
 
-        // Llamada al backend con el servicio base
+        if (filters.search) {
+            params.push({ campo: 'search', valor: filters.search });
+        }
+
         this.httpAppService
             .get<any>(Environment.GET_ALL_CONSIGNACIONES, params)
             .subscribe({
                 next: (res) => {
-
-                   if (res.data?.results) {
+                    if (res.data?.results) {
                         this.guides = res.data.results;
-                        this.originalData = [...res.data.results];
                         this.totalItems = res.data.count;
                         this.nextPageUrl = res.data.next;
                         this.prevPageUrl = res.data.previous;
                         this.currentPage = page;
                     }
-
                     this.loading = false;
                 },
                 error: (err) => {
@@ -106,6 +115,20 @@ export class ConsignacionesComponent {
                 },
             });
     }
+
+    onFilterColumn(event: { key: string; value: string }) {
+        const { key, value } = event;
+
+        // Guardar los filtros activos
+        this.activeFilters = { ...this.activeFilters, [key]: value };
+
+        const searchValue = Object.values(this.activeFilters)
+            .filter(v => v && v.trim() !== '')
+            .join(' ');
+
+        this.loadGuides(1, { search: searchValue });
+    }
+
 
 
     filterGuide() {
@@ -136,27 +159,6 @@ export class ConsignacionesComponent {
     }
 
     addConsignacion() {
-    }
-
-    onFilterColumn(event: { key: string; value: any }) {
-        const { key, value } = event;
-
-        if (value === null || value === undefined || value === '') {
-            this.loadGuides(this.currentPage);
-            return;
-        }
-
-        const filterValue = String(value).toLowerCase();
-
-        this.guides = this.guides.filter(guia => {
-            const cellValue = guia[key];
-
-            if (cellValue === null || cellValue === undefined) return false;
-
-            const cellString = String(cellValue);
-
-            return cellString.toLowerCase().includes(filterValue);
-        });
     }
 
 
