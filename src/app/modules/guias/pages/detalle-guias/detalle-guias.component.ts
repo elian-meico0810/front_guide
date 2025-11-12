@@ -5,6 +5,8 @@ import { Environment } from '@core/config/environment';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddConsignacionModalComponent } from '@core/components/add-consignacion-modal/add-consignacion-modal.component';
+import { HttpBaseAppService } from '@core/services/http-base-app.service';
+import { ObjParam } from '@core/interfaces/base/obj-param.interface';
 
 @Component({
   selector: 'app-detalle-guias',
@@ -29,6 +31,7 @@ export class DetalleGuiasComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private dialog: MatDialog,
+    private httpAppService: HttpBaseAppService,
 
   ) { }
 
@@ -52,31 +55,11 @@ export class DetalleGuiasComponent implements OnInit {
 
   private readonly API_URL = Environment.INFO_GUIAS;
 
-  totalizers = {
-    dispatched: 1000,
-    confirmed: 10,
-    expected: 25000000,
-    collected: 19850000
-  };
-
   ngOnInit() {
     // Datos de ejemplo (simular respuesta de API)
-    this.guia = {
-      cantidad_facturas: 4,
-      transportador: 'Jorge Maury',
-      estado: 'Despachada',
-      bodega: 'BQ1',
-      valor_a_recaudar: 6682112,
-      diferencia: 15831.6,
-      total_recaudado: 6666281,
-      recaudado_consignacion: 300000,
-      recaudado_qr: 208127,
-      fecha_retorno: '2025-10-28'
-    };
-
+    this.numeroGuia = this.route.snapshot.paramMap.get('id') ?? '';
     this.generateAllDates(2025);
     this.loadGuides();
-    this.numeroGuia = this.route.snapshot.paramMap.get('id') ?? '';
   }
 
   goBack() {
@@ -122,16 +105,30 @@ export class DetalleGuiasComponent implements OnInit {
 
   loadGuides(page: number = 1) {
     this.loading = true;
-    const params = { page: page.toString(), page_size: this.perPage.toString() };
-    this.http.get<any>('assets/mocks/guias.json').subscribe({
+    const params: ObjParam[] = [];
+
+    if (this.numeroGuia) {
+      params.push({ campo: 'numeroGuia', valor: this.numeroGuia });
+
+    }
+    
+    this.httpAppService.get<any>(Environment.GET_GUIDE_BY_NUMERO_GUIDE, params).subscribe({
       next: (res) => {
-        if (res.success && res.data) {
-          this.guides = res.data.results;
-          this.originalData = [...res.data.results];
-          this.totalItems = res.data.count;
-          this.nextPageUrl = res.data.next;
-          this.prevPageUrl = res.data.previous;
-          this.currentPage = page;
+        if (res.success && res.data && res.data.results.length > 0) {
+          const guide = res.data.results[0];
+          console.log("res.data.results: ", res.data)
+          this.guia = {
+            cantidad_facturas: guide.cantidad_facturas,
+            transportador: guide.transportador,
+            estado: guide.estado_guia,
+            bodega: 'BQ212',
+            valor_a_recaudar: guide.valor_recaudar || 0,
+            diferencia: guide.valor_recaudar - guide.valor_recaudar || 0,
+            total_recaudado: guide.valor_recaudar || 0,
+            recaudado_consignacion: 0,
+            recaudado_qr: 0,
+            fecha_retorno: guide.mayor_fecha_retorno.split('T')[0]
+          };
         }
         this.loading = false;
       },
@@ -141,6 +138,7 @@ export class DetalleGuiasComponent implements OnInit {
       }
     });
   }
+
 
 
   goToDetail(guia: any) {
