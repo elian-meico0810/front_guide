@@ -1,9 +1,9 @@
 <div class="screen-h p-5">
 
-    <!-- Botón regresar -->
-    <div class="flex items-end gap-6 text-base font-medium mb-6">
+    <!-- Header superior: Botón regresar + Tabs -->
+    <div class="flex flex-col sm:flex-row sm:items-end gap-6 mb-6">
 
-        <!-- Botón regresar dentro de un recuadro gris -->
+        <!-- Botón regresar -->
         <div class="flex items-center border border-blue-600 rounded-md px-3 py-2">
             <button class="flex items-center text-gray-600" (click)="goBack()">
                 <i class="fa-solid fa-arrow-left mr-2"></i>
@@ -11,56 +11,47 @@
             </button>
         </div>
 
-        <!-- Tabs navegación (con borde inferior gris solo aquí) -->
-        <div class="flex gap-6 text-gray-600 border-b border-gray-300 w-full">
-            <button class="pb-2 border-b-2" [ngClass]="{
-        'border-[#1751cf] text-[#1751cf]': activeTab === 'detalle',
-        'border-transparent hover:text-[#1751cf]': activeTab !== 'detalle'
-      }" (click)="activeTab = 'detalle'">
+        <!-- Tabs navegación -->
+        <div class="flex gap-6 text-gray-600 border-b border-gray-300 w-full sm:w-auto">
+            <button class="pb-2 border-b-2"
+                [ngClass]="{'border-[#1751cf] text-[#1751cf]': activeTab === 'detalle', 'border-transparent hover:text-[#1751cf]': activeTab !== 'detalle'}"
+                (click)="activeTab = 'detalle'">
                 Detalle guía
             </button>
 
-            <button class="pb-2 border-b-2" [ngClass]="{
-        'border-[#1751cf] text-[#1751cf]': activeTab === 'consignaciones',
-        'border-transparent hover:text-[#1751cf]': activeTab !== 'consignaciones'
-      }" (click)="activeTab = 'consignaciones'">
+            <button class="pb-2 border-b-2"
+                [ngClass]="{'border-[#1751cf] text-[#1751cf]': activeTab === 'consignaciones', 'border-transparent hover:text-[#1751cf]': activeTab !== 'consignaciones'}"
+                (click)="activeTab = 'consignaciones'">
                 Gestión Consignaciones
             </button>
         </div>
     </div>
 
-
-
     <!-- Contenido TAB: Detalle guía -->
-    <div *ngIf="activeTab === 'detalle'">
-        <!-- Header superior -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full gap-4">
+    <div *ngIf="activeTab === 'detalle'" class="flex flex-col gap-6">
 
-            <!-- Bloque izquierdo: Título y fecha -->
+        <!-- Header con título y acciones -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
+            <!-- Título y fecha -->
             <div class="flex flex-col">
-                <a class="flex items-center p-1 text-2xl sm:text-3xl font-bold">
-                    Guía N° {{ numeroGuia }}
-                </a>
-                <span class="text-2xl sm:text-3xl text-base sm:text-lg mt-1">
+                <h1 class="text-2xl sm:text-3xl font-bold">Guía N° {{ numeroGuia }}</h1>
+                <span class="text-base sm:text-lg mt-1">
                     <span class="font-bold">Fecha de retorno:</span>
                     <span class="font-normal ml-1">{{ guia?.fecha_retorno | date:'MMM d, y' }}</span>
                 </span>
-
             </div>
 
-            <!-- Bloque derecho -->
+            <!-- Acciones: Buscador + Agregar consignación -->
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
                 <!-- Buscador -->
-                <div class="relative w-full sm:w-80 md:w-96">
-                    <input type="search" id="default-search" autocomplete="off" (input)="filterGuide()"
-                        [(ngModel)]="filter" class="block w-full h-10 pl-4 pr-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 placeholder-gray-400
-             focus:outline-none focus:ring-1 focus:ring-[#1751cf] focus:border-[#1751cf]"
-                        placeholder="Buscar por número de factura" />
+                <div class="relative">
+                    <input type="search" autocomplete="off" (input)="filterGuide()" [(ngModel)]="filter"
+                        class="input-search" placeholder="Buscar por número de factura" />
                     <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
                         <i class="mgc_search_line text-xl text-[#7d7d7d]"></i>
                     </div>
                 </div>
-
                 <!-- Botón Agregar consignación -->
                 <button
                     class="cubuttom flex items-center justify-center text-white px-4 py-2 rounded-lg hover:bg-[#0f3da6] transition w-full sm:w-auto"
@@ -69,93 +60,73 @@
                     Agregar consignación
                 </button>
             </div>
+
         </div>
 
-        <!-- Información superior de la guía -->
-        <div class="mt-6 bg-white border border-gray-400 rounded-2xl shadow-sm p-6">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <!-- Información de la guía -->
+        <div class="guia-card shadow-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 w-full">
                 <div>
                     <p class="text-sm font-semibold text-gray-500">Cant. Factura</p>
                     <p class="text-lg text-gray-400">{{ guia?.cantidad_facturas || 0 }}</p>
                 </div>
-
                 <div>
                     <p class="text-sm font-semibold text-gray-500">Transportador</p>
                     <p class="text-lg text-gray-400">{{ guia?.transportador || '—' }}</p>
                 </div>
-
                 <div>
                     <p class="text-sm font-semibold text-gray-500">Estado</p>
                     <span class="px-3 py-1 text-sm font-medium rounded-full" [ngClass]="{
-                'bg-yellow-100 text-yellow-800': guia?.estado === 'Despachada',
-                'bg-green-100 text-green-800': guia?.estado === 'Cerrada',
-                'bg-gray-100 text-gray-400': !guia?.estado
-              }">
+                  'bg-yellow-100 text-yellow-800': guia?.estado === 'Despachada',
+                  'bg-green-100 text-green-800': guia?.estado === 'Cerrada',
+                  'bg-gray-100 text-gray-400': !guia?.estado
+                }">
                         {{ guia?.estado || '—' }}
                     </span>
                 </div>
-
                 <div>
                     <p class="text-sm font-semibold text-gray-500">Bodega</p>
                     <p class="text-lg text-gray-400">{{ guia?.bodega || '—' }}</p>
                 </div>
-
                 <div>
                     <p class="text-sm font-semibold text-gray-500">Valor a recaudar</p>
-                    <p class="text-lg text-gray-400">
-                        {{ guia?.valor_a_recaudar | currency:'COP':'symbol':'1.0-0' }}
-                    </p>
+                    <p class="text-lg text-gray-400">{{ guia?.valor_a_recaudar | currency:'$':'symbol':'1.0-0' }}</p>
                 </div>
-
                 <div>
                     <p class="text-sm font-semibold text-gray-500">Diferencia</p>
-                    <p class="text-lg text-gray-400">
-                        {{ guia?.diferencia | currency:'COP':'symbol':'1.0-0' }}
-                    </p>
+                    <p class="text-lg text-gray-400">{{ guia?.diferencia | currency:'$ ':'symbol':'1.0-0' }}</p>
                 </div>
-
                 <div>
                     <p class="text-sm font-semibold text-gray-500">Total recaudado</p>
-                    <p class="text-lg text-gray-400">
-                        {{ guia?.total_recaudado | currency:'COP':'symbol':'1.0-0' }}
-                    </p>
+                    <p class="text-lg text-gray-400">{{ guia?.total_recaudado | currency:'$':'symbol':'1.0-0' }}</p>
                 </div>
-
                 <div>
                     <p class="text-sm font-semibold text-gray-500">Recaudado consign.</p>
-                    <p class="text-lg text-gray-400">
-                        {{ guia?.recaudado_consignacion | currency:'COP':'symbol':'1.0-0' }}
-                    </p>
+                    <p class="text-lg text-gray-400">{{ guia?.recaudado_consignacion | currency:'$':'symbol':'1.0-0'
+                        }}</p>
                 </div>
-
                 <div>
                     <p class="text-sm font-semibold text-gray-500">Recaudado QR</p>
-                    <p class="text-lg text-gray-400">
-                        {{ guia?.recaudado_qr | currency:'COP':'symbol':'1.0-0' }}
-                    </p>
+                    <p class="text-lg text-gray-400">{{ guia?.recaudado_qr | currency:'$':'symbol':'1.0-0' }}</p>
                 </div>
-
                 <div>
                     <p class="text-sm font-semibold text-gray-500">Fecha de retorno</p>
-                    <p class="text-lg text-gray-400">
-                        {{ guia?.fecha_retorno | date:'MMM d, y' }}
-                    </p>
+                    <p class="text-lg text-gray-400">{{ guia?.fecha_retorno | date:'MMM d, y' }}</p>
                 </div>
             </div>
         </div>
 
-        <!-- Tabla -->
+        <!-- Tabla y paginación -->
         <app-table-masters [columns]="columns" [data]="guides" [showActions]="true" (viewItem)="goToDetail($event)"
             (filterColumn)="onFilterColumn($event)">
         </app-table-masters>
-
-        <!-- Paginación -->
         <app-pagination [totalItems]="totalItems" [currentPage]="currentPage" [perPage]="perPage"
             (pageChange)="loadGuides($event)" (perPageChange)="changePerPage($event)">
         </app-pagination>
+
     </div>
 
-    <!-- Contenido TAB: Consignaciones -->
+    <!-- TAB Consignaciones -->
     <div *ngIf="activeTab === 'consignaciones'">
         <app-consignaciones [numeroGuia]="numeroGuia"></app-consignaciones>
     </div>

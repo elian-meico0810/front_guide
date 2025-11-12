@@ -11,3 +11,84 @@
 :host {
   flex: 1 1 250px; 
 }
+
+/* styles.css o componente CSS */
+.btn-custom {
+    width: 210px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border-radius: 8px;
+    padding: 8px 16px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #1651CF;
+    background-color: white;
+    color: #1651CF;
+    opacity: 1;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom i {
+    color: #1651CF; 
+}
+
+.btn-custom:hover {
+    background-color: #1651CF10; 
+}
+
+.btn-blue {
+    width: 163px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border-radius: 8px;
+    padding: 8px 16px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #1651CF;
+    background-color: #1651CF; 
+    color: white;
+    opacity: 1;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-blue i {
+    color: white; 
+}
+
+.btn-blue:hover {
+    background-color: #0f3da6; 
+}
+
+.input-search {
+    width: 332px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    gap: 24px; 
+    padding: 8px 8px 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #E6E6E7;
+    background-color: #FFFFFF;
+    color: #000000; 
+    font-size: 14px;
+    outline: none;
+    opacity: 1;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-search:focus {
+    border-color: #1651CF; 
+    box-shadow: 0 0 0 1px #1651CF;
+}
+
+.input-search::placeholder {
+    color: #7d7d7d;
+}

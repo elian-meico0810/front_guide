@@ -1,7 +1,73 @@
-.add-guide-modal {
-  min-width: 420px;
+/* Modal principal */
+.custom-modal {
+    width: 475px;
+    height: 224px;
+    gap: 24px;
+    opacity: 1;
+    border-radius: 16px;
+    padding: 23px 23px 32px 23px;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
 }
 
-input[ngmodel] {
-  outline: none;
+/* Input de número de guía */
+.custom-input {
+    width: 429px;
+    height: 32px;
+    gap: 24px;
+    opacity: 1;
+    border-radius: 8px;
+    padding: 8px 8px 8px 16px;
+    border: 1px solid #E6E6E7;
+    background-color: #FFFFFF;
+    color: #000000; /* Texto negro para contraste */
+    box-sizing: border-box;
+}
+
+/* Botón Agregar */
+.btn-add {
+    width: 206.5px;
+    height: 36px;
+    gap: 9px;
+    border-radius: 8px;
+    padding: 8px 16px;
+    border: none;
+    background-color: #1651CF;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.btn-add:hover {
+    background-color: #1545b8;
+}
+
+/* Botón Cancelar */
+.btn-cancel {
+    width: 206.5px;
+    height: 36px;
+    gap: 9px;
+    border-radius: 8px;
+    padding: 8px 16px;
+    border: 1px solid #1651CF;
+    background-color: #FFFFFF;
+    color: #808080; /* Gris */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.btn-cancel:hover {
+    background-color: #f0f0f0;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    opacity: 1;
 }

@@ -241,8 +241,8 @@ export class GuiasComponent implements OnInit {
   addGuide() {
     const dialogRef = this.dialog.open(AddGuideModalComponent, {
       width: '540px',
-      panelClass: 'custom-dialog',
-      data: { defaultNumber: '000006' }
+      data: { defaultNumber: '000006' },
+      panelClass: 'custom-modal-panel'
     });
 
     dialogRef.afterClosed().subscribe(result => {
