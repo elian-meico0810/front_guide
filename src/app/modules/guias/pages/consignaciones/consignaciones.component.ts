@@ -182,7 +182,7 @@ export class ConsignacionesComponent {
                 mensaje: `¿Deseas eliminar el registro "${item.nombre_archivo}"?`,
                 submensaje: 'Esta acción no se puede deshacer.',
                 textoBotonAceptar: 'Sí, eliminar',
-                textoBotonCancelar: 'Cancelar',
+                textoBotonCancelar: null,
                 success: false
             }
         });
@@ -197,7 +197,8 @@ export class ConsignacionesComponent {
                                     ? 'El registro fue eliminado correctamente.'
                                     : res?.messages || 'No se pudo eliminar el registro.',
                                 textoBotonAceptar: 'Cerrar',
-                                success: res?.success ?? true
+                                success: res?.success ?? true,
+                                ocultarCancelar: true
                             }
                         });
 
@@ -211,7 +212,8 @@ export class ConsignacionesComponent {
                             data: {
                                 mensaje: 'Ocurrió un error al eliminar el registro.',
                                 textoBotonAceptar: 'Cerrar',
-                                success: false
+                                success: false,
+                                ocultarCancelar: true
                             }
                         });
                     }

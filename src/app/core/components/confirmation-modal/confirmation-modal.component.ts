@@ -6,7 +6,8 @@ export interface ConfirmationModalData {
   submensaje?: string;
   textoBotonAceptar?: string;
   textoBotonCancelar?: string;
-  success?: boolean; // Para estilos del modal
+  success?: boolean; 
+    ocultarCancelar: boolean;
 }
 
 @Component({
@@ -20,6 +21,7 @@ export class ConfirmationModalComponent {
   textoBotonAceptar: string;
   textoBotonCancelar: string;
   success: boolean;
+  ocultarCancelar?: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmationModalComponent>,
@@ -30,10 +32,11 @@ export class ConfirmationModalComponent {
     this.textoBotonAceptar = data.textoBotonAceptar || 'Aceptar';
     this.textoBotonCancelar = data.textoBotonCancelar || 'Cancelar';
     this.success = data.success !== undefined ? data.success : true;
+    this.ocultarCancelar = data.ocultarCancelar || false; 
   }
 
   onAceptar() {
-    this.dialogRef.close(true); 
+    this.dialogRef.close(true);
   }
 
   onCancelar() {
