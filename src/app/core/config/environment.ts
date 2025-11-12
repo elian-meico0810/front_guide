@@ -15,4 +15,6 @@ export class Environment {
   static readonly GET_ALL_CONSIGNACIONES  = `${Environment.API_BASE_URL}/consignaciones/obtener-consignaciones/`;
   static readonly GET_GROUP_PARAMETROS  = `${Environment.API_BASE_URL}/consignaciones/group-paramtros/`;
   static readonly DELETE_CONSIGNACIONES = `${Environment.API_BASE_URL}/consignaciones/eliminar`;
+  static readonly VIEW_IMAGE_AZURE = `${Environment.API_BASE_URL}/consignaciones/public-azure/`;
+
 }

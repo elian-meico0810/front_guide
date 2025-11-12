@@ -153,21 +153,21 @@ export class ConsignacionesComponent {
 
     OpenArchivo(item: any) {
         if (!item.ruta_archivo_soporte) return;
+        const partes = item.ruta_archivo_soporte.split('/');
+        const folder = partes[0];
 
-        // Llamamos al backend para obtener la URL SAS
+        const file_nombre = partes[partes.length - 1];
+
         this.httpAppService.post<any>(
-            'api/consignaciones/public-azure/',
+            Environment.VIEW_IMAGE_AZURE,
             {
-                file_nombre: "20251111_1001_G-1001_32_Untitled.png_961a14f1-220f-4165-a566-8abb9a12924d.png",
-                folder: "Consignaciones"
-            } // enviamos la ruta al backend
+                file_nombre: file_nombre,
+                folder: folder
+            }
         ).subscribe({
             next: (res) => {
                 if (res && res.data?.url_sas) {
-                    // Abrir en una pestaña nueva
                     window.open(res.data.url_sas, '_blank');
-                } else {
-                    console.error('No se recibió URL SAS del backend');
                 }
             },
             error: (err) => {
