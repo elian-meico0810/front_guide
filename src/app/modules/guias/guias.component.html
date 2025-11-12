@@ -76,12 +76,9 @@
         <app-totalizer label="Valor total recaudado" [value]="totalizers.collected"></app-totalizer>
     </div>
 
-    <app-table-masters [columns]="columns" [data]="guides" [showActions]="true" (viewItem)="goToDetail($event)"
-        (filterColumn)="onFilterColumn($event)">
+    <app-table-masters [columns]="columns" [data]="guides" [filterOptions]="groupFilters" [showActions]="true"
+        (viewItem)="goToDetail($event)" (filterColumn)="onFilterColumn($event)">
     </app-table-masters>
-
-
-
 
     <app-pagination [totalItems]="totalItems" [currentPage]="currentPage" [perPage]="perPage"
         (pageChange)="loadGuides($event)" (perPageChange)="changePerPage($event)">

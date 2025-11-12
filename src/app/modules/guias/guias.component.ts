@@ -25,6 +25,8 @@ export class GuiasComponent implements OnInit {
   isOpen = false;
   originalData: any[] = [];
   filterTimeout: any;
+  groupFilters: any[] = [];
+  activeFilters: any[] = [];
 
   // columnas para la tabla
   columns = [
@@ -63,6 +65,7 @@ export class GuiasComponent implements OnInit {
     this.generateAllDates(2025);
     this.loadGuides();
     this.loadTotalizers();
+    this.loadGroupGuides();
   }
 
   generateAllDates(year?: number) {
@@ -124,6 +127,9 @@ export class GuiasComponent implements OnInit {
     if (filters.search) {
       params.push({ campo: 'search', valor: filters.search });
     }
+    if (filters.key) {
+      params.push({ campo: filters.key, valor: filters.value });
+    }
 
     this.httpAppService
       .get<any>(Environment.DETAILS_GUIDE, params).subscribe({
@@ -147,7 +153,7 @@ export class GuiasComponent implements OnInit {
 
   loadTotalizers(filters: any = {}) {
     const params: ObjParam[] = [];
-    
+
     if (filters.search) {
       params.push({ campo: 'search', valor: filters.search });
     }
@@ -187,24 +193,36 @@ export class GuiasComponent implements OnInit {
 
 
   filterGuide() {
-    // Limpiar el timeout previo si el usuario sigue escribiendo
     clearTimeout(this.filterTimeout);
 
-    // Esperar 1.5 segundos antes de ejecutar el filtro
     this.filterTimeout = setTimeout(() => {
-      console.log("Filtro ejecutado con: ", this.filter);
       const filters = {
         search: this.filter || ''
       };
 
-      // Llamar a loadGuides con la búsqueda filtrada
       this.loadGuides(1, filters);
 
-      // Llamar también a loadTotalizers con el mismo filtro si quieres
       this.loadTotalizers(filters);
     }, 1500); // 1500 ms = 1.5 segundos
   }
 
+  loadGroupGuides() {
+    this.loading = true;
+    this.httpAppService
+      .get<any>(Environment.GET_GROUP_PARAMTER_DETALLE, [])
+      .subscribe({
+        next: (res) => {
+          if (res.data) {
+            this.groupFilters = res.data;
+          }
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error al cargar parámetros:', err);
+          this.loading = false;
+        },
+      });
+  }
 
   changePerPage(newSize: number) {
     this.perPage = newSize;
@@ -265,27 +283,18 @@ export class GuiasComponent implements OnInit {
     this.selectedGuias = this.guides.filter(g => g.selected);
   }
 
-
-  onFilterColumn(event: { key: string; value: any }) {
+  onFilterColumn(event: { key: string; value: string }) {
     const { key, value } = event;
+    // Guardar los filtros activos  
+    this.activeFilters = { ...this.activeFilters, [key]: value };
 
-    if (value === null || value === undefined || value === '') {
-      this.guides = [...this.originalData];
-      return;
-    }
+    const searchValue = Object.values(this.activeFilters)
+      .filter(v => v && v.trim() !== '')
+      .join(' ');
 
-    const filterValue = value.toString().toLowerCase();
-
-    // Filtra los datos
-    this.guides = this.originalData.filter((guia: any) => {
-      const cellValue = guia[key];
-
-      if (cellValue === null || cellValue === undefined) return false;
-
-      const cellString = cellValue.toString();
-      return cellString.toLowerCase().includes(filterValue);
-    });
+    this.loadGuides(1, { key: key, value: searchValue });
   }
+
 
 
 
