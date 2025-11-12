@@ -85,4 +85,27 @@ export class TableMastersComponent implements OnInit, OnChanges {
       minimumFractionDigits: 2
     });
   }
+
+  capitalizeFirst(value: string): string {
+    if (!value) return '';
+    const lower = value.toLowerCase();
+    return lower.charAt(0).toUpperCase() + lower.slice(1);
+  }
+
+  formatEstado(value: string): string {
+    if (!value) return 'Sin estado';
+
+    const lower = value.toLowerCase();
+    const capitalized = lower.charAt(0).toUpperCase() + lower.slice(1);
+
+    switch (lower) {
+      case 'confirmada':
+        return 'Confirmada';
+      case 'despachada':
+        return 'Despachada';
+      default:
+        return capitalized;
+    }
+  }
+
 }

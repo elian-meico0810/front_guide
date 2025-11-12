@@ -6,6 +6,8 @@ import { Environment } from '@core/config/environment';
 import { ConsolidatedModalComponent } from '../../core/components/consolidated-modal/consolidated-modal.component';
 import { AddGuideModalComponent } from '../../core/components/add-guide-modal/add-guide-modal.component';
 import { ConsolidationSentComponent } from '../../core/components/consolidation-sent/consolidation-sent.component';
+import { HttpBaseAppService } from '@core/services/http-base-app.service';
+import { ObjParam } from '@core/interfaces/base/obj-param.interface';
 
 @Component({
   selector: 'app-guias',
@@ -25,13 +27,13 @@ export class GuiasComponent implements OnInit {
 
   // columnas para la tabla
   columns = [
-    { key: 'fecha_creacion_guia', label: 'Fecha creación', type: 'date', filter: false},
+    { key: 'fecha_creacion_guia', label: 'Fecha creación', type: 'date', filter: false },
     { key: 'numero_guia', label: 'N° Guía', filter: false },
     { key: 'cantidad_facturas', label: 'Facturas', type: 'number', filter: false },
-    { key: 'estado_guia', label: 'Estado', filter: true },
+    { key: 'estado_guia', label: 'Estado', filter: true, type: 'estado' },
     { key: 'transportador', label: 'Transportador', filter: true },
-    { key: 'fecha_retorno', label: 'Fecha retorno', type: 'date', filter: false  },
-    { key: 'valor_recaudar', label: 'Valor recaudar', type: 'currency', filter: false  },
+    { key: 'mayor_fecha_retorno', label: 'Fecha retorno', type: 'date', filter: false },
+    { key: 'valor_recaudar', label: 'Valor recaudar', type: 'currency', filter: false },
   ];
 
   // Paginación
@@ -41,8 +43,6 @@ export class GuiasComponent implements OnInit {
   nextPageUrl: string | null = null;
   prevPageUrl: string | null = null;
   loading = false;
-
-  private readonly API_URL = Environment.INFO_GUIAS;
 
   totalizers = {
     dispatched: 1000,
@@ -54,7 +54,8 @@ export class GuiasComponent implements OnInit {
   constructor(
     private router: Router,
     private dialog: MatDialog,
-    private http: HttpClient
+    private http: HttpClient,
+    private httpAppService: HttpBaseAppService,
   ) { }
 
   ngOnInit() {
@@ -110,27 +111,36 @@ export class GuiasComponent implements OnInit {
   }
 
 
-  loadGuides(page: number = 1) {
+  loadGuides(page: number = 1, filters: any = {}) {
     this.loading = true;
-    const params = { page: page.toString(), page_size: this.perPage.toString() };
-    // this.http.get<any>(this.API_URL, { params }).subscribe({
-    this.http.get<any>('assets/mocks/guias.json').subscribe({
-      next: (res) => {
-        if (res.success && res.data) {
-          this.guides = res.data.results;
-          this.originalData = [...res.data.results];
-          this.totalItems = res.data.count;
-          this.nextPageUrl = res.data.next;
-          this.prevPageUrl = res.data.previous;
-          this.currentPage = page;
+
+    const params: ObjParam[] = [
+      { campo: 'page', valor: page.toString() },
+      { campo: 'page_size', valor: this.perPage.toString() },
+    ];
+
+    if (filters.search) {
+      params.push({ campo: 'search', valor: filters.search });
+    }
+
+    this.httpAppService
+      .get<any>(Environment.DETAILS_GUIDE, params).subscribe({
+        next: (res) => {
+          if (res.success && res.data) {
+            this.guides = res.data.results;
+            this.originalData = [...res.data.results];
+            this.totalItems = res.data.count;
+            this.nextPageUrl = res.data.next;
+            this.prevPageUrl = res.data.previous;
+            this.currentPage = page;
+          }
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error al cargar las guías:', err);
+          this.loading = false;
         }
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error al cargar las guías:', err);
-        this.loading = false;
-      }
-    });
+      });
   }
 
 

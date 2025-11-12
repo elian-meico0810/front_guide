@@ -9,6 +9,7 @@ export class Environment {
 
   // Endpoints de obtener planillas 
   static readonly INFO_GUIAS = `${Environment.API_BASE_URL}/gestionGuias/obtener-planilla-detalles/`;
+  static readonly DETAILS_GUIDE = `${Environment.API_BASE_URL}/planilla-detalle/obtener-detalle-guia`;
 
   // Crear registro de consignaciones
   static readonly SEND_CONSIGNACIONES = `${Environment.API_BASE_URL}/consignaciones/crear/`;
