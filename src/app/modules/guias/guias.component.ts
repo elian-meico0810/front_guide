@@ -24,6 +24,7 @@ export class GuiasComponent implements OnInit {
   selectedGuias: any[] = [];
   isOpen = false;
   originalData: any[] = [];
+  filterTimeout: any;
 
   // columnas para la tabla
   columns = [
@@ -144,8 +145,13 @@ export class GuiasComponent implements OnInit {
       });
   }
 
-  loadTotalizers() {
-    this.httpAppService.get<any>(Environment.TOTALS_STATIC_GUIDE, []).subscribe({
+  loadTotalizers(filters: any = {}) {
+    const params: ObjParam[] = [];
+    
+    if (filters.search) {
+      params.push({ campo: 'search', valor: filters.search });
+    }
+    this.httpAppService.get<any>(Environment.TOTALS_STATIC_GUIDE, params).subscribe({
       next: (res) => {
         if (res.success && res.data) {
           this.totalizers = {
@@ -179,18 +185,26 @@ export class GuiasComponent implements OnInit {
   }
 
 
-  filterGuide() {
-    if (!this.filter) {
-      this.loadGuides(this.currentPage);
-      return;
-    }
 
-    this.guides = this.guides.filter(g =>
-      Object.values(g).some(value =>
-        value?.toString().toLowerCase().includes(this.filter.toLowerCase())
-      )
-    );
+  filterGuide() {
+    // Limpiar el timeout previo si el usuario sigue escribiendo
+    clearTimeout(this.filterTimeout);
+
+    // Esperar 1.5 segundos antes de ejecutar el filtro
+    this.filterTimeout = setTimeout(() => {
+      console.log("Filtro ejecutado con: ", this.filter);
+      const filters = {
+        search: this.filter || ''
+      };
+
+      // Llamar a loadGuides con la búsqueda filtrada
+      this.loadGuides(1, filters);
+
+      // Llamar también a loadTotalizers con el mismo filtro si quieres
+      this.loadTotalizers(filters);
+    }, 1500); // 1500 ms = 1.5 segundos
   }
+
 
   changePerPage(newSize: number) {
     this.perPage = newSize;
@@ -260,7 +274,7 @@ export class GuiasComponent implements OnInit {
       return;
     }
 
-    const filterValue = value.toString().toLowerCase(); 
+    const filterValue = value.toString().toLowerCase();
 
     // Filtra los datos
     this.guides = this.originalData.filter((guia: any) => {
