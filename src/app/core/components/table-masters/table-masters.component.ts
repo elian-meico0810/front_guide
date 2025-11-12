@@ -96,16 +96,7 @@ export class TableMastersComponent implements OnInit, OnChanges {
     if (!value) return 'Sin estado';
 
     const lower = value.toLowerCase();
-    const capitalized = lower.charAt(0).toUpperCase() + lower.slice(1);
-
-    switch (lower) {
-      case 'confirmada':
-        return 'Confirmada';
-      case 'despachada':
-        return 'Despachada';
-      default:
-        return capitalized;
-    }
+    return lower.charAt(0).toUpperCase() + lower.slice(1);
   }
 
 }
