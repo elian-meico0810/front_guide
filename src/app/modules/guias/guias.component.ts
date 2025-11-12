@@ -25,12 +25,13 @@ export class GuiasComponent implements OnInit {
 
   // columnas para la tabla
   columns = [
-    { key: 'fecha_creacion_guia', label: 'Fecha creación', type: 'date' },
-    { key: 'numero_guia', label: 'N° Guía' },
-    { key: 'cantidad_facturas', label: 'Facturas', type: 'number' },
-    { key: 'estado_guia', label: 'Estado' },
-    { key: 'fecha_retorno', label: 'Fecha retorno', type: 'date' },
-    { key: 'valor_recaudar', label: 'Valor recaudar', type: 'currency' },
+    { key: 'fecha_creacion_guia', label: 'Fecha creación', type: 'date', filter: false},
+    { key: 'numero_guia', label: 'N° Guía', filter: false },
+    { key: 'cantidad_facturas', label: 'Facturas', type: 'number', filter: false },
+    { key: 'estado_guia', label: 'Estado', filter: true },
+    { key: 'transportador', label: 'Transportador', filter: true },
+    { key: 'fecha_retorno', label: 'Fecha retorno', type: 'date', filter: false  },
+    { key: 'valor_recaudar', label: 'Valor recaudar', type: 'currency', filter: false  },
   ];
 
   // Paginación

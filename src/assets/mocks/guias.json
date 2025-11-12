@@ -9,6 +9,8 @@
         "fecha_creacion_guia": "2025-11-05",
         "numero_guia": "G-1001",
         "cantidad_facturas": 5,
+        "cliente": "SAMIR",
+        "transportador": "Elian FInce",
         "estado_guia": "Despachada",
         "fecha_retorno": "2025-11-06",
         "valor_recaudar": 1250000
@@ -17,6 +19,8 @@
         "fecha_creacion_guia": "2025-11-06",
         "numero_guia": "G-1002",
         "cantidad_facturas": 8,
+        "cliente": "TERPEEL",
+        "transportador": "Pedro Jose",
         "estado_guia": "Pendiente",
         "fecha_retorno": "2025-11-08",
         "valor_recaudar": 3100000
@@ -24,6 +28,8 @@
       {
         "fecha_creacion_guia": "2025-11-07",
         "numero_guia": "G-1003",
+        "cliente": "TGN",
+        "transportador": "Pedro Manuel",
         "cantidad_facturas": 3,
         "estado_guia": "Confirmada",
         "fecha_retorno": "2025-11-07",
@@ -33,6 +39,8 @@
         "fecha_creacion_guia": "2025-11-08",
         "numero_guia": "G-1004",
         "cantidad_facturas": 6,
+        "cliente": "TGN",
+        "transportador": "Jhon Doe",
         "estado_guia": "En ruta",
         "fecha_retorno": "2025-11-09",
         "valor_recaudar": 2100000
