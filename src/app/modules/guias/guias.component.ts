@@ -45,10 +45,10 @@ export class GuiasComponent implements OnInit {
   loading = false;
 
   totalizers = {
-    dispatched: 1000,
-    confirmed: 10,
-    expected: 25000000,
-    collected: 19850000
+    dispatched: 0,
+    confirmed: 0,
+    expected: 0,
+    collected: 0
   };
 
   constructor(
@@ -61,6 +61,7 @@ export class GuiasComponent implements OnInit {
   ngOnInit() {
     this.generateAllDates(2025);
     this.loadGuides();
+    this.loadTotalizers();
   }
 
   generateAllDates(year?: number) {
@@ -143,6 +144,35 @@ export class GuiasComponent implements OnInit {
       });
   }
 
+  loadTotalizers() {
+    this.httpAppService.get<any>(Environment.TOTALS_STATIC_GUIDE, []).subscribe({
+      next: (res) => {
+        if (res.success && res.data) {
+          this.totalizers = {
+            dispatched: res.data.total_despachada ?? 0,
+            confirmed: res.data.total_confirmada ?? 0,
+            expected: res.data.total_valor_esperado_recaudar ?? 0,
+            collected: res.data.total_valor_recaudado ?? 0,
+          };
+        } else {
+          this.resetTotalizers();
+        }
+      },
+      error: (err) => {
+        console.error('Error al cargar los totales:', err);
+        this.resetTotalizers();
+      }
+    });
+  }
+
+  resetTotalizers() {
+    this.totalizers = {
+      dispatched: 0,
+      confirmed: 0,
+      expected: 0,
+      collected: 0,
+    };
+  }
 
   goToDetail(guia: any) {
     this.router.navigate(['detalle', guia.numero_guia]);
@@ -150,7 +180,6 @@ export class GuiasComponent implements OnInit {
 
 
   filterGuide() {
-    // Opcional: si quieres filtrar las guías localmente sin llamar a la API
     if (!this.filter) {
       this.loadGuides(this.currentPage);
       return;
@@ -223,16 +252,15 @@ export class GuiasComponent implements OnInit {
   }
 
 
-  onFilterColumn(event: { key: string; value: any }) { // any, no string
+  onFilterColumn(event: { key: string; value: any }) {
     const { key, value } = event;
 
     if (value === null || value === undefined || value === '') {
-      // Restaurar datos originales si filtro vacío
       this.guides = [...this.originalData];
       return;
     }
 
-    const filterValue = value.toString().toLowerCase(); // seguro para cualquier tipo
+    const filterValue = value.toString().toLowerCase(); 
 
     // Filtra los datos
     this.guides = this.originalData.filter((guia: any) => {
@@ -240,7 +268,7 @@ export class GuiasComponent implements OnInit {
 
       if (cellValue === null || cellValue === undefined) return false;
 
-      const cellString = cellValue.toString(); // convertir a string
+      const cellString = cellValue.toString();
       return cellString.toLowerCase().includes(filterValue);
     });
   }
