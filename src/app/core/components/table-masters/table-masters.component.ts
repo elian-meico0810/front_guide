@@ -83,7 +83,7 @@ export class TableMastersComponent implements OnInit, OnChanges {
   }
 
   formatCurrency(value: any): string {
-    if (value == null || value === '') return '';
+    if (value == null || value === '') return '0';
     const num = Number(value);
     return isNaN(num) ? value : num.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 2 });
   }

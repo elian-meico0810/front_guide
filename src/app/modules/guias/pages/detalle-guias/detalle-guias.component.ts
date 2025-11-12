@@ -25,6 +25,7 @@ export class DetalleGuiasComponent implements OnInit {
   selectedGuias: any[] = [];
   activeTab: 'detalle' | 'consignaciones' = 'detalle';
   originalData: any[] = [];
+  filterTimeout: any;
 
   constructor(
     private router: Router,
@@ -44,12 +45,14 @@ export class DetalleGuiasComponent implements OnInit {
 
   // columnas para la tabla
   columns = [
-    { key: 'fecha_creacion_guia', label: 'Fecha creación', type: 'date' },
-    { key: 'numero_guia', label: 'N° Guía' },
-    { key: 'cantidad_facturas', label: 'Facturas', type: 'number' },
-    { key: 'estado_guia', label: 'Estado' },
-    { key: 'fecha_retorno', label: 'Fecha retorno', type: 'date' },
-    { key: 'valor_recaudar', label: 'Valor recaudar', type: 'currency' },
+    { key: 'numero_documento', label: 'N° Factura' },
+    { key: 'razon_social_cliente', label: 'Cliente' },
+    { key: 'valor_factura', label: 'Valor Factura', type: 'currency' },
+    { key: 'valor_nc', label: 'Valor NC Real', type: 'currency' },
+    { key: 'dfr_real', label: 'DFR Real', type: 'currency' },
+    { key: 'valor_esperado_recaudar', label: 'Valor a Recaudar', type: 'currency' },
+    { key: 'diferencia', label: 'Diferencia', type: 'currency' },
+    { key: 'estado_planilla', label: 'Estado', },
   ];
 
 
@@ -59,6 +62,7 @@ export class DetalleGuiasComponent implements OnInit {
     // Datos de ejemplo (simular respuesta de API)
     this.numeroGuia = this.route.snapshot.paramMap.get('id') ?? '';
     this.generateAllDates(2025);
+    this.loadComponentGuides()
     this.loadGuides();
   }
 
@@ -103,7 +107,7 @@ export class DetalleGuiasComponent implements OnInit {
 
   }
 
-  loadGuides(page: number = 1) {
+  loadComponentGuides() {
     this.loading = true;
     const params: ObjParam[] = [];
 
@@ -111,12 +115,11 @@ export class DetalleGuiasComponent implements OnInit {
       params.push({ campo: 'numeroGuia', valor: this.numeroGuia });
 
     }
-    
+
     this.httpAppService.get<any>(Environment.GET_GUIDE_BY_NUMERO_GUIDE, params).subscribe({
       next: (res) => {
         if (res.success && res.data && res.data.results.length > 0) {
           const guide = res.data.results[0];
-          console.log("res.data.results: ", res.data)
           this.guia = {
             cantidad_facturas: guide.cantidad_facturas,
             transportador: guide.transportador,
@@ -139,24 +142,52 @@ export class DetalleGuiasComponent implements OnInit {
     });
   }
 
+  loadGuides(page: number = 1, filters: any = {}) {
+    this.loading = true;
 
+    const params: ObjParam[] = [
+      { campo: 'page', valor: page.toString() },
+      { campo: 'page_size', valor: this.perPage.toString() },
+    ];
+
+    if (filters.search) {
+      params.push({ campo: 'search', valor: filters.search });
+    }
+
+    this.httpAppService
+      .get<any>(Environment.GET_PLANILLA_DETALLE_FACTURAS, params).subscribe({
+        next: (res) => {
+          if (res.success && res.data) {
+            this.guides = res.data.results;
+            this.totalItems = res.data.count;
+            this.nextPageUrl = res.data.next;
+            this.prevPageUrl = res.data.previous;
+            this.currentPage = page;
+          }
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error al cargar las guías:', err);
+          this.loading = false;
+        }
+      });
+  }
 
   goToDetail(guia: any) {
   }
 
 
   filterGuide() {
-    // Opcional: si quieres filtrar las guías localmente sin llamar a la API
-    if (!this.filter) {
-      this.loadGuides(this.currentPage);
-      return;
-    }
+    clearTimeout(this.filterTimeout);
 
-    this.guides = this.guides.filter(g =>
-      Object.values(g).some(value =>
-        value?.toString().toLowerCase().includes(this.filter.toLowerCase())
-      )
-    );
+    this.filterTimeout = setTimeout(() => {
+      const filters = {
+        search: this.filter || ''
+      };
+
+      this.loadGuides(1, filters);
+
+    }, 1500); // 1500 ms = 1.5 segundos
   }
 
   changePerPage(newSize: number) {
