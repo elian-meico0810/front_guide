@@ -1,71 +1,54 @@
 <!-- Overlay -->
-<div class="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
-    <!-- Modal principal -->
-    <div class="relative p-8 bg-white rounded-[2rem] shadow-xl overflow-hidden"
-        style="width: 540px; max-width: 90vw; max-height: 85vh;">
-        <!-- Título -->
-        <h2 class="text-2xl font-bold mb-6 text-gray-900 text-start">
-            Adjuntar soporte
-        </h2>
+<div class="modal-overlay">
+  <!-- Modal principal -->
+  <div class="modal-consignacion">
+    <!-- Título -->
+    <h2 class="modal-title">Adjuntar soporte</h2>
 
-        <!-- Zona de carga -->
-        <div
-            class="relative border-2 border-dashed border-gray-300 rounded-2xl py-10 flex flex-col items-center justify-center text-center text-gray-500">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mb-2 text-gray-400" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 12V4m0 0l-4 4m4-4l4 4" />
-            </svg>
-            <p class="text-sm">
-                Subir archivo <span class="font-semibold">jpg, png o pdf.</span><br />
-                Tamaño: 10 MB
-            </p>
-
-            <input type="file" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png,.pdf"
-                class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
-
-        </div>
-
-        <!-- Archivo cargado (opcional, visible solo si existe archivo) -->
-        <div *ngIf="selectedFile" class="flex items-center justify-between mt-6 px-4 py-3 rounded-2xl bg-white">
-            <div class="flex items-center gap-2 text-gray-700">
-                <!-- Ícono gris -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M7 8h10M7 12h10m-7 4h7M5 6h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z" />
-                </svg>
-
-                <!-- Nombre del archivo -->
-                <span class="text-sm font-medium truncate max-w-[300px]">
-                    {{ selectedFile.name }}
-                </span>
-            </div>
-
-            <!-- Check verde -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-        </div>
-
-
-        <!-- Botones -->
-        <div class="flex justify-between gap-3 mt-8">
-            <button type="button" (click)="cancel()"
-                class="w-full border border-gray-300 text-gray-700 rounded-xl py-2 font-medium hover:bg-gray-100 transition">
-                Volver
-            </button>
-
-
-            <button (click)="save()"
-                class="w-full bg-[#1751cf] text-white rounded-xl py-2 font-medium hover:bg-[#0f3cb3] transition flex items-center justify-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Guardar
-            </button>
-        </div>
+    <!-- Zona de carga -->
+    <div class="modal-upload">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mb-2 text-gray-400" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 12V4m0 0l-4 4m4-4l4 4" />
+      </svg>
+      <p class="text-sm text-gray-500">
+        Subir archivo <span class="font-semibold">jpg, png o pdf.</span><br />
+        Tamaño: 10 MB
+      </p>
+      <input type="file" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png,.pdf"
+        class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
     </div>
+
+    <!-- Archivo cargado -->
+    <div *ngIf="selectedFile" class="modal-file">
+      <div class="file-info">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M7 8h10M7 12h10m-7 4h7M5 6h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z" />
+        </svg>
+        <span class="file-name">{{ selectedFile.name }}</span>
+      </div>
+
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+
+    <!-- Botones -->
+    <div class="modal-buttons">
+      <button type="button" (click)="cancel()" class="btn-secondary">
+        Volver
+      </button>
+      <button (click)="save()" class="btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        Guardar
+      </button>
+    </div>
+  </div>
 </div>
