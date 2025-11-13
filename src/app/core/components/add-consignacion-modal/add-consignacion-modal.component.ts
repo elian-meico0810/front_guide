@@ -148,7 +148,6 @@ export class AddConsignacionModalComponent {
           base64: result.base64,
           name: result.name
         };
-        console.log('Archivo cargado:', this.selectedFile);
       }
     });
   }

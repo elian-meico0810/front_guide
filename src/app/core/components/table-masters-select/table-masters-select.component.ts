@@ -54,8 +54,6 @@ export class TableMastersSelectComponent implements OnInit, OnChanges {
   // Eliminar fila
   onDelete(item: any) {
     this.deleteItem.emit(item);
-    this.filteredData = this.filteredData.filter(d => d !== item);
-    this.originalData = this.originalData.filter(d => d !== item);
     this.updateSelection(item);
   }
 

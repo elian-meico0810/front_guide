@@ -459,5 +459,23 @@ body {
   backdrop-filter: blur(4px);
 }
 
+/* Capitalizar todos los textos de la aplicación */
+body, table, th, td, span, a, button, label {
+  text-transform: capitalize;
+}
 
+th span {
+  font-size: 14px;         
+  font-weight: 600;        
+  color: #4b5563;         
+  text-transform: capitalize; 
+  line-height: 1.2;       
+}
 
+.th-acciones {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4b5563;
+  text-transform: capitalize;
+  line-height: 1.2;
+}

@@ -40,8 +40,8 @@ export class ConsignacionesComponent {
     columns = [
         { key: 'fecha_consignacion_corta', label: 'Fecha', type: 'date', filter: false },
         { key: 'valor_consignacion', label: 'Valor consignación', type: 'currency', filter: false },
-        { key: 'tipo_consignacion', label: 'Tipo', filter: false },
-        { key: 'nombre_archivo', label: 'Soporte', type: 'soporte', filter: true },
+        { key: 'tipo_consignacion', label: 'Tipo', filter: true },
+        { key: 'nombre_archivo', label: 'Soporte', type: 'soporte', filter: false },
     ];
 
     // Paginación

@@ -1,17 +1,18 @@
-<div class="bg-white rounded-xl shadow mt-4 relative">
-  <table class="min-w-full border-collapse text-left">
-    <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
-      <tr>
-        <!-- Checkbox principal (seleccionar todo) -->
-        <th class="px-4 py-3">
+<div class="bg-white rounded-xl shadow mt-4 relative overflow-visible">
+  <table class="min-w-full border-collapse text-center">
+    <thead class="bg-gray-50 text-gray-600 text-xs">
+      <tr class="text-center">
+        <!-- Checkbox principal -->
+        <th class="px-4 py-3 text-center">
           <input type="checkbox" class="accent-blue-600 cursor-pointer" [(ngModel)]="selectAll"
             (change)="toggleAllSelections()" />
         </th>
 
-        <!-- Encabezados dinámicos con filtro tipo dropdown -->
-        <th *ngFor="let col of columns" class="px-4 py-3 font-semibold relative">
-          <div class="flex items-center gap-2">
-            <span class="whitespace-normal break-words">{{ col.label }}</span>
+        <!-- Encabezados dinámicos -->
+        <th *ngFor="let col of columns" class="px-4 py-3 font-semibold relative text-center capitalize">
+          <div class="flex items-center justify-center gap-2">
+            <span class="whitespace-normal break-words capitalize">{{ col.label }}</span>
+
             <button *ngIf="col?.filter"
               class="w-6 h-6 flex items-center justify-center rounded-full hover:bg-gray-200 transition"
               (click)="onFilter(col)" title="Filtrar {{ col.label }}">
@@ -19,9 +20,9 @@
             </button>
           </div>
 
-          <!-- Dropdown de filtro -->
+          <!-- Dropdown filtro -->
           <div *ngIf="col.filter && activeFilter === col.key"
-            class="absolute z-10 bg-white border border-gray-200 rounded-md shadow-md mt-2 w-60 max-w-xs">
+            class="absolute z-10 bg-white border border-gray-200 rounded-md shadow-md mt-2 w-60 max-w-xs left-1/2 -translate-x-1/2">
             <div class="flex justify-between items-center px-3 py-2 border-b">
               <span class="text-sm font-semibold text-gray-700">Filtrar</span>
               <button (click)="closeFilter()" class="text-gray-400 hover:text-gray-600">
@@ -29,7 +30,6 @@
               </button>
             </div>
 
-            <!-- Lista de valores -->
             <ul class="max-h-64 overflow-auto">
               <li *ngFor="let value of getUniqueValues(col.key)" (click)="selectFilter(col.key, value)" [ngClass]="{
                   'bg-blue-100 text-blue-800 font-semibold': filters[col.key] === value,
@@ -40,7 +40,6 @@
               </li>
             </ul>
 
-
             <div class="border-t px-3 py-2 text-center">
               <button (click)="clearFilter(col.key)" class="text-xs text-blue-600 hover:underline font-medium">
                 Limpiar filtro
@@ -49,48 +48,47 @@
           </div>
         </th>
 
-
-        <th *ngIf="showActions" class="px-4 py-3 font-semibold text-center">Acciones</th>
+        <!-- Columna Acciones -->
+        <th *ngIf="showActions"
+          class="px-4 py-3 text-center text-[14px] font-semibold text-gray-600 capitalize leading-tight">
+          Acciones
+        </th>
       </tr>
     </thead>
 
+    <!-- ✅ Cuerpo de tabla -->
     <tbody>
-      <tr *ngFor="let item of filteredData" class="border-t hover:bg-gray-50 transition">
-        <!-- Checkbox individual -->
-        <td class="px-4 py-3">
+      <tr *ngFor="let item of filteredData" class="border-t hover:bg-gray-50 transition text-center">
+        <td class="px-4 py-3 text-center">
           <input type="checkbox" class="accent-blue-600 cursor-pointer" [(ngModel)]="item.selected"
             (change)="updateSelection(item)" />
         </td>
 
         <!-- Datos dinámicos -->
-        <td *ngFor="let col of columns" class="px-4 py-3 text-sm text-gray-600 font-medium">
-          <span *ngIf="col.type === 'date'">
-            {{ formatDate(item[col.key]) }}
-          </span>
-          <span *ngIf="col.type === 'currency'">
-            {{ formatCurrency(item[col.key]) }}
-          </span>
-          <span *ngIf="!col.type">
-            {{ item[col.key] }}
-          </span>
-          <span *ngIf="col.type === 'soporte'" class="flex items-center gap-2">
-            <i class="fa-regular fa-file text-gray-400"></i>
-            <a href="javascript:void(0);" (click)="openFile.emit(item)" class="text-black font-semibold truncate">
-              {{ item[col.key] }}
-            </a>
+        <td *ngFor="let col of columns" class="px-4 py-3 text-sm text-gray-600 font-medium text-center align-middle">
+          <ng-container [ngSwitch]="col.type">
+            <span *ngSwitchCase="'date'">{{ formatDate(item[col.key]) }}</span>
+            <span *ngSwitchCase="'currency'">{{ formatCurrency(item[col.key]) }}</span>
 
-            <span *ngIf="!item[col.key]" class="text-gray-400 italic">
-              Sin archivo
+            <!-- Soporte -->
+            <span *ngSwitchCase="'soporte'" class="flex flex-row items-center justify-center gap-2 leading-tight">
+              <i class="fa-regular fa-file text-gray-400 text-base"></i>
+              <a href="javascript:void(0);" (click)="openFile.emit(item)"
+                class="text-black font-semibold break-words text-center">
+                {{ item[col.key] }}
+              </a>
+              <span *ngIf="!item[col.key]" class="text-gray-400 italic text-xs">Sin archivo</span>
             </span>
-          </span>
 
 
-
-
+            <!-- Valor genérico -->
+            <span *ngSwitchDefault class="break-words whitespace-normal capitalize">
+              {{ item[col.key] }}
+            </span>
+          </ng-container>
         </td>
 
-        <!-- Botones de acción individuales -->
-        <td *ngIf="showActions" class="px-4 py-3 text-center flex justify-center gap-3">
+        <td *ngIf="showActions" class="px-4 py-3 flex justify-center items-center gap-3 text-center align-middle">
           <button class="text-gray-500 hover:text-red-600 transition" (click)="onDelete(item)">
             <i class="fa-solid fa-trash text-lg"></i>
           </button>
