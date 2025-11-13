@@ -1,10 +1,10 @@
 <div class="screen-h p-5">
 
     <!-- Header superior: Botón regresar + Tabs -->
-    <div class="flex flex-col sm:flex-row sm:items-end gap-6 mb-6">
-
+    <div class="flex flex-col sm:flex-row sm:items-end gap-6 mb-6 relative w-full">
+        
         <!-- Botón regresar -->
-        <div class="flex items-center border border-blue-600 rounded-md px-3 py-2">
+        <div class="flex items-center border border-blue-600 rounded-md px-3 py-2 z-10 bg-white">
             <button class="flex items-center text-gray-600" (click)="goBack()">
                 <i class="fa-solid fa-arrow-left mr-2"></i>
                 Regresar
@@ -12,23 +12,27 @@
         </div>
 
         <!-- Tabs navegación -->
-        <div class="flex gap-6 text-gray-600 border-b border-gray-300 w-full sm:w-auto">
-            <button class="pb-2 border-b-2"
-                [ngClass]="{'border-[#1751cf] text-[#1751cf]': activeTab === 'detalle', 'border-transparent hover:text-[#1751cf]': activeTab !== 'detalle'}"
-                (click)="activeTab = 'detalle'">
+        <div
+            class="flex gap-6 text-gray-600 relative flex-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:bg-gray-300">
+            <button class="pb-2 border-b-2 relative z-10" [ngClass]="{
+                  'border-[#1751cf] text-[#1751cf]': activeTab === 'detalle',
+                  'border-transparent hover:text-[#1751cf]': activeTab !== 'detalle'
+                }" (click)="activeTab = 'detalle'">
                 Detalle guía
             </button>
 
-            <button class="pb-2 border-b-2"
-                [ngClass]="{'border-[#1751cf] text-[#1751cf]': activeTab === 'consignaciones', 'border-transparent hover:text-[#1751cf]': activeTab !== 'consignaciones'}"
-                (click)="activeTab = 'consignaciones'">
+            <button class="pb-2 border-b-2 relative z-10" [ngClass]="{
+                  'border-[#1751cf] text-[#1751cf]': activeTab === 'consignaciones',
+                  'border-transparent hover:text-[#1751cf]': activeTab !== 'consignaciones'
+                }" (click)="activeTab = 'consignaciones'">
                 Gestión Consignaciones
             </button>
         </div>
     </div>
 
+
     <!-- Contenido TAB: Detalle guía -->
-    <div *ngIf="activeTab === 'detalle'" class="flex flex-col gap-6">
+    <div *ngIf="activeTab === 'detalle'" class="flex flex-col ">
 
         <!-- Header con título y acciones -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -76,14 +80,21 @@
                 </div>
                 <div>
                     <p class="text-sm font-semibold text-gray-500">Estado</p>
-                    <span class="px-3 py-1 text-sm font-medium rounded-full" [ngClass]="{
-                  'bg-yellow-100 text-yellow-800': guia?.estado === 'Despachada',
-                  'bg-green-100 text-green-800': guia?.estado === 'Cerrada',
-                  'bg-gray-100 text-gray-400': !guia?.estado
-                }">
-                        {{ guia?.estado || '—' }}
+                    <span
+                        class="inline-flex items-center justify-center min-w-[90px] h-[22px] text-center transition-all duration-200 font-semibold px-2 py-[3px] text-xs shadow-sm rounded-full"
+                        [ngClass]="{
+      'bg-[#A4FF9A] text-gray-700':
+        (guia?.estado || '').toLowerCase() === 'confirmada',
+      'bg-[#FFF48E] text-gray-700':
+        (guia?.estado || '').toLowerCase() === 'despachada',
+      'bg-gray-200 text-gray-600':
+        !['confirmada','despachada'].includes((guia?.estado || '').toLowerCase())
+    }">
+                        {{ (guia?.estado || '—') | titlecase }}
                     </span>
                 </div>
+
+
                 <div>
                     <p class="text-sm font-semibold text-gray-500">Bodega</p>
                     <p class="text-lg text-gray-400">{{ guia?.bodega || '—' }}</p>

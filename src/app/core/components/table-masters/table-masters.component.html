@@ -48,7 +48,8 @@
 
     <tbody>
       <tr *ngFor="let item of filteredData" class="border-t hover:bg-gray-50 transition">
-        <td *ngFor="let col of columns" class="px-4 py-3 text-sm text-gray-600 font-medium">
+        <td *ngFor="let col of columns"
+          class="px-4 py-3 text-sm text-gray-600 font-medium break-words whitespace-normal leading-snug align-top">
           <ng-container [ngSwitch]="col.type">
             <span *ngSwitchCase="'date'">{{ formatDate(item[col.key]) }}</span>
             <span *ngSwitchCase="'currency'">{{ formatCurrency(item[col.key]) }}</span>
@@ -60,17 +61,25 @@
             </span>
             <span *ngSwitchCase="'estado'" class="flex justify-center">
               <span
-                class="inline-flex items-center justify-center min-w-[100px] text-center transition-all duration-200 font-bold px-4 py-1 text-xs shadow-sm rounded-full border"
+                class="inline-flex items-center justify-center min-w-[90px] h-[22px] text-center transition-all duration-200 font-bold px-2 py-[3px] text-xs shadow-sm rounded-full border text-gray-600"
                 [ngClass]="{
-                  'bg-green-200 border-green-600 text-black':
-                    (formatEstado(item[col.key]) || '').toLowerCase() === 'confirmada',
-                  'bg-yellow-200 border-yellow-600 text-black':
-                    (formatEstado(item[col.key]) || '').toLowerCase() === 'despachada',
-                  'bg-gray-200 border-gray-500 text-gray-800':
-                    !['confirmada','despachada'].includes((formatEstado(item[col.key])||'').toLowerCase())
-                }">
+    'bg-[#A4FF9A] border-green-600':
+      ['confirmada', 'match'].includes((formatEstado(item[col.key]) || '').toLowerCase()),
+
+    'bg-[#FFF48E] border-yellow-600':
+      (formatEstado(item[col.key]) || '').toLowerCase() === 'despachada',
+
+    'bg-[#FF9752] border-orange-600':
+      (formatEstado(item[col.key]) || '').toLowerCase() === 'no match',
+
+    'bg-gray-200 border-gray-500':
+      !['confirmada', 'despachada', 'match', 'no match'].includes(
+        (formatEstado(item[col.key]) || '').toLowerCase()
+      )
+  }">
                 {{ formatEstado(item[col.key]) }}
               </span>
+
             </span>
             <span *ngSwitchDefault>{{ item[col.key] }}</span>
           </ng-container>

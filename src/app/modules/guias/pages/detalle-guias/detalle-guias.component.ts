@@ -52,7 +52,7 @@ export class DetalleGuiasComponent implements OnInit {
     { key: 'dfr_real', label: 'DFR Real', type: 'currency' },
     { key: 'valor_esperado_recaudar', label: 'Valor a Recaudar', type: 'currency' },
     { key: 'diferencia', label: 'Diferencia', type: 'currency' },
-    { key: 'estado_planilla', label: 'Estado', },
+    { key: 'estado_planilla', label: 'Estado', type: 'estado'},
   ];
 
 
