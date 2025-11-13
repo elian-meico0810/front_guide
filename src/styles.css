@@ -479,3 +479,7 @@ th span {
   text-transform: capitalize;
   line-height: 1.2;
 }
+
+.valor-campo {
+  color: #7E7E7E !important;
+}

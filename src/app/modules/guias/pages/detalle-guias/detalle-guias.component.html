@@ -71,15 +71,15 @@
         <div class="guia-card shadow-sm">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 w-full">
                 <div>
-                    <p class="text-sm font-semibold text-gray-500">Cant. Factura</p>
-                    <p class="text-lg text-gray-400">{{ guia?.cantidad_facturas || 0 }}</p>
+                   <p class="text-sm font-semibold titulo-campo">Cant. Factura</p>
+                    <p class="text-lg valor-campo">{{ guia?.cantidad_facturas || 0 }}</p>
                 </div>
                 <div>
-                    <p class="text-sm font-semibold text-gray-500">Transportador</p>
-                    <p class="text-lg text-gray-400">{{ guia?.transportador || '—' }}</p>
+                   <p class="text-sm font-semibold titulo-campo">Transportador</p>
+                    <p class="text-lg valor-campo">{{ guia?.transportador || '—' }}</p>
                 </div>
                 <div>
-                    <p class="text-sm font-semibold text-gray-500">Estado</p>
+                   <p class="text-sm font-semibold titulo-campo">Estado</p>
                     <span
                         class="inline-flex items-center justify-center min-w-[90px] h-[22px] text-center transition-all duration-200 font-semibold px-2 py-[3px] text-xs shadow-sm rounded-full"
                         [ngClass]="{
@@ -96,33 +96,33 @@
 
 
                 <div>
-                    <p class="text-sm font-semibold text-gray-500">Bodega</p>
-                    <p class="text-lg text-gray-400">{{ guia?.bodega || '—' }}</p>
+                   <p class="text-sm font-semibold titulo-campo">Bodega</p>
+                    <p class="text-lg valor-campo">{{ guia?.bodega || '—' }}</p>
                 </div>
                 <div>
-                    <p class="text-sm font-semibold text-gray-500">Valor a recaudar</p>
-                    <p class="text-lg text-gray-400">{{ guia?.valor_a_recaudar | currency:'$':'symbol':'1.0-0' }}</p>
+                   <p class="text-sm font-semibold titulo-campo">Valor a recaudar</p>
+                    <p class="text-lg valor-campo">{{ guia?.valor_a_recaudar | currency:'$':'symbol':'1.0-0' }}</p>
                 </div>
                 <div>
-                    <p class="text-sm font-semibold text-gray-500">Diferencia</p>
-                    <p class="text-lg text-gray-400">{{ guia?.diferencia | currency:'$ ':'symbol':'1.0-0' }}</p>
+                   <p class="text-sm font-semibold titulo-campo">Diferencia</p>
+                    <p class="text-lg valor-campo">{{ guia?.diferencia | currency:'$ ':'symbol':'1.0-0' }}</p>
                 </div>
                 <div>
-                    <p class="text-sm font-semibold text-gray-500">Total recaudado</p>
-                    <p class="text-lg text-gray-400">{{ guia?.total_recaudado | currency:'$':'symbol':'1.0-0' }}</p>
+                   <p class="text-sm font-semibold titulo-campo">Total recaudado</p>
+                    <p class="text-lg valor-campo">{{ guia?.total_recaudado | currency:'$':'symbol':'1.0-0' }}</p>
                 </div>
                 <div>
-                    <p class="text-sm font-semibold text-gray-500">Recaudado consign.</p>
-                    <p class="text-lg text-gray-400">{{ guia?.recaudado_consignacion | currency:'$':'symbol':'1.0-0'
+                   <p class="text-sm font-semibold titulo-campo">Recaudado consign.</p>
+                    <p class="text-lg valor-campo">{{ guia?.recaudado_consignacion | currency:'$':'symbol':'1.0-0'
                         }}</p>
                 </div>
                 <div>
-                    <p class="text-sm font-semibold text-gray-500">Recaudado QR</p>
-                    <p class="text-lg text-gray-400">{{ guia?.recaudado_qr | currency:'$':'symbol':'1.0-0' }}</p>
+                   <p class="text-sm font-semibold titulo-campo">Recaudado QR</p>
+                    <p class="text-lg valor-campo">{{ guia?.recaudado_qr | currency:'$':'symbol':'1.0-0' }}</p>
                 </div>
                 <div>
-                    <p class="text-sm font-semibold text-gray-500">Fecha de retorno</p>
-                    <p class="text-lg text-gray-400">{{ guia?.fecha_retorno | date:'MMM d, y' }}</p>
+                   <p class="text-sm font-semibold titulo-campo">Fecha de retorno</p>
+                    <p class="text-lg valor-campo">{{ guia?.fecha_retorno | date:'MMM d, y' }}</p>
                 </div>
             </div>
         </div>

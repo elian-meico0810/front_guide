@@ -1,38 +1,24 @@
 <!-- Overlay -->
-<div class="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
+<div class="modal-overlay">
   <!-- Modal -->
-  <div
-    class="relative text-center bg-white rounded-[2rem] shadow-xl overflow-hidden p-10"
-    style="width: 560px; height: auto; max-width: 95vw; max-height: 85vh;"
-  >
+  <div class="modal-alert">
     <!-- Ícono -->
-    <div class="flex justify-center mb-6">
-      <div
-        class="w-20 h-20 rounded-full bg-gray-50 border flex items-center justify-center shadow-sm"
-        [ngClass]="success ? 'border-blue-500' : 'border-red-500'"
-      >
+    <div class="flex justify-center mb-5">
+      <div class="icon-container" [ngClass]="success ? 'border-[#1651CF]' : 'border-red-500'">
         <i
-          [ngClass]="success ? 'fa-solid fa-check text-4xl text-[#1751cf]' : 'fa-solid fa-x text-4xl text-red-500'"
-        ></i>
+          [ngClass]="success ? 'fa-solid fa-check text-[#1651CF]' : 'fa-solid fa-x text-red-500'">
+        </i>
       </div>
     </div>
 
     <!-- Texto dinámico -->
-    <h3
-      class="text-2xl font-semibold mb-8 leading-snug break-words text-gray-800"
-      style="word-wrap: break-word; max-height: 200px; overflow-y: auto;"
-    >
-      {{ mensaje }}
-    </h3>
+    <h3 class="modal-title mb-4">{{ mensaje }}</h3>
 
     <!-- Botón dinámico -->
-    <div class="flex justify-center">
+    <div class="flex justify-center mt-2">
       <button
         (click)="close()"
-        [ngClass]="success ? 'bg-[#1751cf] hover:bg-[#1545b8]' : 'bg-red-500 hover:bg-red-600'"
-        class="px-8 py-3 text-white rounded-2xl transition-colors shadow-sm text-base font-medium"
-        style="min-width: 220px"
-      >
+        [ngClass]="success ? 'btn-primary-alert' : 'btn-danger-alert'">
         {{ textoBoton }}
       </button>
     </div>

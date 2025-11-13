@@ -1,3 +1,91 @@
-.consolidation-sent {
-  min-width: 420px;
+/* Fondo del modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+}
+
+/* Contenedor principal */
+.modal-alert {
+  width: 440px;
+  height: auto;
+  border-radius: 16px;
+  padding: 20px 20px 28px 20px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 20px;
+  opacity: 1;
+}
+
+/* Ícono circular */
+.icon-container {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #f9fafb;
+  border: 1.5px solid #1651CF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(22, 81, 207, 0.15);
+}
+
+.icon-container i {
+  font-size: 1.8rem;
+}
+
+/* Texto principal */
+.modal-title {
+  font-size: 1.25rem; /* ~20px */
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.4;
+  word-wrap: break-word;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+/* Botones */
+.btn-primary-alert {
+  width: 206.5px;
+  height: 36px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  background-color: #1651CF;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary-alert:hover {
+  background-color: #1347b8;
+}
+
+/* Botón de error */
+.btn-danger-alert {
+  width: 206.5px;
+  height: 36px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  background-color: #e53935;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-danger-alert:hover {
+  background-color: #c62828;
 }

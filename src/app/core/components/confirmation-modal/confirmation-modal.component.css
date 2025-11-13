@@ -1,3 +1,100 @@
-.consolidation-sent {
-  min-width: 420px;
+/* Fondo del modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+}
+
+/* Contenedor principal del modal */
+.modal-alert {
+  width: 440px;
+  height: auto;
+  border-radius: 16px;
+  padding: 20px 20px 24px 20px; /* un poco menos padding inferior */
+  background-color: #ffffff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 16px; /* antes 20px */
+  opacity: 1;
+}
+
+/* Ícono */
+.icon-container {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #f9fafb;
+  border: 1.5px solid #1651CF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(22, 81, 207, 0.15);
+}
+
+.icon-container i {
+  font-size: 1.8rem;
+}
+
+/* Texto principal */
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 2px; /* antes 4px */
+}
+
+/* Subtítulo */
+.modal-subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 6px; /* antes 10px */
+}
+
+/* Botones */
+.flex.justify-center.gap-3.mt-4 {
+  margin-top: 8px !important; /* antes 16px, reduce espacio entre texto y botones */
+}
+
+/* Botón principal */
+.btn-primary-alert {
+  width: 206.5px;
+  height: 36px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  background-color: #1651CF;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary-alert:hover {
+  background-color: #1347b8;
+}
+
+/* Botón secundario */
+.btn-secondary-alert {
+  width: 206.5px;
+  height: 36px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  background-color: #e5e7eb;
+  color: #374151;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-secondary-alert:hover {
+  background-color: #d1d5db;
 }

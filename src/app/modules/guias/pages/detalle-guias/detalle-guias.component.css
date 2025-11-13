@@ -51,3 +51,7 @@
     box-sizing: border-box;
     margin-top: 24px;
 }
+
+.titulo-campo {
+  color: #555555 !important;
+}

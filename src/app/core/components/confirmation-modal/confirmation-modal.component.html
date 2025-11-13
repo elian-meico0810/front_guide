@@ -1,34 +1,29 @@
 <!-- Overlay -->
-<div class="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
+<div class="modal-overlay">
   <!-- Modal -->
-  <div class="relative text-center bg-white rounded-[2rem] shadow-xl overflow-hidden p-10"
-    style="width: 560px; height: auto; max-width: 95vw; max-height: 85vh;">
+  <div class="modal-alert">
     <!-- Ícono -->
-    <div class="flex justify-center mb-6">
-      <div class="w-20 h-20 rounded-full bg-gray-50 border flex items-center justify-center shadow-sm"
-        [ngClass]="success ? 'border-blue-500' : 'border-blue-500'">
+    <div class="flex justify-center mb-5">
+      <div class="icon-container">
         <i
-          [ngClass]="success ? 'fa-solid fa-check text-4xl text-[#1751cf]' : 'fa-solid fa-x text-4xl text-blue-500'"></i>
+          [ngClass]="success ? 'fa-solid fa-check text-[#1651CF]' : 'fa-solid fa-x text-[#1651CF]'">
+        </i>
       </div>
     </div>
 
     <!-- Texto dinámico -->
-    <h3 class="text-2xl font-semibold mb-2 text-gray-800">{{ mensaje }}</h3>
-    <p *ngIf="submensaje" class="text-gray-500 text-sm mb-6">{{ submensaje }}</p>
+    <h3 class="modal-title">{{ mensaje }}</h3>
+    <p *ngIf="submensaje" class="modal-subtitle">{{ submensaje }}</p>
 
     <!-- Botones dinámicos -->
-    <div class="flex justify-center gap-4">
-      <button (click)="onAceptar()"
-        [ngClass]="success ? 'bg-[#1751cf] hover:bg-[#1545b8]' : 'bg-blue-500 hover:bg-blue-600'"
-        class="px-6 py-2 text-white rounded-2xl transition-colors shadow-sm text-base font-medium">
+    <div class="flex justify-center gap-3 mt-4">
+      <button (click)="onAceptar()" class="btn-primary-alert">
         {{ textoBotonAceptar }}
       </button>
 
-      <button *ngIf="!ocultarCancelar" (click)="onCancelar()"
-        class="px-6 py-2 text-gray-700 bg-gray-200 rounded-2xl hover:bg-gray-300 transition-colors shadow-sm text-base font-medium">
+      <button *ngIf="!ocultarCancelar" (click)="onCancelar()" class="btn-secondary-alert">
         {{ textoBotonCancelar }}
       </button>
     </div>
-
   </div>
 </div>
