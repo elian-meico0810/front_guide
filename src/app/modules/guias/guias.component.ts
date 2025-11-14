@@ -27,7 +27,7 @@ export class GuiasComponent implements OnInit {
   filterTimeout: any;
   groupFilters: any[] = [];
   activeFilters: any[] = [];
-  bodegaId:  string  = '';
+  bodegaId: string = '';
   // columnas para la tabla
   columns = [
     { key: 'FechaCreacionGuia', label: 'Fecha creación', type: 'date', filter: false },
@@ -194,6 +194,7 @@ export class GuiasComponent implements OnInit {
 
   filterGuide() {
     clearTimeout(this.filterTimeout);
+    this.isOpen = false;
 
     this.filterTimeout = setTimeout(() => {
       const filters = {
@@ -263,6 +264,7 @@ export class GuiasComponent implements OnInit {
   }
 
   sendConsolidated() {
+    this.isOpen = false;
     this.selectedGuias = this.guides.filter(g => g.selected);
     const dialogRef = this.dialog.open(ConsolidatedModalComponent, {
       width: '500px',
@@ -285,6 +287,7 @@ export class GuiasComponent implements OnInit {
   }
 
   onFilterColumn(event: { key: string; value: string }) {
+    this.isOpen = false;
     const { key, value } = event;
     // Guardar los filtros activos  
     this.activeFilters = { ...this.activeFilters, [key]: value };
