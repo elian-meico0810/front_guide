@@ -23,22 +23,22 @@ export class ConsolidatedModalComponent {
   ) {
     // Datos de prueba si no se recibe desde el padre
     this.selectedGuias = data?.guias?.length ? data.guias : [
-      { numeroGuia: '000001', estado: 'confirmado' },
-      { numeroGuia: '000002', estado: 'pendiente' },
-      { numeroGuia: '000003', estado: 'confirmado' },
-      { numeroGuia: '000004', estado: 'pendiente' },
-      { numeroGuia: '000005', estado: 'confirmado' },
-      { numeroGuia: '000005', estado: 'confirmado' },
-      { numeroGuia: '000005', estado: 'confirmado' },
-      { numeroGuia: '000005', estado: 'confirmado' },
-      { numeroGuia: '000005', estado: 'confirmado' },
-      { numeroGuia: '000005', estado: 'confirmado' },
-      { numeroGuia: '000005', estado: 'confirmado' },
-      { numeroGuia: '000005', estado: 'confirmado' },
-      { numeroGuia: '000005', estado: 'confirmado' },
-      { numeroGuia: '000005', estado: 'confirmado' },
-      { numeroGuia: '000005', estado: 'confirmado' },
-      { numeroGuia: '000005', estado: 'confirmado' },
+      { numeroGuia: '000001', estado: 'confirmado', causal: '', seleccionada: true  },
+      { numeroGuia: '000002', estado: 'pendiente' , causal: '', seleccionada: true  },
+      { numeroGuia: '000003', estado: 'confirmado', causal: '', seleccionada: true  },
+      { numeroGuia: '000004', estado: 'pendiente' , causal: '', seleccionada: true  },
+      { numeroGuia: '000005', estado: 'confirmado', causal: '', seleccionada: true  },
+      { numeroGuia: '000005', estado: 'confirmado', causal: '', seleccionada: true  },
+      { numeroGuia: '000005', estado: 'confirmado', causal: '', seleccionada: true  },
+      { numeroGuia: '000005', estado: 'confirmado', causal: '', seleccionada: true  },
+      { numeroGuia: '000005', estado: 'confirmado', causal: '', seleccionada: true  },
+      { numeroGuia: '000005', estado: 'confirmado', causal: '', seleccionada: true  },
+      { numeroGuia: '000005', estado: 'confirmado', causal: '', seleccionada: true  },
+      { numeroGuia: '000005', estado: 'confirmado', causal: '', seleccionada: true  },
+      { numeroGuia: '000005', estado: 'confirmado', causal: '', seleccionada: true  },
+      { numeroGuia: '000005', estado: 'confirmado', causal: '', seleccionada: true  },
+      { numeroGuia: '000005', estado: 'confirmado', causal: '', seleccionada: true  },
+      { numeroGuia: '000005', estado: 'confirmado', causal: '', seleccionada: true  },
     ];
   }
 

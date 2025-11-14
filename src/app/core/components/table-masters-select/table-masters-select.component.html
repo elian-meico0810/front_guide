@@ -3,10 +3,10 @@
     <thead class="bg-gray-50 text-gray-600 text-xs">
       <tr class="text-center">
         <!-- Checkbox principal -->
-        <th class="px-4 py-3 text-center">
+        <!-- <th class="px-4 py-3 text-center">
           <input type="checkbox" class="accent-blue-600 cursor-pointer" [(ngModel)]="selectAll"
             (change)="toggleAllSelections()" />
-        </th>
+        </th> -->
 
         <!-- Encabezados dinámicos -->
         <th *ngFor="let col of columns" class="px-4 py-3 font-semibold relative text-center capitalize">
@@ -56,13 +56,14 @@
       </tr>
     </thead>
 
-    <!-- ✅ Cuerpo de tabla -->
+    <!--  Cuerpo de tabla -->
     <tbody>
       <tr *ngFor="let item of filteredData" class="border-t hover:bg-gray-50 transition text-center">
-        <td class="px-4 py-3 text-center">
+        
+        <!-- <td class="px-4 py-3 text-center">
           <input type="checkbox" class="accent-blue-600 cursor-pointer" [(ngModel)]="item.selected"
             (change)="updateSelection(item)" />
-        </td>
+        </td> -->
 
         <!-- Datos dinámicos -->
         <td *ngFor="let col of columns" class="px-4 py-3 text-sm text-gray-600 font-medium text-center align-middle">

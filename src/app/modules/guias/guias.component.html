@@ -36,17 +36,26 @@
     </div>
 
     <!-- Filtro por fecha -->
-    <div class="flex items-center gap-2 mt-6">
+    <div class="flex items-center  gap-4 mt-6">
+        <!-- BODEGA (variable simple) -->
+        <div class="flex items-center gap-2">
+            <span class="font-bold text-[20px]">Bodega:</span>
+
+            <span class="font-bold text-[20px]">
+                {{ bodegaId || 'Q01' }}
+            </span>
+        </div>
+
         <span class="font-bold text-[20px]">Fecha de retorno:</span>
 
         <div class="relative inline-block">
             <!-- Botón principal -->
-            <div (click)="isOpen = !isOpen" class="flex items-center justify-between cursor-pointer select-none">
+            <div id="dateButton" (click)="isOpen = !isOpen"
+                class="flex items-center justify-between cursor-pointer select-none">
                 <span class="text-gray-800 text-base whitespace-nowrap">
                     {{ returnDateString || 'Seleccionar fecha' }}
                 </span>
 
-                <!-- Flecha -->
                 <svg class="w-4 h-4 ml-1 text-blue-600 transition-transform duration-200" [class.rotate-180]="isOpen"
                     fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
@@ -54,14 +63,15 @@
             </div>
 
             <!-- Lista desplegable -->
-            <div *ngIf="isOpen"
-                class="absolute bg-white border border-gray-200 rounded-xl shadow-lg mt-2 z-[9999] overflow-y-auto max-h-48">
+            <div *ngIf="isOpen" id="dateDropdown" class="absolute bg-white border border-gray-200 rounded-xl shadow-lg mt-2 z-[9999]
+                overflow-y-auto max-h-48">
                 <div *ngFor="let date of allDates" (click)="onSelectChange(date)"
                     class="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition-colors whitespace-nowrap">
                     {{ date }}
                 </div>
             </div>
         </div>
+
     </div>
 
 

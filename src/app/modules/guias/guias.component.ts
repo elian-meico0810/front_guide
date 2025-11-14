@@ -27,7 +27,7 @@ export class GuiasComponent implements OnInit {
   filterTimeout: any;
   groupFilters: any[] = [];
   activeFilters: any[] = [];
-
+  bodegaId:  string  = '';
   // columnas para la tabla
   columns = [
     { key: 'FechaCreacionGuia', label: 'Fecha creación', type: 'date', filter: false },
@@ -239,6 +239,7 @@ export class GuiasComponent implements OnInit {
   }
 
   addGuide() {
+    this.isOpen = false;
     const dialogRef = this.dialog.open(AddGuideModalComponent, {
       width: '540px',
       data: { defaultNumber: '000006' },
@@ -294,8 +295,6 @@ export class GuiasComponent implements OnInit {
 
     this.loadGuides(1, { key: key, value: searchValue });
   }
-
-
 
 
 }
