@@ -30,13 +30,13 @@ export class GuiasComponent implements OnInit {
 
   // columnas para la tabla
   columns = [
-    { key: 'fecha_creacion_guia', label: 'Fecha creación', type: 'date', filter: false },
-    { key: 'numero_guia', label: 'N° Guía', filter: false },
-    { key: 'cantidad_facturas', label: 'Facturas', type: 'number', filter: false },
-    { key: 'estado_guia', label: 'Estado', filter: true, type: 'estado' },
-    { key: 'transportador', label: 'Transportador', filter: true },
-    { key: 'mayor_fecha_retorno', label: 'Fecha retorno', type: 'date', filter: false },
-    { key: 'valor_recaudar', label: 'Valor recaudar', type: 'currency', filter: false },
+    { key: 'FechaCreacionGuia', label: 'Fecha creación', type: 'date', filter: false },
+    { key: 'NumeroGuia', label: 'N° Guía', filter: false },
+    { key: 'CantidadFacturas', label: 'Facturas', type: 'number', filter: false },
+    { key: 'EstadoGuia', label: 'Estado', filter: true, type: 'estado' },
+    { key: 'Transportador', label: 'Transportador', filter: true },
+    { key: 'MayorFechaRetorno', label: 'Fecha retorno', type: 'date', filter: false },
+    { key: 'ValorRecaudar', label: 'Valor recaudar', type: 'currency', filter: false },
   ];
 
   // Paginación
@@ -187,7 +187,7 @@ export class GuiasComponent implements OnInit {
   }
 
   goToDetail(guia: any) {
-    this.router.navigate(['detalle', guia.numero_guia]);
+    this.router.navigate(['detalle', guia.NumeroGuia]);
   }
 
 

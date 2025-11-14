@@ -69,12 +69,12 @@ export class AddConsignacionModalComponent {
       : '0.00';
 
     const bodyParams = {
-      numero_guia: this.numeroGuia,
-      numero_planilla: 1001,
-      nombre_archivo:this.selectedFile?.name || null,
-      tipo_consignacion: this.tipoConsignacion,
-      valor_consignacion: valorProcesado,
-      ruta_archivo_soporte: this.selectedFile?.base64 || null,
+      NumeroGuia: this.numeroGuia,
+      NumeroPlanilla: 1001,
+      NombreArchivo:this.selectedFile?.name || null,
+      TipoConsignacion: this.tipoConsignacion,
+      ValorConsignacion: valorProcesado,
+      RutaArchivoSoporte: this.selectedFile?.base64 || null,
     };
 
 

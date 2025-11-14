@@ -45,14 +45,14 @@ export class DetalleGuiasComponent implements OnInit {
 
   // columnas para la tabla
   columns = [
-    { key: 'numero_documento', label: 'N° Factura' },
-    { key: 'razon_social_cliente', label: 'Cliente' },
-    { key: 'valor_factura', label: 'Valor Factura', type: 'currency' },
-    { key: 'valor_nc', label: 'Valor NC Real', type: 'currency' },
-    { key: 'dfr_real', label: 'DFR Real', type: 'currency' },
-    { key: 'valor_esperado_recaudar', label: 'Valor a Recaudar', type: 'currency' },
-    { key: 'diferencia', label: 'Diferencia', type: 'currency' },
-    { key: 'estado_planilla', label: 'Estado', type: 'estado'},
+    { key: 'NumeroDocumento', label: 'N° Factura' },
+    { key: 'RazonSocialCliente', label: 'Cliente' },
+    { key: 'ValorFactura', label: 'Valor Factura', type: 'currency' },
+    { key: 'ValorNc', label: 'Valor NC Real', type: 'currency' },
+    { key: 'DfrReal', label: 'DFR Real', type: 'currency' },
+    { key: 'ValorEsperadoRecaudar', label: 'Valor a Recaudar', type: 'currency' },
+    { key: 'Diferencia', label: 'Diferencia', type: 'currency' },
+    { key: 'EstadoPlanilla', label: 'Estado', type: 'estado'},
   ];
 
 
@@ -121,16 +121,16 @@ export class DetalleGuiasComponent implements OnInit {
         if (res.success && res.data && res.data.results.length > 0) {
           const guide = res.data.results[0];
           this.guia = {
-            cantidad_facturas: guide.cantidad_facturas,
-            transportador: guide.transportador,
-            estado: guide.estado_guia,
+            cantidad_facturas: guide.CantidadFacturas,
+            transportador: guide.Transportador,
+            estado: guide.EstadoGuia,
             bodega: 'BQ212',
-            valor_a_recaudar: guide.valor_recaudar || 0,
-            diferencia: guide.valor_recaudar - guide.valor_recaudar || 0,
-            total_recaudado: guide.valor_recaudar || 0,
+            valor_a_recaudar: guide.ValorRecaudar || 0,
+            diferencia: guide.ValorRecaudar|| 0,
+            total_recaudado: guide.ValorRecaudar || 0,
             recaudado_consignacion: 0,
             recaudado_qr: 0,
-            fecha_retorno: guide.mayor_fecha_retorno.split('T')[0]
+            fecha_retorno: guide.MayorFechaRetorno.split('T')[0]
           };
         }
         this.loading = false;

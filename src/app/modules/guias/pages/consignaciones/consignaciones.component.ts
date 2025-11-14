@@ -38,10 +38,10 @@ export class ConsignacionesComponent {
 
     // columnas para la tabla
     columns = [
-        { key: 'fecha_consignacion_corta', label: 'Fecha', type: 'date', filter: false },
-        { key: 'valor_consignacion', label: 'Valor consignación', type: 'currency', filter: false },
-        { key: 'tipo_consignacion', label: 'Tipo', filter: true },
-        { key: 'nombre_archivo', label: 'Soporte', type: 'soporte', filter: false },
+        { key: 'FechaConsignacionCorta', label: 'Fecha', type: 'date', filter: false },
+        { key: 'ValorConsignacion', label: 'Valor consignación', type: 'currency', filter: false },
+        { key: 'TipoConsignacion', label: 'Tipo', filter: true },
+        { key: 'NombreArchivo', label: 'Soporte', type: 'soporte', filter: false },
     ];
 
     // Paginación
@@ -152,8 +152,8 @@ export class ConsignacionesComponent {
     }
 
     OpenArchivo(item: any) {
-        if (!item.ruta_archivo_soporte) return;
-        const partes = item.ruta_archivo_soporte.split('/');
+        if (!item.RutaArchivoSoporte) return;
+        const partes = item.RutaArchivoSoporte.split('/');
         const folder = partes[0];
 
         const file_nombre = partes[partes.length - 1];
