@@ -23,6 +23,7 @@ export class ConsolidatedModalComponent {
   ) {
     // Datos de prueba si no se recibe desde el padre
     this.selectedGuias = data?.guias?.length ? data.guias : [
+      { numeroGuia: '000002', estado: 'pendiente', causal: '', seleccionada: true },
       { numeroGuia: '000001', estado: 'confirmado', causal: '', seleccionada: true  },
       { numeroGuia: '000002', estado: 'pendiente' , causal: '', seleccionada: true  },
       { numeroGuia: '000003', estado: 'confirmado', causal: '', seleccionada: true  },
