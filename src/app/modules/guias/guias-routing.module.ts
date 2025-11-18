@@ -9,7 +9,7 @@ const routes: Routes = [
     {
         path: 'guias',
         component: GuiasComponent,
-        canActivate: [],
+        canActivate: [AuthGuard],
         data: { requiredPermission: '0001' }
     },
     {
